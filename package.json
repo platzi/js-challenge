@@ -1,0 +1,27 @@
+{
+  "name": "js-challenge",
+  "version": "1.0.0",
+  "description": "PlatziStore Fix Bugs",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server --open=public --entry-file=index.html",
+    "e2e": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/platzi/js-challenge.git"
+  },
+  "keywords": [],
+  "author": "Oscar Barajas <oscar@platzi.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/platzi/js-challenge/issues"
+  },
+  "homepage": "https://github.com/platzi/js-challenge#readme",
+  "devDependencies": {
+    "live-server": "1.2.2"
+  },
+  "dependencies": {
+    "cypress": "10.0.1"
+  }
+}
