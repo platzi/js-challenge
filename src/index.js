@@ -2,19 +2,30 @@ const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 const DEFAULT_INITIAL_PAGE = 5;
-const INCREMENT_OFFSET = 10
+const INCREMENT_OFFSET = 10;
+const PRODUCTS_LIMIT = 200;
 
-const getApiPaginated = (page) => API + '?offset=' + page + '&limit=10';
+window.onbeforeunload = () => {
+  alert("¡Gracias por visitarnos!");
+  console.log("Bye");
+  localStorage.setItem("pagination", DEFAULT_INITIAL_PAGE);
+};
 
-const getData = (api) => {
-  const page = localStorage.getItem("pagination") || DEFAULT_INITIAL_PAGE;
-  fetch(getApiPaginated(page))
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      let output = products.map((product) => {
-        // template
-        return `
+const getApiPaginated = (page) => API + "?offset=" + page + "&limit=10";
+
+const getData = async (api) => {
+  try {
+    const page = localStorage.getItem("pagination") || DEFAULT_INITIAL_PAGE;
+    if(page >= PRODUCTS_LIMIT) {
+      alert("Todos los productos Obtenidos")
+      clearObserver();
+      return;
+    }
+    const rawResponse = await fetch(getApiPaginated(page));
+    const products = await rawResponse.json();
+    let output = products.map((product) => {
+      // template
+      return `
         <article class="Card">
           <img src="${product.images[0]}" />
         <h2>
@@ -23,39 +34,27 @@ const getData = (api) => {
         </h2>
         </article>
 `;
-      });
-      let newItem = document.createElement("section");
-      newItem.classList.add("Item");
-      newItem.innerHTML = output.join('');
-      $app.appendChild(newItem);
-      localStorage.setItem("pagination", parseInt(page) + INCREMENT_OFFSET);
-    })
-    .catch((error) => console.log(error));
+    });
+    let newItem = document.createElement("section");
+    newItem.classList.add("Item");
+    newItem.innerHTML = output.join("");
+    $app.appendChild(newItem);
+    localStorage.setItem("pagination", parseInt(page) + INCREMENT_OFFSET);
+
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-const nextPage = () => {
-  let page = localStorage.getItem("pagination") || DEFAULT_INITIAL_PAGE;
-  page = parseInt(page) + INCREMENT_OFFSET;
-  localStorage.setItem("pagination", page);
-  loadData();
-};
-
-const previusPage = () => {
-  let page = localStorage.getItem("pagination") || DEFAULT_INITIAL_PAGE;
-  page = parseInt(page) - INCREMENT_OFFSET;
-  localStorage.setItem("pagination", page);
-  loadData();
-};
-
-const loadData = () => {
-  getData(API);
+const loadData = async () => {
+  await getData(API);
 };
 
 // use the intersection observer to detect when the user scrolls to the bottom of the page and load more data
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     if (entries[0].isIntersecting) {
-      loadData()
+      loadData();
     }
   },
   {
@@ -64,3 +63,7 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+
+const clearObserver = () => {
+  intersectionObserver.disconnect();
+};
