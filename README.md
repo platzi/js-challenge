@@ -3,7 +3,9 @@
 Solución al reto:
 
 Nombre: Werner
+
 Usuario Platzi: werner-ovalle
+
 Correo Electronico: ovallewerner@gmail.com
 
 ## Reto:
