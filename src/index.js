@@ -15,6 +15,9 @@ const getData = async api => {
   try {
     const response = await fetch(api);
     const products = await response.json();
+    console.log('====================================');
+    console.log(products);
+    console.log('====================================');
     const output = products.map(product => {
       // template
       const article = document.createElement('article');
@@ -22,7 +25,7 @@ const getData = async api => {
 
       article.innerHTML = `
         <article class="Card">
-          <img src="${product.images[0]}" />
+          <img src="${product.images[0]}" alt="${product.title}"/>
           <h2>
             ${product.title}
             <small>$ ${product.price}</small>
