@@ -1,12 +1,15 @@
 const $app = document.getElementById('app');
 const $items = $app.getElementsByClassName('Items')[0];
 const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
 
+const API = 'https://api.escuelajs.co/api/v1/products';
 const PRODUCTS_LIMIT = 10;
+
+let loadingProducts = false;
 
 const init = () => {
   window.localStorage.setItem('pagination', 5);
+  loadData();
 }
 
 const getPagination = () => {
@@ -18,6 +21,7 @@ const updatePagination = (newValue) => {
 }
 
 const getData = (api, params = {}) => {
+  loadingProducts = true;
   let query = Object.entries(params).map(entry => {
     return entry.join('=');
   }).join('&');
@@ -25,6 +29,7 @@ const getData = (api, params = {}) => {
   fetch(api)
     .then(response => response.json())
     .then(response => {
+      loadingProducts = false;
       let products = response;
       let output = products.map(product => {
         return (`
@@ -57,14 +62,14 @@ const loadData = () => {
     offset: getPagination(),
     limit: PRODUCTS_LIMIT
   });
-  updatePagination(getPagination() + PRODUCTS_LIMIT);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.target != $observe || !entry.isIntersecting) {
+    if (entry.target != $observe || !entry.isIntersecting || loadingProducts) {
       return;
     }
+    updatePagination(getPagination() + PRODUCTS_LIMIT);
     loadData();
   });
 }, {
@@ -74,6 +79,5 @@ const intersectionObserver = new IntersectionObserver(entries => {
 // Call functions
 
 init();
-    loadData();
 
 intersectionObserver.observe($observe);
