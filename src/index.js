@@ -1,9 +1,6 @@
-import { setItem, getItem, clearStorage} from "./utils/localStorage.js";
-
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-
 
 const getData = async api => {
   try {
@@ -27,7 +24,7 @@ const getUrlParams = (pagination) => {
   searchParams.append('offset', pagination)
   searchParams.append('limit', 10)
 
-  setItem('pagination', pagination)
+  localStorage.setItem('pagination', JSON.stringify(pagination))
 
   return searchParams.toString();
 }
@@ -74,7 +71,7 @@ const getProductTemplate = ({title, price, images}) => {
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-        const paginationStorage = getItem('pagination')
+        const paginationStorage = JSON.parse(localStorage.getItem('pagination'))
         const pagination = paginationStorage ? parseInt(paginationStorage) + 10 : 5
 
         loadData(pagination)
@@ -87,6 +84,6 @@ const intersectionObserver = new IntersectionObserver(entries => {
 intersectionObserver.observe($observe);
 
 window.onbeforeunload = function(){
-  clearStorage()
+  localStorage.clear()
 }
 
