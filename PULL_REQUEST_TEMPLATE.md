@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: JS Challenge
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Esteban Danilo Diaz Riascos
+Usuario Platzi: stban94diazz
+Correo Electronico: stban94diaz@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
