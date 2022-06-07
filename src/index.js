@@ -8,10 +8,19 @@ const getData = url => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        // template
-      });
+        return `
+    			<article class="Card">
+    				<img src="${product.images[0]}" alt="${product.category.name}">
+    				<h2>
+    					${product.title}
+    					<small>$ ${product.price}</small>
+    				</h2>
+    			</article>
+    		`
+      }).join('');
+
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
