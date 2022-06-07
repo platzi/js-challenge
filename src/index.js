@@ -3,6 +3,7 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 const firstPage = 5;
 const amount = 10;
+window.localStorage.clear();
 const getData = async (api) => {
   try {
     let response = await fetch(api);
@@ -61,4 +62,3 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
-window.onclose = localStorage.clear();
