@@ -26,7 +26,7 @@ const getData = api => {
       newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
-      if (products.lenght < limit) {
+      if (products.length < limit) {
         let message = document.createElement('span');
         message.innerText = 'Todos los productos Obtenidos';
         $app.appendChild(message);
