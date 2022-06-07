@@ -14,28 +14,36 @@ const getData = api => {
       let output = products.map(product => {
         // template
         return `
-        <article class="Card">
-  <img src="${product.images[0]}" />
-  <h2>
-    Producto
-    <small>$ Precio</small>
-  </h2>
-</article>
-`
+          <article class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>
+        `
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      newItem.classList.add('Items');
+      newItem.innerHTML = output.join(" ");
       $app.appendChild(newItem);
+
+      if (products.length < 10) {
+        intersectionObserver.disconnect();
+      }
     })
     .catch(error => console.log(error));
 }
 
 const loadData = () => {
-  let offset = localStorage.getItem("pagination");
   const LIMIT = 10;
-  if (!first_time) localStorage.setItem("pagination", parseInt(offset) + LIMIT);
+
+  if (!first_time) localStorage.setItem("pagination", parseInt(localStorage.getItem("pagination")) + LIMIT);
+
+  let offset = localStorage.getItem("pagination");
+
   getData(API + `?offset=${offset}` + `&limit=${LIMIT}`); 
+
   first_time = false;
 }
 
@@ -47,7 +55,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
     }
   });
 }, {
-  rootMargin: '0px 0px 100% 0px',
+  rootMargin: '0px 0px 90% 0px',
 });
 
 intersectionObserver.observe($observe);
