@@ -4,6 +4,10 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const offset = 5;
 const limit = 10;
 
+window.onbeforeunload = () => {
+  localStorage.setItem("pagination", offset);
+};
+
 const getData = (api) => {
   fetch(api)
     .then((response) => response.json())
@@ -28,7 +32,7 @@ const getData = (api) => {
       });
       let newItem = document.createElement("section");
       newItem.classList.add("Items");
-      newItem.innerHTML = output;
+      newItem.innerHTML = output.join("");;
       $app.appendChild(newItem);
     })
     .catch((error) => console.log(error));
