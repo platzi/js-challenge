@@ -10,9 +10,11 @@ const getData = async ({ api, offset, limit }) => {
 
 	const data = await fetch(url);
 	const products = await data.json();
-	console.log(products);
-	const output = products.map(
-		(product) => `
+
+	const output = products
+		.map(
+			(product) =>
+				`
 			<article class="Card">
 				<img src="${product.images[0]}" alt="${product.name}">
 				<h2>
@@ -20,8 +22,9 @@ const getData = async ({ api, offset, limit }) => {
 					<small>$ ${product.price}</small>
 				</h2>
 			</article>
-		`
-	);
+			`
+		)
+		.join('');
 
 	let newItem = document.createElement('section');
 	newItem.classList.add('Items');
