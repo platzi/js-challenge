@@ -1,6 +1,7 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
+import '../public/styles.css';
 const DEFAULT_INITIAL_PAGE = 5;
 const INCREMENT_OFFSET = 10;
 const PRODUCTS_LIMIT = 200;
@@ -11,7 +12,7 @@ window.onbeforeunload = () => {
   localStorage.setItem("pagination", DEFAULT_INITIAL_PAGE);
 };
 
-const getApiPaginated = (page) => API + "?offset=" + page + "&limit=10";
+const getApiPaginated = (api, page) => api + "?offset=" + page + "&limit=10";
 
 const getData = async (api) => {
   try {
@@ -21,7 +22,7 @@ const getData = async (api) => {
       clearObserver();
       return;
     }
-    const rawResponse = await fetch(getApiPaginated(page));
+    const rawResponse = await fetch(getApiPaginated(api,page));
     const products = await rawResponse.json();
     let output = products.map((product) => {
       // template
