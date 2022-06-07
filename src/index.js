@@ -53,6 +53,11 @@ const getData = async (api) => {
     .then((response) => {
       let products = response
       let output = products.slice(INITIAL_STATE, pagination)
+      // alert when all products returned
+      if (output.length === 0) {
+        intersectionObserver.unobserve($observe)
+        alert('Todos los productos Obtenidos')
+      }
 
       let newItem = document.createElement('section')
       newItem.classList.add('Items')
