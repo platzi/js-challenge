@@ -3,7 +3,6 @@
   "source": "public/index.html",
   "version": "1.0.0",
   "description": "PlatziStore Fix Bugs",
-  "main": "scr/index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
     "build": "parcel build",
