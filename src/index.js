@@ -12,7 +12,7 @@ const getData = async (api) => {
       let title = document.createElement("h3");
       title.innerHTML = "Todos los productos obtenidos";
       $app.appendChild(title);
-      intersectionObserver.disconnect();
+      intersectionObserver.unobserve($observe);
     }
     let output = products.map((product) => {
       return Card(product);
@@ -28,6 +28,7 @@ const getData = async (api) => {
 const Card = (product) => {
   return `<article class="Card">
           <img src="${product.images[0]}" alt="${product.title}" />
+          <h1>${product.id}</h1>
           <h2>
             ${product.title}
             <small>$${product.price}</small>
@@ -35,15 +36,19 @@ const Card = (product) => {
         </article>`;
 };
 const loadData = async () => {
-  let offset = localStorage.getItem("pagination");
-  offset = offset === NaN ? firstPage : parseInt(offset);
+  let offset = Number(localStorage.getItem("pagination"));
+  if (!offset) {
+    localStorage.setItem("pagination", firstPage);
+    offset = firstPage;
+  } else {
+    offset = offset + amount;
+    localStorage.setItem("pagination", offset);
+  }
   await getData(`${API}?offset=${offset}&limit=${amount}`);
-  localStorage.setItem("pagination", offset + amount);
 };
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    // logic...
     entries.forEach((entrie) => {
       if (entrie.isIntersecting) {
         loadData();
@@ -54,11 +59,6 @@ const intersectionObserver = new IntersectionObserver(
     rootMargin: "0px 0px 100% 0px",
   }
 );
-const init = async () => {
-  localStorage.setItem("pagination", firstPage);
-  await loadData();
-};
-init();
 
 intersectionObserver.observe($observe);
-window.onclose = localStorage.removeItem("pagination");
+window.onclose = localStorage.clear();
