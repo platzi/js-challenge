@@ -32,6 +32,7 @@ const getData = (api) => {
         </article>`;
         newItem.innerHTML += template;
       });
+
     })
     .catch((error) => console.log(error));
 };
