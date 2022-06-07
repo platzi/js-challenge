@@ -54,3 +54,8 @@ body {
     opacity: 1;
   }
 }
+
+.CompleteMessage {
+  padding: 50px 10px;
+  text-align: center;
+}
