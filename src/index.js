@@ -10,6 +10,8 @@ const getData = async (api) => {
     const response = await fetch(api);
     const products = await response.json();
     const output = products.map((product) => {
+      // Product with id=201 or more is not valid
+      if (product.id > 200) return;
       return `<article class='Card'>
               <img src='${product.images[0]}' alt='${product.title}' />
               <h2>
@@ -33,6 +35,11 @@ const loadData = async () => {
   const offset =
     parseInt(localStorage.getItem('offset')) + limit || initialOffset;
 
+  if (offset > 200) {
+    alert('Todos los productos fueron obtenidos');
+    return { disconect: true };
+  }
+
   localStorage.setItem('offset', offset);
 
   const queryParams = new URLSearchParams({
@@ -41,10 +48,17 @@ const loadData = async () => {
   });
 
   await getData(API + '?' + queryParams);
+  return { disconect: false };
 };
 
 const intersectionObserver = new IntersectionObserver(
-  (entries) => entries.forEach((entry) => entry.isIntersecting && loadData()),
+  (entries, observer) =>
+    entries.forEach(async (entry) => {
+      if (entry.isIntersecting) {
+        const { disconect } = await loadData();
+        disconect && observer.disconnect();
+      }
+    }),
   { rootMargin: '0px 0px 100% 0px' }
 );
 
