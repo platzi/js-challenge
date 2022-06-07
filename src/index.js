@@ -1,9 +1,19 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const DEFAULT_LIMIT = 5;
+const DEFAULT_OFFSET = 10;
+
+localStorage.clear();
 
 const getData = async api => {
-  return fetch(api + "?limit=10")
+  const pagination = localStorage.getItem('pagination');
+  const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_OFFSET : DEFAULT_LIMIT;
+  console.log('el offset es' ,currentOffset)
+  console.log('el limit es' ,DEFAULT_LIMIT)
+  localStorage.setItem('pagination', currentOffset);
+
+  return fetch(api + `?limit=${DEFAULT_LIMIT}&offset=${currentOffset}`)
     .then(response => response.json())
     .then(response => {
       let products = response;
@@ -29,7 +39,9 @@ const loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  loadData()
+  entries.forEach(entry => {
+    entry.isIntersecting && loadData()
+  })
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
