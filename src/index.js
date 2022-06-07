@@ -6,7 +6,7 @@ const LIMIT = 10;
 const LIMIT_API = 200;
 
 localStorage.clear();
-localStorage.setItem("offSet",4);
+localStorage.setItem("pagination",5-LIMIT);
 
 const getData =   (api) => {
 
@@ -25,11 +25,11 @@ const getData =   (api) => {
       
       );
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
       
-      let offsetTmp = parseInt(localStorage.getItem("offSet"));
+      let offsetTmp = parseInt(localStorage.getItem("pagination"));
       if (offsetTmp > LIMIT_API){
         let newMessageItem = document.createElement('message');
         newMessageItem.innerHTML = "<h1>Todos los productos fueron mostrados</h1>"
@@ -42,15 +42,16 @@ const getData =   (api) => {
 }
 
 const loadData = async  () => {
-  let offset  = parseInt(localStorage.getItem("offSet"));
-  localStorage.setItem("offSet",offset+LIMIT);
-   await getData(API+"?offset="+offset+"&limit="+LIMIT);
+  let offset  = parseInt(localStorage.getItem("pagination"))+LIMIT;
+  await getData(API+"?offset="+offset+"&limit="+LIMIT);
 }
 
 const intersectionObserver = new IntersectionObserver( (entries) => {
   if (!entries[0].isIntersecting) return;
   loadData();
-   
+  let offset  = parseInt(localStorage.getItem("pagination"));
+  localStorage.setItem("pagination",offset+LIMIT); 
+  
 }, {
   rootMargin: '0px 640px 100% 0px',
 });
