@@ -1,6 +1,8 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+document.title = 'PlatziStore';
+document.head.innerHTML += '<meta name="description" content="...">'
 
 const getData = api => {
   fetch(api)
@@ -8,24 +10,59 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        // template
+        if (product.id == 201) {
+          intersectionObserver.unobserve($observe);
+          return '<h2>Todos los productos Obtenidos</h2>';
+        } else
+        return `
+          <article class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+              ${product.title}
+              <small>$${product.price}</small>
+            </h2>
+          </article>
+        `;
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = async() => {
+  const pagination = getPagination();
+  await getData(`${API}/?offset=${pagination - 1}&limit=10`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      loadData();
+    }
+  });
 }, {
-  rootMargin: '0px 0px 100% 0px',
+  threshold: 1
 });
 
+const getPagination = () => {
+  let pagination;
+  if (!localStorage.getItem('pagination')) {
+    pagination = 5;
+    localStorage.setItem('pagination', pagination);
+  } else {
+    pagination = parseInt(localStorage.getItem('pagination'));
+    pagination = pagination + 10;
+    localStorage.setItem('pagination', pagination);
+  }
+  return pagination;
+}
+
 intersectionObserver.observe($observe);
+
+onload = () => {
+  localStorage.clear();
+  loadData();
+}
