@@ -38,7 +38,7 @@ const getData = async (api) => {
 };
 
 function validateLocalStorage() {
-  if (!localStorage.getItem("pagination")) return 4;
+  if (!localStorage.getItem("pagination")) return 5;
   else return Number(localStorage.getItem("pagination")) + 10;
 }
 
