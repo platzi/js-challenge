@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: José Piña
+Usuario Platzi: pinajmr
+Correo Electronico: pianjoma0@gmail.com
 
 ## Reto:
 
