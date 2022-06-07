@@ -7,6 +7,11 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .Main {
   padding: 10px;
   grid-template-columns: minmax(auto, 768px);

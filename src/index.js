@@ -1,31 +1,63 @@
+
 const $app = document.getElementById('app');
+const $items = document.getElementById('items');
 const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const DOMAIN = "https://api.escuelajs.co/api/v1/products"
+
+// paginator
+let page = 0;
+const initialElements = 5;
+const elementsPerPage = 10;
+
+let intersectionObserverOptions = {
+  rootMargin: '0px',
+};
 
 const getData = api => {
   fetch(api)
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
+
+      if (!products.length) {
+        const msgNoArticles = document.createElement('h3');
+        msgNoArticles.classList.add('center');
+        msgNoArticles.innerHTML = 'Todos los productos obtenidos.';
+        $app.appendChild(msgNoArticles);
+        intersectionObserver.disconnect();
+      } else {
+        products.forEach(product => {
+          const output = `
+            <img 
+              src="${product.images[0]}"
+              alt="${product.description}"
+            />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          `
+          const article = document.createElement('article');
+          article.classList.add('Card', 'Item');
+          article.innerHTML = output;
+          $items.appendChild(article);
+        })
+      }
     })
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = async (OFFSET=initialElements, LIMIT=elementsPerPage) => {
+  console.log(OFFSET)
+  const API = `${DOMAIN}?offset=${OFFSET}&limit=${LIMIT}`;
+  await getData(API);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
-
+  if (entries[0].isIntersecting) {
+    const offset = page * (initialElements + elementsPerPage) || initialElements;
+    loadData(OFFSET=offset);
+    page += 1;
+  }
+}, intersectionObserverOptions);
 intersectionObserver.observe($observe);
