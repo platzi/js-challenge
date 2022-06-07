@@ -1,6 +1,8 @@
+localStorage.setItem('pagination', 5);
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = `https://api.escuelajs.co/api/v1/products`;
+
 
 function itemTemplate(data) {
     return `
@@ -15,8 +17,8 @@ function itemTemplate(data) {
 }
 
 const getData = (api) => {
-  const currentPage = localStorage.getItem('pagination') || 0;
-  const paginatedApi = `${api}?offset=${(Number(currentPage) * 10) + 5}&limit=10`;
+  const currentPage = localStorage.getItem('pagination');
+  const paginatedApi = `${api}?offset=${(Number(currentPage))}&limit=10`;
   fetch(paginatedApi)
     .then((response) => response.json())
     .then((response) => {
@@ -52,7 +54,7 @@ const intersectionObserver = new IntersectionObserver(
 
     if (!entries[0].isIntersecting) {
       const getCurrentPage = localStorage.getItem('pagination');
-      const newPage = Number(getCurrentPage) + 1;
+      const newPage = Number(getCurrentPage) + 10;
       localStorage.setItem('pagination', newPage)
     }
 
