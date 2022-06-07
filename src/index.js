@@ -10,7 +10,6 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        console.log(product);
         return `
           <article class="Card">
             <img src="${product.images[0]}" />
@@ -29,9 +28,9 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
+const loadData = async() => {
   const pagination = getPagination();
-  getData(`${API}/?offset=${pagination - 1}&limit=10`);
+  await getData(`${API}/?offset=${pagination - 1}&limit=10`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
@@ -58,3 +57,7 @@ const getPagination = () => {
 }
 
 intersectionObserver.observe($observe);
+
+onload = () => {
+  localStorage.clear();
+}
