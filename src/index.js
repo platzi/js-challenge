@@ -47,7 +47,6 @@ const loadData = async () => {
   const pagination = localStorage.getItem('pagination');
   const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_LIMIT : DEFAULT_OFFSET;
   localStorage.setItem('pagination', currentOffset);
-  console.log('current', currentOffset, DEFAULT_LIMIT)
   await getData(API, currentOffset, DEFAULT_LIMIT);
 }
 
