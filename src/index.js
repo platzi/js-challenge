@@ -4,6 +4,8 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const limitProducts = 200;
 const incrementOffset = 10;
 const defaultOffset = 5;
+const localStorageOffset = "pagination";
+
 window.onbeforeunload = closeIt;
 
 const getData = async (api) => {
@@ -32,7 +34,7 @@ const createCard = (product) => {
 
 const renderProducts = (productList) => {
   let newItem = document.createElement("section");
-  newItem.classList.add("Item");
+  newItem.classList.add("Items");
   newItem.innerHTML = productList.join("");
   $app.appendChild(newItem);
 };
@@ -73,12 +75,12 @@ const showMessage = (message) => {
 };
 
 const getOffset = () => {
-  const offset = localStorage.getItem("offset") || defaultOffset;
+  const offset = localStorage.getItem(localStorageOffset) || defaultOffset;
   return Number(offset);
 };
 
 const setOffset = (offset) => {
-  localStorage.setItem("offset", offset);
+  localStorage.setItem(localStorageOffset, offset);
 };
 
 const getURL = (offset, limit) => {
