@@ -8,21 +8,22 @@ if(localPagination){
   window.localStorage.removeItem("pagination");
 }
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-        return (`<article class="Card"><img src="${product.images[0]}" /><h2>${product.title}<small>$ ${product.price}</small></h2></article>`);
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+const getData = async (api) => {
+  try {
+    const response = await fetch(api);
+    const jsonResponse = await response.json();
+    let products = jsonResponse;
+    let output = products.map(product => {
+      // template
+      return (`<article class="Card"><img src="${product.images[0]}" /><h2>${product.title}<small>$ ${product.price}</small></h2></article>`);
+    });
+    let newItem = document.createElement('section');
+    newItem.classList.add('Item');
+    newItem.innerHTML = output;
+    $app.appendChild(newItem);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const loadData = () => {
