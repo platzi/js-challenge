@@ -13,12 +13,13 @@ const getData = async (api) => {
     const response = await fetch(api);
     const jsonResponse = await response.json();
     let products = jsonResponse;
+    
     let output = products.map(product => {
       // template
       return (`<article class="Card"><img src="${product.images[0]}" /><h2>${product.title}<small>$ ${product.price}</small></h2></article>`);
     });
 
-    if(output.length == 0){
+    if(products.length === 0){
       output = "<p>Todos los productos Obtenidos</p>";
       unObserve();
     }
