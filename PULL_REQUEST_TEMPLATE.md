@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://r3xakead0.github.io/js-challenge/public/index.html
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Afu Tse
+Usuario Platzi: afutse
+Correo Electronico: solapa@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
