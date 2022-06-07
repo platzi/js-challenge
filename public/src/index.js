@@ -24,7 +24,7 @@ const loadData = async () => {
             return `<article id="${product.id}" class="Card" >
               <img src="${product.images[0]}" alt="${product.title}" />
               <h2>
-                Producto ${product.title}
+                ${product.title}
                 <small>$ ${product.price}</small>
               </h2>
             </article>`
@@ -64,14 +64,16 @@ window.addEventListener('beforeunload', function (e) {
 const intersectionObserver = new IntersectionObserver(
     (entries, observer) =>
         entries.forEach(async (entry) => {
-            if (entry.isIntersecting) {
+
+            if (entry.isIntersecting){
                 const end = await loadData();
                 if (end){
                     observer.disconnect();
                 }
             }
+
         }),
-    { rootMargin: '0px 0px 100% 0px' }
+    { rootMargin: '100px 0px 100% 0px' }
 );
 
 intersectionObserver.observe($observe);
