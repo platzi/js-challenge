@@ -50,7 +50,7 @@ const loadData = async() => {
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   entries.forEach(entry=>{
-    if(entry.isIntersecting) loadData();console.log(localStorage.getItem('pagination'));
+    if(entry.isIntersecting) loadData();
     if(localStorage.getItem('pagination') > 205 ){
       intersectionObserver.unobserve($observe);
       message(); 
