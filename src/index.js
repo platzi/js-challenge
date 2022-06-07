@@ -3,51 +3,48 @@ const $observe = document.getElementById('observe');
 const API = `https://api.escuelajs.co/api/v1/products`;
 
 const limit = 10;
-const offset = 4;
+const offset = 5;
 
-const getData = async (api) => {
+const getData = (api) => {
   let pagination = parseInt(localStorage.getItem('pagination'));
-
   if (!pagination) {
     localStorage.setItem('pagination', offset);
-    pagination = localStorage.getItem('pagination');
+    pagination = offset;
   } else {
     pagination += limit;
     localStorage.setItem('pagination', pagination);
   }
-  try {
-    const response = await fetch(`${api}?limit=${limit}&offset=${pagination}`);
-    let output = '';
-    let products = await response.json();
-    console.log(products);
-    if (products.length === 0) {
-      intersectionObserver.disconnect();
-      output = `<div class="info">Todos los productos Obtenidos</div>`;
-    } else {
-      output = products.map((product) => {
-        // template
-        return `<article class="Card">
+  fetch(`${api}?limit=${limit}&offset=${pagination}`)
+    .then((response) => response.json())
+    .then((response) => {
+      let output = '';
+      let products = response;
+      if (products.length === 0) {
+        intersectionObserver.disconnect();
+        output = `<div class="info">Todos los productos Obtenidos</div>`;
+      } else {
+        output = products.map((product) => {
+          // template
+          return `<article class="Card">
                   <img src=${product.category.image} alt=${product.title} />
                   <h2>
                   ${product.title}
                   <small>${product.price}</small>
                   </h2>
                 </article>`;
-      });
-    }
+        });
+      }
 
-    let newItem = document.createElement('section');
-    newItem.classList.add('Item');
-    newItem.innerHTML = output;
-    $app.appendChild(newItem);
-  } catch (error) {
-    console.log(error);
-  }
+      let newItem = document.createElement('section');
+      newItem.classList.add('Item');
+      newItem.innerHTML = output;
+      $app.appendChild(newItem);
+    })
+    .catch((error) => console.log(error));
 };
 
-const loadData = () => {
-  // no aplica async/await porque es una funcion no una promesa
-  getData(API);
+const loadData = async () => {
+  await getData(API);
 };
 
 const intersectionObserver = new IntersectionObserver(
