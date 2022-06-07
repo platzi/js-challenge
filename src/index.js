@@ -4,19 +4,34 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const STEP = 10;
 let pagination = 5;
 
-const getData = api => {
+const getData = (api) => {
   fetch(api)
     .then(response => response.json())
     .then(response => {
       let products = response;
       let output = products.filter(product => (product.id >= pagination && product.id < (STEP + pagination)));
-      pagination += STEP;
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      output.forEach(element => newItem.appendChild(createCard(element)));
       $app.appendChild(newItem);
+      pagination += STEP;
     })
     .catch(error => console.log(error));
+}
+
+const createCard = (element) => {
+  newCard = document.createElement('article');
+  newCard.classList.add('Card');
+  img = document.createElement('img');
+  img.src = element.images[0];
+  title = document.createElement('h2');
+  title.innerHTML = element.title;
+  price = document.createElement('small');
+  price.innerHTML = `$ ${element.price}`;
+  newCard.appendChild(img);
+  title.appendChild(price);
+  newCard.appendChild(title);
+  return newCard;
 }
 
 const loadData = () => {
@@ -33,10 +48,10 @@ intersectionObserver.observe($observe);
 
 loadData();
 
-const infinitScroll = () => {
+const infinityScroll = () => {
   if (document.body.scrollHeight - window.innerHeight === window.scrollY) {
-    console.log('estoy en el final del scroll');
+    loadData();
    }
  }
  
- window.addEventListener('scroll', infinitScroll);
+ window.addEventListener('scroll', infinityScroll);
