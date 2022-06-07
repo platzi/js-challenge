@@ -1,31 +1,76 @@
-const $app = document.getElementById('app');
-const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const $app = document.getElementById('app')
+const $observe = document.getElementById('observe')
+const API = 'https://api.escuelajs.co/api/v1/products'
+const START_ITEM = 5
+const ITEMS_PER_PAGE = 10
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+function getPagination() {
+  return Number(localStorage.getItem('pagination')) || 0
 }
 
-const loadData = () => {
-  getData(API);
+function setPagination(page) {
+  localStorage.setItem('pagination', page)
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
+function makeProduct(product) {
+  return `
+    <article class="Card">
+      <img src="${product.images[0]}" />
+      <h2>
+        ${product.title}
+        <small>$ ${product.price}</small>
+      </h2>
+    </article>
+  `
+}
 
-intersectionObserver.observe($observe);
+async function getData(api) {
+  const params = new URLSearchParams()
+
+  params.set('offset', START_ITEM + ITEMS_PER_PAGE * getPagination())
+  params.set('limit', ITEMS_PER_PAGE)
+
+  const res = await fetch(`${api}?${params.toString()}`)
+  const productsData = await res.json()
+
+  if (!productsData.length) {
+    const end = document.createElement('p')
+
+    end.textContent = 'Todos los productos Obtenidos'
+    $app.appendChild(end)
+
+    intersectionObserver.disconnect()
+  } else {
+    const products = productsData.map(makeProduct)
+    const newItem = document.createElement('section')
+    const pageProducts = products.join('')
+
+    newItem.classList.add('Items')
+    newItem.innerHTML = pageProducts
+
+    $app.appendChild(newItem)
+    setPagination(getPagination() + 1)
+  }
+}
+
+async function loadData() {
+  try {
+    await getData(API)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const intersectionObserver = new IntersectionObserver(
+  ([data]) => {
+    if (data.isIntersecting) {
+      loadData()
+    }
+  },
+  {
+    rootMargin: '0px 0px 100% 0px',
+  },
+)
+
+intersectionObserver.observe($observe)
+setPagination(0)
