@@ -12,20 +12,6 @@ const getProducts = async ( offset = 5, limit = 10) => {
     }
 
     return false
-    /*fetch(api)
-        .then(response => response.json())
-        .then(response => {
-            return response
-            let products = response;
-            let output = products.map(product => {
-                // template
-            });
-            let newItem = document.createElement('section');
-            newItem.classList.add('Item');
-            newItem.innerHTML = output;
-            $app.appendChild(newItem);
-        })
-        .catch();*/
 
 }
 
