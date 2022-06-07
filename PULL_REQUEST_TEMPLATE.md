@@ -1,15 +1,17 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: JS Challenge - Ethereum Developer Program
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Julian Fuentes V
+Usuario Platzi: JulianFuentesV
+Correo Electronico: jafv095@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
+
+[GitHub Pages](https://JulianFuentesV.github.io)
