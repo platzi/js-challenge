@@ -25,12 +25,15 @@ const getData = async ({api, offset, limit}) => {
       newItem.classList.add('Item');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
+
       if (products.length < limit) {
         const message = document.createElement('p');
         message.innerHTML = 'Todos los productos Obtenidos';
         $app.appendChild(message);
         intersectionObserver.unobserve($observe);
+        intersectionObserver.disconnect();
       }
+      
     })
     .catch(error => console.log(error));
 }
@@ -45,9 +48,8 @@ const loadData = async (offset) => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
   if (!entries[0].isIntersecting) return;
-		const offset = localStorage.getItem('pagination')
-			? parseInt(localStorage.getItem('pagination')) + 10
-			: 5;
+  const pagStore = localStorage.getItem('pagination');
+		const offset = pagStore ? parseInt(pagStore) + 10 : 5;
 		loadData(offset);
 }, {
   rootMargin: '0px 0px 100% 0px',
