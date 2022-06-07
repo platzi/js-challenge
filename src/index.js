@@ -9,11 +9,10 @@ const MAXITEMS = 200;
 
 localStorage.setItem("pagination", FIRSTITEM);
 console.log(localStorage.getItem("pagination"))
-
+var pagination = FIRSTITEM;
 
 const getData = async (api) => {
-  let pagination = localStorage.getItem("pagination");
-  let params = `?offset=${pagination}&limit=${LOADAMOUNT}`;
+  let params = `?offset=${pagination.toString()}&limit=${LOADAMOUNT}`;
   fetch(api+params)
     .then(response => response.json())
     .then(response => {
@@ -44,12 +43,9 @@ const getData = async (api) => {
 const loadData = async () => {
   await getData(API);
   console.log(localStorage.getItem("pagination"));
-  let pagination = parseInt(localStorage.getItem("pagination"), 10);
   pagination += LOADAMOUNT;
   if(pagination > MAXITEMS) {
     intersectionObserver.disconnect();
-  } else {
-    localStorage.setItem("pagination", pagination);
   }
 }
 
