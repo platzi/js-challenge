@@ -1,7 +1,7 @@
 {
   "name": "js-challenge",
   "version": "1.0.0",
-  "description": "PlatziStore Fix Bugs",
+  "description": "PlatziStore Fixed Bugs",
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/platzi/js-challenge#readme",
   "devDependencies": {
-    "live-server": "1.2.2"
+    "live-server": "^1.1.0"
   },
   "dependencies": {
     "cypress": "10.0.1"
