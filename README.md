@@ -124,3 +124,8 @@ Si alguien quiere agregar o mejorar algo, lo invito a colaborar directamente en 
 ### Licencia
 
 js-challenge se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT).
+
+Deploy in netlify
+[![Netlify Status](https://api.netlify.com/api/v1/badges/69b87d8f-e77b-45d6-ba00-badb71e0c7c6/deploy-status)](https://app.netlify.com/sites/inspiring-vacherin-71287c/deploys)
+
+
