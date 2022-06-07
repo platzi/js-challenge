@@ -60,4 +60,4 @@ intersectionObserver.observe($observe);
 
 onbeforeunload = () => {
   localStorage.clear();
-};
+}; 
