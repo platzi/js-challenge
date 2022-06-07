@@ -3,21 +3,26 @@ import {getProducts} from "./api/products.js";
 const $app = document.getElementById('app');
 const $ended = document.getElementById('ended');
 const $observe = document.getElementById('observe');
+const limit = 10;
 
 const loadData = async () => {
 
-    const currentOffset = localStorage.getItem('offset') || 0
-    const limit = 10
+    const pagination = localStorage.getItem('pagination')
+    const currentOffset = pagination
+        ? parseInt(pagination) + 10
+        : 5;
+
+    localStorage.setItem('pagination', currentOffset);
 
     const products = await getProducts(currentOffset, limit)
 
     if (products){
 
         let output = products.map(product =>
-           `<article class="Card">
-              <img src="${product.images[0]}" />
+           `<article id="${product.id}" class="Card" >
+              <img src="${product.images[0]}" alt="${product.title}" />
               <h2>
-                ${product.title}
+                Producto ${product.title}
                 <small>$ ${product.price}</small>
               </h2>
             </article>`
@@ -27,10 +32,6 @@ const loadData = async () => {
         newItem.classList.add('Item');
         newItem.innerHTML = output.join(' ');
         $app.appendChild(newItem);
-
-        const newOffset = parseInt(currentOffset) + limit
-
-        localStorage.setItem('offset', newOffset)
 
         if (products.length < limit) { //llegamos al final
 
@@ -42,37 +43,31 @@ const loadData = async () => {
             }
 
 
-            return true
+            intersectionObserver.unobserve($observe)
         }
     }
-
-    return false
 
 }
 
 
 window.addEventListener('beforeunload', function (e) {
-    localStorage.removeItem('offset')
+    e.preventDefault();
+    localStorage.clear();
 });
 
-window.addEventListener('load', function (e) {
+const intersectionObserver = new IntersectionObserver(entries => {
 
-    const intersectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            loadData()
+        }
+    })
 
-        entries.forEach(entry => {
-            loadData().then(ended => {
-                if (ended){
-                    intersectionObserver.unobserve($observe)
-                }
-            })
-        })
-
-    }, {
-        rootMargin: '0px 0px 100% 0px',
-    });
-
-    intersectionObserver.observe($observe);
-
+}, {
+    rootMargin: '0px 0px 100% 0px',
 });
+
+intersectionObserver.observe($observe);
+
 
 
