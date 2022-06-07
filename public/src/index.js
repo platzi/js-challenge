@@ -18,15 +18,17 @@ const loadData = async () => {
 
     if (products){
 
-        let output = products.map(product =>
-           `<article id="${product.id}" class="Card" >
+        let output = products.map(product => {
+            if (product.id > 200) return;
+
+            return `<article id="${product.id}" class="Card" >
               <img src="${product.images[0]}" alt="${product.title}" />
               <h2>
                 Producto ${product.title}
                 <small>$ ${product.price}</small>
               </h2>
             </article>`
-        );
+        });
 
         let newItem = document.createElement('section');
         newItem.classList.add('Items');
@@ -44,8 +46,12 @@ const loadData = async () => {
 
 
             intersectionObserver.unobserve($observe)
+
+            return true
         }
     }
+
+    return false
 
 }
 
@@ -55,17 +61,18 @@ window.addEventListener('beforeunload', function (e) {
     localStorage.clear();
 });
 
-const intersectionObserver = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            loadData()
-        }
-    })
-
-}, {
-    rootMargin: '0px 0px 100% 0px',
-});
+const intersectionObserver = new IntersectionObserver(
+    (entries, observer) =>
+        entries.forEach(async (entry) => {
+            if (entry.isIntersecting) {
+                const end = await loadData();
+                if (end){
+                    observer.disconnect();
+                }
+            }
+        }),
+    { rootMargin: '0px 0px 100% 0px' }
+);
 
 intersectionObserver.observe($observe);
 
