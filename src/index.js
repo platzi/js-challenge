@@ -12,19 +12,19 @@ const getData = api => {
       let products = response;
       let output = products.map(
         product => `
-        <div class="card">
-          <img src="${product.images[0]}" alt="${product.title}">
-          <div class="card-body">
-            <h5 class="card-title">${product.title}</h5>
-            <p class="card-text">${product.description}</p>
-          </div>
-        </div>
+        <article class="Card">
+          <img src="${product.images[0]}" alt="${product.title}"/>
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>
         `
       );
       localStorage.setItem('initialOffset', parseInt(offset) + ITEMS_PER_PAGE);
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
