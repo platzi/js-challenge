@@ -1,31 +1,55 @@
-const $app = document.getElementById('app');
-const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const $app = document.getElementById("app");
+const $observe = document.getElementById("observe");
+const API = "https://api.escuelajs.co/api/v1/products";
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
-}
+const PRODUCT_ID_OFFSET = 5; // In which product to start the fetching (offset)
+localStorage.setItem("pagination", 0); // pagination always initially set to 0.
 
-const loadData = () => {
-  getData(API);
-}
+// converted from then-catch to async-await
+const getData = async api => {
+  try {
+    const response = await fetch(api);
+    const products = await response.json();
+    if (products.length === 0) {
+      $observe.innerText = "Todos los productos obtenidos";
+      intersectionObserver.unobserve($observe); // stop observing
+    }
+    let output = products.map(
+      product =>
+        `<article class="Card" key={${product.id}}>
+            <img src=${product.category.image} />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>`
+    );
+    let newItem = document.createElement("section");
+    newItem.classList.add("Items");
+    newItem.innerHTML = output.join("");
+    $app.appendChild(newItem);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
+const loadData = (offset = 0, limit = 10) => {
+  const pagination = +localStorage.getItem("pagination");
+  const queryParameters = `?offset=${offset - 1 + pagination * 10}&limit=${limit}`;
+  const fetchUrl = API.concat(queryParameters);
+  getData(fetchUrl);
+  localStorage.setItem("pagination", pagination + 1);
+};
+
+const intersectionObserver = new IntersectionObserver(
+  entries => {
+    if (entries[0].isIntersecting) {
+      loadData(PRODUCT_ID_OFFSET, 10); // takes initial product id & desired amount.
+    }
+  },
+  {
+    rootMargin: "0px 0px 100% 0px",
+  }
+);
 
 intersectionObserver.observe($observe);
