@@ -3,6 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const initalPagination = 5
 const limit = 10
+localStorage.clear()
 
 const getData = async (api) => {
 
@@ -58,7 +59,3 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
-
-window.onbeforeunload = function () {
-  localStorage.clear()
-}
