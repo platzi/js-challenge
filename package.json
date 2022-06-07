@@ -4,6 +4,8 @@
   "description": "PlatziStore Fix Bugs",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "npm run start",
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open"
   },
