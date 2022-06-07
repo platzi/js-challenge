@@ -46,6 +46,10 @@ body {
   justify-content: space-between;
 }
 
+.EndMessage {
+  text-align: center;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
