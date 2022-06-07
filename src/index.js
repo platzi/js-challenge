@@ -26,7 +26,7 @@ const getData = (api) => {
         output = products.map((product) => {
           // template
           return `<article class="Card">
-                  <img src=${product.category.image} alt=${product.title} />
+                  <img src=${product.images[0]} alt=${product.title} />
                   <h2>
                   ${product.title}
                   <small>${product.price}</small>
