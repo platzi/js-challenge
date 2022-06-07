@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Werner
+Usuario Platzi: werner-ovalle
+Correo Electronico: ovallewerner@gmail.com
 
 ## Reto:
 
