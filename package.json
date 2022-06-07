@@ -4,7 +4,6 @@
   "description": "PlatziStore Fix Bugs",
   "main": "index.js",
   "scripts": {
-    "build": "react-scripts build",
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open"
   },
