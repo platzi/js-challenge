@@ -1,14 +1,14 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-const DEFAULT_LIMIT = 5;
-const DEFAULT_OFFSET = 10;
+const DEFAULT_LIMIT = 10;
+const DEFAULT_OFFSET = 5;
 const PRODUCT_LIMIT = 200;
 
 const getData = async api => {
   const pagination = localStorage.getItem('pagination');
-  const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_OFFSET : DEFAULT_LIMIT;
-  localStorage.setItem('pagination', currentOffset);
+  const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_OFFSET : DEFAULT_OFFSET;
+      localStorage.setItem('pagination', currentOffset);
 
   return fetch(api + `?limit=${DEFAULT_LIMIT}&offset=${currentOffset}`)
     .then(response => response.json())
