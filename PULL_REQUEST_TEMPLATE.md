@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto: 
+Solución al reto: https://yurixtugal.github.io/js-challenge/public/index.html
 
 Nombre: Yuri Giusseppe Portugal Legua
 Usuario Platzi: yurixtugal12
