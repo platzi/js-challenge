@@ -18,23 +18,24 @@ const addPage = () => {
 };
 
 const savePage = (page) => {
-  localStorage.setItem("page", page);
+  localStorage.setItem("pagination", page);
 };
 
-const getData = (offset) => {
-  fetch(createUrl(Limit, offset))
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      let output = products.map((product) => {
-        return Card(product);
-      });
-      let newItem = document.createElement("section");
-      newItem.classList.add("Item");
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch((error) => console.log(error));
+const getData = async (offset) => {
+  try {
+    const res = await fetch(createUrl(Limit, offset));
+    const products = await res.json();
+
+    let output = products.map((product) => {
+      return Card(product);
+    });
+    let newItem = document.createElement("section");
+    newItem.classList.add("Item");
+    newItem.innerHTML = output;
+    $app.appendChild(newItem);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const loadData = () => {
@@ -44,7 +45,6 @@ const loadData = () => {
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    // logic...
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         loadData();
@@ -58,7 +58,6 @@ const intersectionObserver = new IntersectionObserver(
 
 function Card(product) {
   return `
-  <p>${product.id}</p>
   <article class="Card">
     <img src="${product.images[0]}" alt="${product.title}"/>
     <h2>
@@ -68,4 +67,12 @@ function Card(product) {
   </article>`;
 }
 
+function ClearLocalStorage() {
+  window.onbeforeunload = function () {
+    localStorage.removeItem("pagination");
+    return "";
+  };
+}
+
 intersectionObserver.observe($observe);
+ClearLocalStorage();
