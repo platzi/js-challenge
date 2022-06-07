@@ -57,7 +57,7 @@ const loadData = async () => {
   await getData(API);
 };
 
-
+// use the intersection observer to detect when the user scrolls to the bottom of the page and load more data
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     if (entries[0].isIntersecting) {

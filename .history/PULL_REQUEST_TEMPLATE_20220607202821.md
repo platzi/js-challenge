@@ -13,5 +13,3 @@ Correo Electronico: aitor.zaldua@draftdigital.org
 - [x] Tercer problema
 - [x] Cuarto Problema
 - [x] Quinto Problema
-
-https://aesthetic-sherbet-47480f.netlify.app
