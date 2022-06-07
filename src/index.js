@@ -5,44 +5,45 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const initPosition = 0;
 const limit = 10;
 
-const getData = (api, offset, limit) => {
-  fetch(`${api}?offset=${offset}&limit=${limit}`)
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      if (products.length) {
-        let output = products.map((product) => {
-          return `
-          <article class="Card">
-            <img src="${product.category.image}" />
-            <h2>
-              ${product.title}
-              <small>$ ${product.price}</small>
-            </h2>
-          </article>
-          `;
-        });
-        let newItem = document.createElement("section");
-        newItem.classList.add("Item");
-        newItem.innerHTML = output;
-        $app.appendChild(newItem);
-      }
+const getData = async (api, offset, limit) => {
+  try {
+    const response = await fetch(`${api}?offset=${offset}&limit=${limit}`);
+    const products = await response.json();
 
-      if (products.length < limit) {
-        let output = `
-        <h2>
-          Todos los productos Obtenidos
-        </h2>
-      `;
+    if (products.length) {
+      let output = products.map((product) => {
+        return `
+        <article class="Card">
+          <img src="${product.images[0]}" />
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>
+        `;
+      });
+      let newItem = document.createElement("section");
+      newItem.classList.add("Item");
+      newItem.innerHTML = output;
+      $app.appendChild(newItem);
+    }
 
-        let newItem = document.createElement("section");
-        newItem.classList.add("Item");
-        newItem.innerHTML = output;
-        $app.appendChild(newItem);
-        intersectionObserver.unobserve($observe);
-      }
-    })
-    .catch((error) => console.log(error));
+    if (products.length < limit) {
+      let output = `
+      <h2>
+        Todos los productos Obtenidos
+      </h2>
+    `;
+
+      let newItem = document.createElement("section");
+      newItem.classList.add("Item");
+      newItem.innerHTML = output;
+      $app.appendChild(newItem);
+      intersectionObserver.unobserve($observe);
+    }
+  } catch (err) {
+    console.log(error);
+  }
 };
 
 const loadData = () => {
@@ -55,9 +56,10 @@ const loadData = () => {
   getData(API, position, limit);
 };
 
-const init = () => {
+const init = async () => {
+  localStorage.clear();
   localStorage.setItem("pagination", initPosition + limit);
-  getData(API, initPosition, limit);
+  await getData(API, initPosition, limit);
 };
 
 document.onload = init();
