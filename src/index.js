@@ -7,12 +7,18 @@ const getData = api => {
     .then((response) => response.json())
     .then((response) => {
       let products = response;
-      let output = products.map(product => {
-        // template
+      let output = products.map((product) => {
+        return `<article class='Card'>
+            <img src='${product.images[0]}' alt='${product.title}' />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>`;
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
     })
     .catch((error) => console.log(error));
