@@ -3,7 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 
-window.addEventListener('load', () => { localStorage.setItem("pagination", 5) });
+window.addEventListener('load', () => { localStorage.clear() });
 
 const handleAllProductsFetched = () => {
   $observe.innerHTML = "Todos los productos Obtenidos";
@@ -12,7 +12,6 @@ const handleAllProductsFetched = () => {
 
 const getData = async (api) => {
   if (!api) return;
-  nextPage();
   const grid = document.createElement("section");
   grid.className = "Items";
   $app.appendChild(grid);
@@ -71,6 +70,7 @@ const loadData = () => {
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
+      nextPage();
       loadData();
     }
   });
@@ -80,4 +80,6 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+
 
