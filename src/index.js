@@ -6,7 +6,6 @@ const FIRST_ITEM = 5;
 const MAX_RESULT = 200;
 
 localStorage.clear();
-localStorage.setItem("pagination", FIRST_ITEM);
 
 const getData = async api => {
   try{
@@ -24,7 +23,7 @@ const getData = async api => {
         </article>`
     });
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output;
     $app.appendChild(newItem);
   }catch(e){
@@ -33,9 +32,17 @@ const getData = async api => {
 }
 
 const loadData = async () => {
-  let offset = parseInt(localStorage.getItem("pagination"));
+
+  let offset = 0;
+  if(!localStorage.getItem("pagination")){
+    localStorage.setItem("pagination", FIRST_ITEM);
+    offset = parseInt(localStorage.getItem("pagination", FIRST_ITEM));
+  }else{
+    localStorage.setItem("pagination", parseInt(localStorage.getItem("pagination")) + LIMIT);
+    offset = parseInt(localStorage.getItem("pagination"));
+  }
+
   if(offset <= MAX_RESULT){
-    localStorage.setItem("pagination", offset + LIMIT);
     await getData(API + '?offset=' + offset + '&limit=' + LIMIT);
   }else{
       let newItem = document.createElement('section');
