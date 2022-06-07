@@ -29,14 +29,14 @@ const getData = (api) => {
                   <img src=${product.images[0]} alt=${product.title} />
                   <h2>
                   ${product.title}
-                  <small>${product.price}</small>
+                  <small>$ ${product.price}</small>
                   </h2>
                 </article>`;
         });
       }
 
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
@@ -44,7 +44,11 @@ const getData = (api) => {
 };
 
 const loadData = async () => {
-  await getData(API);
+  try {
+    await getData(API);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const intersectionObserver = new IntersectionObserver(
