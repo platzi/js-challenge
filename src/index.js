@@ -1,26 +1,30 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
+window.onbeforeunload = closeIt;
 
-const getData = (api) => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      let productList = products.map((product) => {
-        return `
-        <article class="Card">
-          <img width=640 height=480 src=${product.images[0]} />
-          <h2>
-            ${product.title}
-            <small>${product.price}</small>
-          </h2>
-        </article>
-        `;
-      });
-      renderProducts(productList);
-    })
-    .catch((error) => console.log(error));
+const getData = async (api) => {
+  const responseProducts = await fetch(api);
+  try {
+    const response = await responseProducts.json();
+    let products = response;
+    let productList = products.map(createCard);
+    renderProducts(productList);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createCard = (product) => {
+  return `
+    <article class="Card">
+      <img width=640 height=480 src=${product.images[0]} />
+      <h2>
+        ${product.title}
+        <small>${product.price}</small>
+      </h2>
+    </article>
+  `;
 };
 
 const renderProducts = (productList) => {
@@ -30,8 +34,16 @@ const renderProducts = (productList) => {
   $app.appendChild(newItem);
 };
 
-const loadData = () => {
-  getData(API);
+const resetStorage = () => {
+  localStorage.removeItem("offset");
+};
+
+function closeIt() {
+  resetStorage();
+}
+
+const loadData = async () => {
+  await getData(API);
 };
 
 const intersectionObserver = new IntersectionObserver(
