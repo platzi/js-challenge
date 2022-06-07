@@ -1,5 +1,4 @@
 const $app = document.getElementById('app');
-const $items = $app.getElementsByClassName('Items')[0];
 const $observe = document.getElementById('observe');
 
 const API = 'https://api.escuelajs.co/api/v1/products';
@@ -43,9 +42,9 @@ const getData = (api, params = {}) => {
         `);
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output.join('');
-      $items.append(...newItem.childNodes);
+      $app.append(newItem);
       if (products.length < PRODUCTS_LIMIT) {
         let endMessage = document.createElement('h2');
         endMessage.classList.add('EndMessage');
