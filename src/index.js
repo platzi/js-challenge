@@ -1,6 +1,8 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+document.title = 'PlatziStore';
+document.head.innerHTML += '<meta name="description" content="...">'
 
 const getData = api => {
   fetch(api)
@@ -9,10 +11,18 @@ const getData = api => {
       let products = response;
       let output = products.map(product => {
         console.log(product);
-        return `<h2>${product.title}</h2>`;
+        return `
+          <article class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+              ${product.title}
+              <small>$${product.price}</small>
+            </h2>
+          </article>
+        `;
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
