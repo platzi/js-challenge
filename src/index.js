@@ -8,22 +8,30 @@ let pagination = INIT_INDEX;
 
 const getData = async (api, limit, offset) => {
   try {
-    let response = await fetch(`${api}?limit=${limit}&offset=${offset}`);
-    response = await response.json();
-    pagination+=LIMIT;
-    let products = response;
-    let output = products.map(product => {
-      return `<article class="Card">
-        <img src="${product.images[0]}" />
-        <h2>
-        ${product.title}
-          <small>$ ${product.price}</small>
-        </h2>
-      </article>`;
-    });
+    const response = await fetch(`${api}?limit=${limit}&offset=${offset}`);
+    const products = await response.json();
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
-    newItem.innerHTML = output.join("");
+    let output = "";
+    if (products?.length === 0) {
+      output = `<span class="Closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Todos los productos Obtenidos.`;
+      newItem.classList.add('Alert');
+      // Stop observing
+      intersectionObserver.unobserve($observe);
+    } else {
+      pagination+=LIMIT;
+      output = products.map(product => {
+        return `<article class="Card">
+          <img src="${product.images[0]}" onerror="console.log('The image could not be loaded.');"/>
+          <h2>
+          ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>`;
+      }).join("");
+      newItem.classList.add('Item');
+    }
+    newItem.innerHTML = output;
     $app.appendChild(newItem);
   } catch (error) {
     console.log(error);
