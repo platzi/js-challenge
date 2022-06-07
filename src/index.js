@@ -16,11 +16,17 @@ const getData = (api, limit, offset) => {
       localStorage.setItem('pagination', getPagination()+LIMIT);
       let products = response;
       let output = products.map(product => {
-        // template
+        return `<article class="Card">
+          <img src="${product.images[0]}" />
+          <h2>
+          ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>`;
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      newItem.innerHTML = `<main class="Main">${output.join("")}</main>`; 
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
