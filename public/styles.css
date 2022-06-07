@@ -7,6 +7,12 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  grid-gap: 2rem;
+}
+
 .Main {
   padding: 10px;
   grid-template-columns: minmax(auto, 768px);
