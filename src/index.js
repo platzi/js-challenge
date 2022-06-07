@@ -26,7 +26,7 @@ const getData = api => {
       newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
-      if (products.length < limit) {
+      if (products.lenght < limit) {
         let message = document.createElement('span');
         message.innerText = 'Todos los productos Obtenidos';
         $app.appendChild(message);
@@ -50,3 +50,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+window.addEventListener("beforeunload", () => {
+  localStorage.clear();
+});
