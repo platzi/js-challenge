@@ -19,7 +19,7 @@ const addPage = () => {
 };
 
 const savePage = (page) => {
-  localStorage.setItem("pagination", page);
+  localStorage.setItem("pagination", page + 5);
 };
 
 const getData = async (offset) => {
@@ -31,7 +31,7 @@ const getData = async (offset) => {
       return Card(product);
     });
     let newItem = document.createElement("section");
-    newItem.classList.add("Item");
+    newItem.classList.add("Items");
     newItem.innerHTML = output;
     $app.appendChild(newItem);
   } catch (error) {
