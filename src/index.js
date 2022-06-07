@@ -5,6 +5,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const limit = 10;
 localStorage.clear();
 localStorage.setItem('pagination','5');
+localStorage.setItem('pagination1','5');
 
 const message = () => {
   let newItem = document.createElement('message');
@@ -14,9 +15,9 @@ const message = () => {
 }
 
 const getData = api => {
-  const offset = localStorage.getItem('pagination');
+  const offset = localStorage.getItem('pagination1');
 
-  localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10 )
+  localStorage.setItem('pagination1', parseInt(localStorage.getItem('pagination1')) + 10 )
 
   fetch(`${api}?offset=${offset - 1}&limit=${limit}`)
     .then(response => response.json())
@@ -35,7 +36,7 @@ const getData = api => {
         `
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
@@ -51,7 +52,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   entries.forEach(entry=>{
     if(entry.isIntersecting) loadData();
-    if(localStorage.getItem('pagination') > 205 ){
+    if(localStorage.getItem('pagination1') > 205 ){
       intersectionObserver.unobserve($observe);
       message(); 
     }
