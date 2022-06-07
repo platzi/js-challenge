@@ -13,15 +13,15 @@ const getData = api => {
       let products = response;
       //console.log('PRODUCTOS=>'+JSON.stringify(products));
       let output = products.map(product => { //Problema 2.2
-			  return `<article class="Card"> 
-                  <img src="${product.images[0]}" alt="${product.title}">
+			  return `<article class='Card'> 
+                  <img src='${product.images[0]}" alt="${product.title}'>
 				          <h2>${product.title}
 					          <small>$ ${product.price}</small>
 				          </h2>
 			          </article>`
       });      
       let newItem = document.createElement('section');
-      newItem.classList.add('Item'); //Problema 2.1
+      newItem.classList.add('Items'); //Problema 2.1
       //console.log('OUTPUT=>'+output);
       newItem.innerHTML = output;
       $app.appendChild(newItem);
