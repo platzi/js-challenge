@@ -32,7 +32,7 @@ const getUrlParams = (pagination) => {
 const renderProducts = (products) => {
   let output = products.map(getProductTemplate);
   let newItem = document.createElement('section');
-  newItem.classList.add('Item');
+  newItem.classList.add('Items');
   newItem.innerHTML = output;
   
   $app.appendChild(newItem);
