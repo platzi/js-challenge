@@ -2,30 +2,37 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-// Check pagination
-const pagination = parseInt(localStorage.getItem("pagination"));
-
 // API settings
 const limit = 10;
-let offset = pagination ? limit + pagination : 5;
+let offset = 5;
 
-// Store pagination 
-localStorage.setItem("pagination", offset)
-
-localStorage.getItem("lastname");
 const getData = api => {
-  fetch(`${api}/?offset=${offset}&limit=${limit}`)
+  // update pagination
+  localStorage.setItem("pagination", offset)
+
+  fetch(`${api}/?offset=${parseInt(localStorage.getItem("pagination"))}&limit=${limit}`)
     .then(response => response.json())
     .then(response => {
       let products = response;
       let output = products.map(product => {
         // template
-        return `<article>${product.id}</article>`;
+        return `
+          <article class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>
+        `;
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
-      newItem.innerHTML = output;
+      newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
+
+      // update offset for next query to API
+      offset += limit;
     })
     .catch(error => console.log(error));
 }
@@ -35,7 +42,11 @@ const loadData = () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  loadData();
+  // load data if the observer is on screen
+  entries.forEach(entry => {
+    entry.intersectionRatio > 0 ? loadData() : null;
+  });
+
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
