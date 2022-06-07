@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
+Nombre: Juan Sebastian Rios Valencia
 Usuario Platzi:
 Correo Electronico:
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
 - [ ] Quinto Problema
