@@ -18,6 +18,19 @@ const valueStorage = () => {
   globalState.setItem('initialState', paginationSteps.toString())
 }
 
+const addCards = (filtred) => {
+  let cardsFiltered = filtred.map((product) => {
+    return `<article class="Card">
+    <img src="${product.category.image}" alt="${product.category.name}" />
+    <h2>
+    ${product.title}
+      <small>$ ${product.price}</small>
+    </h2>
+  </article>`
+  })
+  return cardsFiltered.join('')
+}
+
 const getData = (api) => {
   // initial states
   let INITIAL_STATE = Number(globalState.getItem('initialState'))
@@ -30,8 +43,8 @@ const getData = (api) => {
       let output = products.slice(INITIAL_STATE, pagination)
 
       let newItem = document.createElement('section')
-      newItem.classList.add('Item')
-      newItem.innerHTML = output
+      newItem.classList.add('Items')
+      newItem.innerHTML = addCards(output)
       $app.appendChild(newItem)
     })
     .catch((error) => console.log(error))

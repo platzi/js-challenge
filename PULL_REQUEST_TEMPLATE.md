@@ -9,7 +9,7 @@ Correo Electronico: guffenix@gmail.com
 ## Reto:
 
 - [OK] Primer problema
-- [ ] Segundo problema
+- [OK] Segundo problema
 - [ ] Tercer problema
 - [ ] Cuarto Problema
 - [ ] Quinto Problema
