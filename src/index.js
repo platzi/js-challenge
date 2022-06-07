@@ -10,6 +10,10 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
+        if (product.id == 201) {
+          intersectionObserver.unobserve($observe);
+          return '<h2>Todos los productos Obtenidos</h2>';
+        } else
         return `
           <article class="Card">
             <img src="${product.images[0]}" />
