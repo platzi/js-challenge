@@ -1,6 +1,5 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
-let $grid = document.getElementById('grid');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 
@@ -14,12 +13,10 @@ const handleAllProductsFetched = () => {
 const getData = async (api) => {
   if (!api) return;
   nextPage();
-  if (!$grid) {
-    $grid = document.createElement("section");
-    $grid.className = "Items";
-    $grid.setAttribute("id", "grid");
-    $app.appendChild($grid);
-  }
+  const grid = document.createElement("section");
+  grid.className = "Items";
+  $app.appendChild(grid);
+
   const offset = parseInt(localStorage.getItem("pagination"));
   if (offset === 205) {
     handleAllProductsFetched();
@@ -30,7 +27,7 @@ const getData = async (api) => {
     const response = await req.json();
     response.forEach(product => {
       const productCard = createProduct(product);
-      $grid.appendChild(productCard);
+      grid.appendChild(productCard);
     });
   } catch (e) {
     console.error(e);
