@@ -2,11 +2,11 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-let loadOne = true;
+let isFirst = true;
 
 const getData = async (api) => {
-  if (!loadOne) localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
-  loadOne = false;
+  if (!isFirst) localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
+  isFirst = false;
 
   return fetch(`${api}?offset=${localStorage.getItem('pagination')}&limit=10`)
     .then(response => response.json())
