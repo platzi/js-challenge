@@ -21,8 +21,6 @@ const getData = async (api) => {
     if(output.length == 0){
       output = "<p>Todos los productos Obtenidos</p>";
       unObserve();
-    } else {
-      output = output.join("");
     }
 
     let newItem = document.createElement('section');
