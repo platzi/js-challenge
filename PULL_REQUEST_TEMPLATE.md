@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
+Nombre: Daniel Martínez
 Usuario Platzi:
-Correo Electronico:
+Correo Electronico: danieljmp07@gmail.com
 
 ## Reto:
 
