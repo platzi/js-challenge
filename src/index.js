@@ -2,30 +2,57 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
-}
+localStorage.clear();
 
-const loadData = () => {
-  getData(API);
-}
+const getData = async ({ api, offset, limit }) => {
+	const url = `${api}?offset=${offset}&limit=${limit}`;
+	localStorage.setItem('pagination', offset);
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
+	const data = await fetch(url);
+	const products = await data.json();
+	console.log(products);
+	const output = products.map(
+		(product) => `
+			<article class="Card">
+				<img src="${product.images[0]}" alt="${product.name}">
+				<h2>
+					${product.title}
+					<small>$ ${product.price}</small>
+				</h2>
+			</article>
+		`
+	);
+
+	let newItem = document.createElement('section');
+	newItem.classList.add('Items');
+	newItem.innerHTML = output;
+	$app.appendChild(newItem);
+
+	if (products.length < limit) {
+		const message = document.createElement('p');
+		message.innerHTML = 'Todos los productos Obtenidos';
+		$app.appendChild(message);
+		intersectionObserver.unobserve($observe);
+	}
+};
+
+const loadData = async (offset) => {
+	await getData({
+		api: API,
+		offset: offset,
+		limit: 10,
+	});
+};
+
+const intersectionObserver = new IntersectionObserver(
+	(entries) => {
+		if (!entries[0].isIntersecting) return;
+		const offset = localStorage.getItem('pagination')
+			? parseInt(localStorage.getItem('pagination')) + 10
+			: 5;
+		loadData(offset);
+	},
+	{ rootMargin: '0px 0px 100% 0px' }
+);
 
 intersectionObserver.observe($observe);
