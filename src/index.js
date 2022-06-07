@@ -3,7 +3,11 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const speedLoad = 500;
 
-const getData = (api) => {
+localStorage.clear();
+
+const getData = async (api,offset) => {
+  console.log(offset);
+  localStorage.setItem('pagination',offset);
   fetch(api)
     .then(response => response.json())
     .then(response => {
@@ -26,36 +30,26 @@ const getData = (api) => {
 }
 
 
-const loadData = async () => {
-  let offset = parseInt(localStorage.getItem('pagination'));
+const loadData = async (offset) => {
+  console.log(offset);
   let pagination =`?offset=${offset}&limit=10`;
-  i = 0;
-  setTimeout(() => {
-    getData(API+pagination);
-  },speedLoad)
+  await getData(API+pagination,offset);
 }
 
-const nextPage =()=> {
-  let offset = parseInt(localStorage.getItem('pagination'));
-  if(!offset){
-    localStorage.setItem('pagination',5);
-    return 
-  }
-  localStorage.setItem('pagination',offset+10);
-}
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      nextPage();
-      let offset = parseInt(localStorage.getItem('pagination'));
+      let offset = !localStorage.getItem('pagination') ? 5 : parseInt(localStorage.getItem('pagination')) + 10;
+      console.log(offset);
+      console.log(localStorage.getItem('pagination'));
       if(offset>=200){
         $observe.innerHTML="<h2>Todos los productos obtenitdos</h2>";
         intersectionObserver.disconnect();
         return;
       }
-      (async () => await loadData())();
+      loadData(offset);
     }
   });
 }, {
@@ -63,6 +57,3 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
-window.onload = (event) => {
-  localStorage.clear();
-};
