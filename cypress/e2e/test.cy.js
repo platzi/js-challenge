@@ -13,17 +13,17 @@ describe("PlatziStore Tests", () => {
   });
 
   it("Obtener los primeros 10 Productos", () => {
-    cy.get('*[class^="Items"]').find('article').should('have.length', 10)
+    cy.get('*[class^="Item"]').find('article').should('have.length', 10)
   });
 
   it('Desplácese hacia abajo y renderice nuevos productos', () => {
     cy.scrollTo('bottom')
-    cy.get('*[class^="Items"]').should('have.length', 2);
+    cy.get('*[class^="Item"]').should('have.length', 2);
   });
 
   it('Comprobar el nombre del Producto', () => {
     cy.scrollTo('bottom');
-    cy.get('*[class^="Items"]').find('article').find('h2').eq(0).should('exist');
+    cy.get('*[class^="Item"]').find('article').find('h2').eq(0).should('exist');
   });
 
 });
