@@ -36,7 +36,17 @@ const getData =async api => {
 }
 
 const loadData = async() => {
+  if (parseInt(localStorage.getItem('pagination'))>=200){
+    let newItem = document.createElement('div');
+    newItem.classList.add('msg');
+    newItem.style.textAlign = 'center';
+    newItem.innerHTML = "Todos los productos Obtenidos";
+    $app.appendChild(newItem);
+    $observe.remove();
+  }else{
     getData(API);
+  }
+    
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
