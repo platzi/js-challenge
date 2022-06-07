@@ -7,6 +7,10 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+/* div#app {
+  height: 100vh;
+} */
+
 .Main {
   padding: 10px;
   grid-template-columns: minmax(auto, 768px);
@@ -47,7 +51,7 @@ body {
 }
 
 div#observe {
-  min-height: 1000px;
+  min-height: 50px;
 }
 
 @keyframes fade {
