@@ -22,6 +22,7 @@ body {
 }
 
 .Card {
+  position: relative;
   text-decoration: none;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
     1px 3px 8px rgba(39, 44, 49, 0.03);
@@ -46,6 +47,63 @@ body {
   justify-content: space-between;
 }
 
+.description {
+  font-size: .85rem;
+  padding: 5px 10px;
+  font-weight: 300;
+}
+.category {
+  font-size: .65rem;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  padding: .25rem .75rem;
+  border-radius: .25rem;
+  color: rgb(240, 240, 240);
+  background-color: rgba(0, 0, 0, .60);
+}
+
+.modal-container {
+  position: fixed;
+  display: grid;
+  place-content: center;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;  
+}
+.modal-bg{
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  width: 100vw;
+  height: 100vh;  
+}
+.modal{
+  position: relative;
+  display: grid;
+  place-content: center;
+  width: 350px;
+  height: 200px;
+  background-color: #fff;
+  box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.1);
+  border-radius: .5rem;
+  z-index: 1;
+}
+.modal-body{
+  font-size: .85rem;
+  font-weight: bold;
+  color: #333;
+}
+.modal-close-btn{
+  position: absolute;
+  padding: .5rem;
+  cursor: pointer;
+  top: 0.25rem;
+  right: 0.25rem;
+  
+}
+
 @keyframes fade {
   from {
     opacity: 0;
@@ -53,4 +111,7 @@ body {
   to {
     opacity: 1;
   }
+}
+.hidden{
+  display: none;
 }
