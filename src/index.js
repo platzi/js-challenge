@@ -57,3 +57,5 @@ intersectionObserver.observe($observe);
 document.addEventListener('DOMContentLoaded', e => {
   loadData(5, 10);
 });
+
+window.addEventListener('beforeunload', e => localStorage.clear())
