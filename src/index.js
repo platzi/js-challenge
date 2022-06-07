@@ -29,7 +29,7 @@ const getProducts = async api => {
   let OFFSET = Number(localStorage.getItem('pagination'));
   try {
     const URL = `${api}?offset=${OFFSET}&limit=${PRODUCTS_PER_PAGE}`;
-    const response = await fetch(URL);
+    const response = await fetch(URL, { mode: "no-cors" });
 
     const products = await response.json();
 
