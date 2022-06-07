@@ -11,6 +11,18 @@ const MAX_PRODUCTS = 200;
 
 let isLoadingProducts = false;
 
+const intersectionObserver = new IntersectionObserver(
+  (entries) => {
+    const [target] = entries;
+    if (!target?.isIntersecting) return;
+
+    loadData();
+  },
+  {
+    rootMargin: "0px 0px 100% 0px",
+  }
+);
+
 const getPagination = () => {
   // Defaults to 0
   return Number(localStorage.getItem(PAGINATION_KEY));
@@ -49,6 +61,12 @@ const renderItem = (products: Product[]) => {
   $app.appendChild(newItem);
 };
 
+const renderEmptyProductsMessage = () => {
+  const message = document.createElement("p");
+  message.innerText = "Todos los productos Obtenidos";
+  $app.appendChild(message);
+};
+
 const getData = async (api: string, offset: number, limit: number) => {
   try {
     const res = await fetch(`${api}?offset=${offset}&limit=${limit}`);
@@ -72,30 +90,26 @@ const loadData = async () => {
       PRODUCTS_PER_REQUEST
     );
 
-    const maxPage = MAX_PRODUCTS / PRODUCTS_PER_REQUEST;
+    const newPagination = pagination + 1;
 
-    storePagination(pagination >= maxPage - 1 ? 0 : pagination + 1);
+    storePagination(newPagination);
 
     console.log({ offset });
-    getData(API, offset, PRODUCTS_PER_REQUEST);
+    await getData(API, offset, PRODUCTS_PER_REQUEST);
+
+    const maxPage = MAX_PRODUCTS / PRODUCTS_PER_REQUEST;
+    const hasReachedMax = newPagination >= maxPage;
+
+    if (hasReachedMax) {
+      renderEmptyProductsMessage();
+      intersectionObserver.disconnect();
+    }
   } catch (e) {
     console.log(e);
   } finally {
     isLoadingProducts = false;
   }
 };
-
-const intersectionObserver = new IntersectionObserver(
-  (entries) => {
-    const [target] = entries;
-    if (!target?.isIntersecting) return;
-
-    loadData();
-  },
-  {
-    rootMargin: "0px 0px 100% 0px",
-  }
-);
 
 intersectionObserver.observe($observe);
 clearLocalStorage();
