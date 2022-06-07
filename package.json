@@ -7,8 +7,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build": "webpack --config webpack.config.js",
-    "start": "webpack serve",
+    "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open"
   },
   "repository": {
