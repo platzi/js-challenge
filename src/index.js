@@ -2,6 +2,8 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = `https://api.escuelajs.co/api/v1/products`;
 
+localStorage.clear();
+
 const limit = 10;
 const offset = 5;
 
@@ -20,8 +22,9 @@ const getData = (api) => {
       let output = '';
       let products = response;
       if (products.length === 0) {
+        intersectionObserver.unobserve($observe);
         intersectionObserver.disconnect();
-        output = `<div class="info">Todos los productos Obtenidos</div>`;
+        output = `<span class="info">Todos los productos Obtenidos</span>`;
       } else {
         output = products.map((product) => {
           // template
@@ -65,7 +68,3 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
-
-onbeforeunload = () => {
-  localStorage.clear();
-};
