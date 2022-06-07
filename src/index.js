@@ -7,23 +7,8 @@ const LOADAMOUNT = 10;
 const MAXITEMS = 200;
 
 var pagination = FIRSTITEM-1;
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
-}
-const getDataPagination = async (api, limit) => {
-  let params = `?offset=${pagination.toString()}&limit=${limit}`;
+const getData = async (api) => {
+  let params = `?offset=${pagination.toString()}&limit=${LOADAMOUNT}`;
   fetch(api+params)
     .then(response => response.json())
     .then(response => {
@@ -42,8 +27,9 @@ const getDataPagination = async (api, limit) => {
           alert("Todos los productos Obtenidos")
         }
         });
+      
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
@@ -51,8 +37,7 @@ const getDataPagination = async (api, limit) => {
 };
 
 const loadData = async () => {
-  await getDataPagination(API, LOADAMOUNT);
-  console.log(pagination);
+  await getData(API);
   pagination += LOADAMOUNT;
   if(pagination > MAXITEMS) {
     intersectionObserver.disconnect();
@@ -61,7 +46,6 @@ const loadData = async () => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    console.log(entry)
     if (entry.isIntersecting) {
       loadData();
     }
