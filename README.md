@@ -127,4 +127,4 @@ js-challenge se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT
 
 ### Link a despliegue en Netlify
 
-[PlatziStore](https://rococo-kitten-c7c0a5.netlify.app)
+[PlatziStore](https://js-challenge-azure.vercel.app/)
