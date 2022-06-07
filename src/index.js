@@ -5,14 +5,13 @@ const STEP = 10;
 let pagination = 5;
 
 const getData = (api) => {
-  fetch(api)
+  fetch(`${api}?offset=${pagination}&limit=${STEP}`)
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.filter(product => (product.id >= pagination && product.id < (STEP + pagination)));
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
-      output.forEach(element => newItem.appendChild(createCard(element)));
+      products.forEach(element => newItem.appendChild(createCard(element)));
       $app.appendChild(newItem);
       pagination += STEP;
     })
@@ -39,19 +38,11 @@ const loadData = () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+    if (entries[0].isIntersecting) {
+      loadData();
+    }
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
 
 intersectionObserver.observe($observe);
-
-loadData();
-
-const infinityScroll = () => {
-  if (document.body.scrollHeight - window.innerHeight === window.scrollY) {
-    loadData();
-   }
- }
- 
- window.addEventListener('scroll', infinityScroll);
