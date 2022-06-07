@@ -1,10 +1,11 @@
 {
   "name": "js-challenge",
+  "source": "public/index.html",
   "version": "1.0.0",
   "description": "PlatziStore Fix Bugs",
-  "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
+    "build": "parcel build",
     "e2e": "cypress open"
   },
   "repository": {
@@ -19,7 +20,8 @@
   },
   "homepage": "https://github.com/platzi/js-challenge#readme",
   "devDependencies": {
-    "live-server": "1.2.2"
+    "live-server": "1.2.2",
+    "parcel": "^2.6.0"
   },
   "dependencies": {
     "cypress": "10.0.1"
