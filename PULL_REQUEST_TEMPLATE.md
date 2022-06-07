@@ -2,14 +2,16 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: alejandro ibarra
+Usuario Platzi: coodingalex
+Correo Electronico: coodingalex@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [ x ] Primer problema
+- [ x ] Segundo problema
+- [ x ] Tercer problema
+- [ x ] Cuarto Problema
+- [ x ] Quinto Problema
+
+https://js-challenge-tau.vercel.app/
