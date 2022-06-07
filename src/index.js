@@ -6,11 +6,11 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const limit = 10;
 let offset = 5;
 
-const getData = api => {
+const getData = async api => {
   // update pagination
   localStorage.setItem("pagination", offset)
 
-  fetch(`${api}/?offset=${parseInt(localStorage.getItem("pagination"))}&limit=${limit}`)
+  await fetch(`${api}/?offset=${parseInt(localStorage.getItem("pagination"))}&limit=${limit}`)
     .then(response => response.json())
     .then(response => {
       let products = response;
