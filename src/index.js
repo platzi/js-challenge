@@ -2,7 +2,9 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = api => {
+localStorage.clear()
+
+const getData = async api => {
   let idx = parseInt(localStorage.getItem('pagination'));
   if (!idx) {
     idx = 5
@@ -12,40 +14,32 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map(product => {
-        let div = document.createElement('div')
-        let article = document.createElement('article');
-        article.classList.add('Card')
-        let img = document.createElement('img')
-        img.src = product.images[0]
-        img.alt = product.title
-        article.appendChild(img)
-        let h2 = document.createElement('h2')
-        let title = document.createTextNode(product.title)
-        h2.appendChild(title)
-        let price = document.createTextNode('$ ' + product.price)
-        let small = document.createElement('small')
-        small.appendChild(price)
-        h2.appendChild(small)
-        article.appendChild(h2)
-        div.appendChild(article)
-        return div.innerHTML
-      });
+      let output = products.map(product => 
+        `
+          <article class="Card">
+            <img src="${product.images[0]}" alt="${product.title}"/>
+            <h2>
+              ${product.title}
+              <small> $ ${product.price}</small>
+            </h2>
+          </article>
+        `
+      );
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
+
+      if(products.length < limit) {
+        let message = document.createElement('p');
+        message.innerHTML = 'Todos los productos Obtenidos';
+        $app.appendChild(message);
+        intersectionObserver.unobserve($observe);
+      }
+      
     })
     .catch(error => console.log(error));
     localStorage.setItem('pagination', idx+10);
-    
-    if (idx >= 200) {
-      let h3 = document.createElement('h3')
-      let msg = document.createTextNode("Todos los productos Obtenidos") 
-      h3.appendChild(msg)
-      $app.appendChild(h3)
-      $observe.remove();
-    }
 }
 
 const loadData = async () => {
