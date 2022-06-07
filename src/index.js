@@ -6,7 +6,6 @@ const speedLoad = 500;
 localStorage.clear();
 
 const getData = async (api,offset) => {
-  console.log(offset);
   localStorage.setItem('pagination',offset);
   fetch(api)
     .then(response => response.json())
@@ -31,19 +30,15 @@ const getData = async (api,offset) => {
 
 
 const loadData = async (offset) => {
-  console.log(offset);
   let pagination =`?offset=${offset}&limit=10`;
   await getData(API+pagination,offset);
 }
 
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       let offset = !localStorage.getItem('pagination') ? 5 : parseInt(localStorage.getItem('pagination')) + 10;
-      console.log(offset);
-      console.log(localStorage.getItem('pagination'));
       if(offset>=200){
         $observe.innerHTML="<h2>Todos los productos obtenitdos</h2>";
         intersectionObserver.disconnect();
