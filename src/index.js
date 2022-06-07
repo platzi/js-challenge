@@ -15,6 +15,7 @@ const getData = async api => {
   try {
     const response = await fetch(api);
     const products = await response.json();
+    if (products.length <= 0) return
     const output = products.map(product => {
       // template
       const article = document.createElement('article');
