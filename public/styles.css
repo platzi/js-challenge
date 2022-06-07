@@ -46,6 +46,13 @@ body {
   justify-content: space-between;
 }
 
+.Card small {
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

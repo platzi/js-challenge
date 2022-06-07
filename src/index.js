@@ -2,7 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const limit = 10
-let offset = 4
+let offset = 180
 const storage = localStorage.getItem('offset');
 
 
@@ -49,18 +49,29 @@ const getData = api => {
 }
 
 const loadData = () => {
-  getData(`${API}/?limit=${limit}&offset=${offset}`);
   localStorage.setItem('offset', offset);
+  getData(`${API}/?limit=${limit}&offset=${offset}`);
   console.log({storage});
   offset += limit;
   localStorage.setItem('offset', offset);
   console.log({storage});
 }
 
-loadData();
+
+
+let options = {
+  root: document.querySelector('#scrollArea'),
+  rootMargin: '0px',
+  threshold: 1.0
+}
+
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      loadData();
+    }
+  });
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
