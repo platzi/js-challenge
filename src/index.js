@@ -8,7 +8,7 @@ const PRODUCT_LIMIT = 200;
 const getData = async api => {
   const pagination = localStorage.getItem('pagination');
   const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_OFFSET : DEFAULT_OFFSET;
-      localStorage.setItem('pagination', currentOffset);
+  localStorage.setItem('pagination', currentOffset);
 
   return fetch(api + `?limit=${DEFAULT_LIMIT}&offset=${currentOffset}`)
     .then(response => response.json())
