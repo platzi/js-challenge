@@ -3,14 +3,15 @@ const $observe = document.getElementById('observe');
 const $templateCard = document.getElementById('template-article').content;
 const API = 'https://api.escuelajs.co/api/v1/products';
 
+// Activador del callback del Observer
 let booleanObserver = false;
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = document.createDocumentFragment();
+const getData = async api => {
+  try {
+    let response = await fetch(api);
+    console.log(response);
+    let products = await response.json();
+    let output = document.createDocumentFragment();
       products.forEach(product => {
         $templateCard.querySelector('img').src = product.category.image;
         $templateCard.querySelector('h2').innerHTML = `
@@ -27,8 +28,9 @@ const getData = api => {
 
       // Ahora que esta renderizada la primera section, podemos activar la callback del observer.
       booleanObserver = true;
-    })
-    .catch(error => console.log(error));
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const loadData = (idInitProduct = localStorage.getItem('position'), quantyProducts = localStorage.getItem('quanty')) => {
