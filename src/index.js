@@ -4,10 +4,6 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const offset = 5;
 const limit = 10;
 
-window.onbeforeunload = () => {
-  localStorage.setItem("pagination", offset);
-};
-
 const getData = (api) => {
   fetch(api)
     .then((response) => response.json())
@@ -20,19 +16,21 @@ const getData = (api) => {
         window.removeEventListener("scroll", scrollFunction);
         return;
       }
-      let output = products.map((product) => {
-        return `
-        <article class="Card">
-          <img src="${product.images[0]}" />
-          <h2>
-            ${product.title}
-            <small>$ ${product.price}</small>
-          </h2>
-        </article>`;
-      });
+      let output = products.map(
+        (product) =>
+          `
+          <article class="Card">
+            <img src="${product.images[0]}" alt="${product.title}"/>
+            <h2>
+              ${product.title}
+              <small> $ ${product.price}</small>
+            </h2>
+          </article>
+        `
+      );
       let newItem = document.createElement("section");
       newItem.classList.add("Items");
-      newItem.innerHTML = output.join("");;
+      newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
     .catch((error) => console.log(error));
@@ -40,7 +38,7 @@ const getData = (api) => {
 
 async function loadData() {
   let indicador = localStorage.getItem("pagination");
-  if (!indicador) {
+  if (!indicador || indicador == 5) {
     indicador = offset;
   } else {
     indicador = parseInt(indicador) + limit;
@@ -58,9 +56,10 @@ function scrollFunction() {
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    loadData();
-    window.addEventListener("scroll", scrollFunction, {
-      passive: true,
+    localStorage.setItem("pagination", 5);
+
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) loadData();
     });
   },
   {
