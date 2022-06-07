@@ -22,7 +22,7 @@ const getData = async (api,offset) => {
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
-      newItem.innerHTML = output;
+      newItem.innerHTML = output.join(' ');
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
