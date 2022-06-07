@@ -46,6 +46,10 @@ body {
   justify-content: space-between;
 }
 
+#app {
+  min-height: 100vh;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

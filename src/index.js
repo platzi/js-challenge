@@ -64,4 +64,5 @@ intersectionObserver.observe($observe);
 
 onload = () => {
   localStorage.clear();
+  loadData();
 }
