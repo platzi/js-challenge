@@ -2,7 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const STEP = 10;
-const totalProducts = 200;
+const TOTAL_PRODUCTS = 200;
 localStorage.clear();
 localStorage.setItem('pagination', 4);
 
@@ -13,8 +13,8 @@ const getData = async (api) => {
   try {
     const products = await response.json();
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
-    products.forEach(element => (element.id <= totalProducts) ? newItem.appendChild(createCard(element)) : console.log('Fuera de rango') );
+    newItem.classList.add('Items');
+    products.forEach(element => (element.id <= TOTAL_PRODUCTS) ? newItem.innerHTML += createCard(element) : console.log('Fuera de rango') );
     $app.appendChild(newItem);
     localStorage.setItem('pagination', (offset + STEP));
   } catch (error) {
@@ -23,17 +23,15 @@ const getData = async (api) => {
 }
 
 const createCard = (element) => {
-  newCard = document.createElement('article');
-  newCard.classList.add('Card');
-  img = document.createElement('img');
-  img.src = element.images[0];
-  title = document.createElement('h2');
-  title.innerHTML = element.title;
-  price = document.createElement('small');
-  price.innerHTML = `$ ${element.price}`;
-  newCard.appendChild(img);
-  title.appendChild(price);
-  newCard.appendChild(title);
+  newCard = `
+    <article class="Card">
+      <img src="${element.images[0]}" />
+      <h2>
+        ${element.title}
+        <small>$ ${element.price}</small>
+      </h2>
+    </article>
+  `
   return newCard;
 }
 
@@ -42,9 +40,10 @@ const loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-    if (localStorage.getItem('pagination') > totalProducts) {
+    if (localStorage.getItem('pagination') > TOTAL_PRODUCTS) {
       alert('Todos los productos Obtenidos');
       intersectionObserver.unobserve($observe);
+      $app.innerHTML += '<h2 style="text-align:center;">Todos los productos Obtenidos</h2>';
     }
     if (entries[0].isIntersecting) {
       loadData();
