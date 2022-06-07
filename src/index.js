@@ -3,17 +3,16 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
 const LIMIT_PRODUCTS = 10;
-const INIT_PAGINATION = 4;
+const INIT_PAGINATION = 5;
 
-localStorage.removeItem("pagination");
+localStorage.setItem("pagination", INIT_PAGINATION);
+let pagination = localStorage.getItem("pagination");
 
 const getData = (api) => {
-  let pagination = localStorage.getItem("pagination") || 4;
   fetch(`${api}?offset=${pagination}&limit=${LIMIT_PRODUCTS}`)
     .then((response) => response.json())
     .then((response) => {
       let products = response;
-      localStorage.setItem("pagination", Number(pagination) + LIMIT_PRODUCTS);
       let output = products.map(({ title, price, images, id }) => {
         if (id === 200) {
           intersectionObserver.unobserve($observe);
@@ -38,7 +37,7 @@ const getData = (api) => {
           `;
       });
       let newItem = document.createElement("section");
-      newItem.classList.add("Item");
+      newItem.classList.add("Items");
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
@@ -53,6 +52,7 @@ const intersectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        // localStorage.setItem("pagination", Number(pagination) + LIMIT_PRODUCTS);
         loadData();
       }
     });
