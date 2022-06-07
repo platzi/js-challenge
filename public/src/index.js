@@ -29,7 +29,7 @@ const loadData = async () => {
         );
 
         let newItem = document.createElement('section');
-        newItem.classList.add('Item');
+        newItem.classList.add('Items');
         newItem.innerHTML = output.join(' ');
         $app.appendChild(newItem);
 
