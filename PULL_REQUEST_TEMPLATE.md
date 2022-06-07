@@ -3,8 +3,8 @@
 Solución al reto:
 
 Nombre: Juan Sebastian Rios Valencia
-Usuario Platzi:
-Correo Electronico:
+Usuario Platzi: Juansecode
+Correo Electronico: juan.sebastianri28@gmail.com
 
 ## Reto:
 
