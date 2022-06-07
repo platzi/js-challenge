@@ -46,6 +46,11 @@ body {
   justify-content: space-between;
 }
 
+footer p {
+  text-align: center;
+  font-size: 24px;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
