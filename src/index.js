@@ -7,18 +7,16 @@ const LIMIT = 10;
 let FIRST_LOAD_OFFSET = 5;
 
 localStorage.removeItem('pagination')
-localStorage.setItem('first_offset', FIRST_LOAD_OFFSET);
 const getData = async (api) => {
   try {
     const products = await fetch(api).then(response => response.json())
-    products.map(product => {
-      const output = showProduct(product);
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.id = product.id
-      newItem.innerHTML = output
-      $app.appendChild(newItem);
+    const output = products.map(product => {
+      return showProduct(product);
     });
+    let newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = output.join('')
+    $app.appendChild(newItem);
   } catch(error){
     console.log(error)
   }
@@ -27,7 +25,7 @@ const getData = async (api) => {
 
 const showProduct = (product) => {
   return `
-    <div class="Card">
+    <article class="Card">
       ${renderImages(product.images)}
       <h2>
       ${product.title}
@@ -46,35 +44,31 @@ const renderImages = (images) => {
 
 const loadData = async () => {
   
-  const pagination = localStorage.getItem('pagination');
-  let offset = 0;
-  if(pagination) { 
-    offset = pagination
-  } else {
-    offset = localStorage.getItem('first_offset') || 0
-    localStorage.removeItem('first_offset')
+  const offset = localStorage.getItem('pagination') || 0;
+  let nextOffset = parseInt(offset) + parseInt(LIMIT);
+  if(!offset) {
+    nextOffset = FIRST_LOAD_OFFSET;
   }
   const api = new URL(API)
-  api.searchParams.append('offset', offset);
+  api.searchParams.append('offset', nextOffset);
   api.searchParams.append('limit', LIMIT);
 
+  updateLocalStorage(nextOffset)
 
   await getData(api.href);
 
-  updateLocalStorage(offset, LIMIT)
 }
 
-const updateLocalStorage = (offset, limit) => {
-  const nextOffset = parseInt(offset) + parseInt(limit);
-  localStorage.setItem('pagination', nextOffset)
+const updateLocalStorage = (offset) => {
 
-  if(nextOffset > MAX_RECORDS) { 
+  localStorage.setItem('pagination', offset)
+
+  if(offset > MAX_RECORDS) { 
     const lastDocument = document.createElement('h2');
     lastDocument.innerText= 'Todos los productos Obtenidos';
     $app.appendChild(lastDocument);
     intersectionObserver.disconnect()
   }
-  return nextOffset;
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
