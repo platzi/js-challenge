@@ -2,8 +2,8 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = api => {
-  fetch(api)
+const getData = url => {
+  fetch(url)
     .then(response => response.json())
     .then(response => {
       let products = response;
@@ -18,12 +18,22 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = (offset) => {
+  const url = `${API}?offset=${offset}&limit=10`;
+
+  getData(url);
+
+  localStorage.setItem('pagination', offset);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+  if (entries[0].isIntersecting) {
+    const offset = localStorage.getItem('pagination')
+      ? Number(localStorage.getItem('pagination')) + 10
+      : 5;
+
+    loadData(offset);
+  }
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
