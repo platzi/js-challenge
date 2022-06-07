@@ -11,8 +11,8 @@ const initGlobalState = () => {
   }
 }
 
-const valueStorage = () => {
-  loadData()
+const valueStorage = async () => {
+  await loadData()
   let paginationSteps = Number(globalState.getItem('initialState')) + STEPS
 
   globalState.setItem('initialState', paginationSteps.toString())
@@ -31,12 +31,24 @@ const addCards = (filtred) => {
   return cardsFiltered.join('')
 }
 
-const getData = (api) => {
+const detectRefreshPage = () => {
+  if (window.performance.navigation.type == 1) {
+    globalState.removeItem('initialState')
+  }
+}
+
+const detectClosePage = () => {
+  window.addEventListener('beforeunload', (e) => {
+    globalState.removeItem('initialState')
+  })
+}
+
+const getData = async (api) => {
   // initial states
   let INITIAL_STATE = Number(globalState.getItem('initialState'))
   let pagination = INITIAL_STATE + STEPS
 
-  fetch(api)
+  await fetch(api)
     .then((response) => response.json())
     .then((response) => {
       let products = response
@@ -50,8 +62,8 @@ const getData = (api) => {
     .catch((error) => console.log(error))
 }
 
-const loadData = () => {
-  getData(API)
+const loadData = async () => {
+  await getData(API)
 }
 
 const intersectionObserver = new IntersectionObserver(
@@ -67,6 +79,8 @@ const intersectionObserver = new IntersectionObserver(
   },
 )
 
+detectRefreshPage()
+detectClosePage()
 initGlobalState()
 
 intersectionObserver.observe($observe)

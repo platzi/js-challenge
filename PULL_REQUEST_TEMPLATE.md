@@ -10,6 +10,6 @@ Correo Electronico: guffenix@gmail.com
 
 - [OK] Primer problema
 - [OK] Segundo problema
-- [ ] Tercer problema
+- [OK] Tercer problema
 - [ ] Cuarto Problema
 - [ ] Quinto Problema
