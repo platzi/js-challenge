@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
-    "build": "rm -R ./dist/*; cp -R ./public ./dist; cp -R ./src ./dist",
+    "build": "rm -rf ./dist/*; cp -R ./public ./dist; cp -R ./src ./dist",
     "deploy": "gh-pages -d dist",
     "e2e": "cypress open"
   },
