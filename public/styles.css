@@ -30,6 +30,7 @@ body {
   display: block;
   animation-duration: 4s;
   animation-name: fade;
+  width: 100%;
 }
 
 .Card img {
@@ -53,4 +54,8 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.text-center{
+  text-align: center;
 }
