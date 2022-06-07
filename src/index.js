@@ -34,13 +34,15 @@ const getData = async (api, offset, limit) => {
 
 const productToHtmlCard = (product) => {
   let image = product.images?.length > 0 ? product.images[0] : "";
-  return `<article class="Card">
-        <img alt=${product.description} src="${image}" />
-        <h2>
-          ${product.title}
-          <small>$ ${product.price}</small>
-        </h2>
-      </article>`;
+  return `
+    <article class="Card">
+      <img alt=${product.description} src="${image}" />
+      <h2>
+        ${product.title}
+        <small>$ ${product.price}</small>
+      </h2>
+    </article>
+  `;
 }
 
 const loadData = async () => {
