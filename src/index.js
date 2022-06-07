@@ -2,11 +2,11 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const FIRSTITEM = 185;
+const FIRSTITEM = 5;
 const LOADAMOUNT = 10;
 const MAXITEMS = 200;
-localStorage.setItem("Pagination", FIRSTITEM-1);
 
+var pagination = FIRSTITEM-1;
 const getData = api => {
   fetch(api)
     .then(response => response.json())
@@ -22,9 +22,8 @@ const getData = api => {
     })
     .catch(error => console.log(error));
 }
-const getDataPagination = (api, limit) => {
-  let pagination = localStorage.getItem("Pagination");
-  let params = `?offset=${pagination}&limit=${limit}`;
+const getDataPagination = async (api, limit) => {
+  let params = `?offset=${pagination.toString()}&limit=${limit}`;
   fetch(api+params)
     .then(response => response.json())
     .then(response => {
@@ -40,7 +39,7 @@ const getDataPagination = (api, limit) => {
               </h2>
             </article>`)
         } else{
-          return("Todos los productos Obtenidos")
+          alert("Todos los productos Obtenidos")
         }
         });
       let newItem = document.createElement('section');
@@ -51,14 +50,12 @@ const getDataPagination = (api, limit) => {
     .catch(error => console.log(error));
 };
 
-const loadData = () => {
-  getDataPagination(API, LOADAMOUNT);
-  pagination = parseInt(localStorage.getItem("Pagination"), 10);
-  console.log(localStorage.getItem("Pagination"));
-  if(pagination + LOADAMOUNT <= MAXITEMS) {
-    localStorage.setItem("Pagination", pagination + LOADAMOUNT);
-  } else{
-    intersectionObserver.unobserve($observe);
+const loadData = async () => {
+  await getDataPagination(API, LOADAMOUNT);
+  console.log(pagination);
+  pagination += LOADAMOUNT;
+  if(pagination > MAXITEMS) {
+    intersectionObserver.disconnect();
   }
 }
 
