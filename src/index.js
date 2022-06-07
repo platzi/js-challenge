@@ -33,7 +33,7 @@ const createCard = (product) => {
 const renderProducts = (productList) => {
   let newItem = document.createElement("section");
   newItem.classList.add("Item");
-  newItem.innerHTML = productList;
+  newItem.innerHTML = productList.join("");
   $app.appendChild(newItem);
 };
 
