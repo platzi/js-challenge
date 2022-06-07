@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Ricky Junior Pareja Medina
+Usuario Platzi: rickyparejamedina
+Correo Electronico: rickyparejamedina@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+-   [x] Primer problema
+-   [x] Segundo problema
+-   [x] Tercer problema
+-   [x] Cuarto Problema
+-   [x] Quinto Problema
