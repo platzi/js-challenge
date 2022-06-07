@@ -29,7 +29,7 @@ const getData = async api => {
       newItem.innerHTML = output;
       $app.appendChild(newItem);
 
-      if(offset + limit >= 30) {
+      if(offset + limit >= 200) {
         intersectionObserver.disconnect();
         let newItem = document.createElement('section');
         newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
