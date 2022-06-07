@@ -3,6 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const ITEMS_PER_PAGE = 10;
 let OFFSET = 5;
+localStorage.setItem('pagination', OFFSET);
 
 // Las instrucciones decian que debia refactorizar la funcion load data
 // pero no tiene mucho sentido ya que esa funcion solo llamaba a getData
@@ -26,7 +27,7 @@ const getData = async api => {
     );
     OFFSET += ITEMS_PER_PAGE;
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
   } catch (error) {
