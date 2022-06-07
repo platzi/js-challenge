@@ -1,86 +1,59 @@
-const $app = document.getElementById("app");
-const $observe = document.getElementById("observe");
-const API = "https://api.escuelajs.co/api/v1/products";
-const limitProducts = 200;
-const incrementOffset = 10;
-const defaultOffset = 5;
-window.onbeforeunload = closeIt;
+const $app = document.getElementById('app');
+const $observe = document.getElementById('observe');
+const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = async (api) => {
-  const responseProducts = await fetch(api);
-  try {
-    const response = await responseProducts.json();
-    let products = response;
-    let productList = products.map(createCard);
-    renderProducts(productList);
-  } catch (error) {
-    console.log(error);
-  }
-};
+const limit = 10;
+const totalProducts = 200;
 
-const createCard = (product) => {
-  return `
-    <article class="Card">
-      <img width=640 height=480 src=${product.images[0]} />
-      <h2>
-        ${product.title}
-        <small>${product.price}</small>
-      </h2>
-    </article>
-  `;
-};
-
-const renderProducts = (productList) => {
-  let newItem = document.createElement("section");
-  newItem.classList.add("Item");
-  newItem.innerHTML = productList;
-  $app.appendChild(newItem);
-};
-
-const resetStorage = () => {
-  localStorage.removeItem("offset");
-};
-
-function closeIt() {
-  resetStorage();
+const getData = api => {
+  const offset = localStorage.getItem('pagination')
+  ? parseInt(localStorage.getItem('pagination')) + 10
+  : 5;
+  localStorage.setItem('pagination', offset);
+  fetch(`${api}?offset=${offset}&limit=${limit}`)
+    .then(response => response.json())
+    .then(response => {
+      let products = response;
+      let output = products.map(product => {
+        return `<article id="${product.id}" class="Card">
+            <img src="${product.images[0]}" alt="${product.title}" />
+            <h2>
+              Producto ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>`
+      });
+      let newItem = document.createElement('section');
+      newItem.classList.add('Items');
+      newItem.innerHTML = output;
+      $app.appendChild(newItem);
+      if (products.length < limit) {
+        let message = document.createElement('span');
+        message.innerText = 'Todos los productos Obtenidos';
+        $app.appendChild(message);
+        intersectionObserver.unobserve($observe);
+      }
+    })
+    .catch(error => console.log(error));
 }
 
 const loadData = async () => {
   await getData(API);
-};
+}
 
-const intersectionObserver = new IntersectionObserver(
-  (entries) => {
-    if (getOffset() > limitProducts) {
-      showMessage('"Todos los productos obtenidos"');
-      intersectionObserver.disconnect();
-      return;
-    }
-    if (entries[0].isIntersecting) {
-      getData(getURL(getOffset(), incrementOffset));
-      setOffset(getOffset() + incrementOffset);
-    }
-  },
-  {
-    rootMargin: "0px 0px 100% 0px",
-  }
-);
+const intersectionObserver = new IntersectionObserver(entries => {
+  // logic...
+  entries.forEach(entry=>{
+    if(entry.isIntersecting)
+      loadData();
+  })
+}, {
+  rootMargin: '0px 0px 100% 0px',
+});
 
 intersectionObserver.observe($observe);
 
-const showMessage = (message) => {
-  window.alert(message);
-};
-
-const getOffset = () => {
-  const offset = localStorage.getItem("offset") || defaultOffset;
-  return Number(offset);
-};
-
-const setOffset = (offset) => {
-  localStorage.setItem("offset", offset);
-};
-
-const getURL = (offset, limit) => {
-  return `${API}?offset=${offset}&limit=${limit}`;
-};
+window.addEventListener("beforeunload", (event) => {
+  event.preventDefault();
+  localStorage.clear();
+});
