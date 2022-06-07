@@ -4,6 +4,7 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const OFFSET = 5;
 const LIMIT = 10;
 const STORAGE_PAGE_KEY = "pageStored";
+const ITEMS_LIMIT = 200;
 
 const getData = (api) => {
   fetch(api)
@@ -29,9 +30,17 @@ const getData = (api) => {
     .catch((error) => console.log(error));
 };
 
+/// ******Storage Tools********
 const setLocalStorage = (key, value) => {
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    console.error(e);
+  }
+};
+const removeLocalStorage = (key) => {
+  try {
+    window.localStorage.removeItem(key);
   } catch (e) {
     console.error(e);
   }
@@ -44,24 +53,33 @@ const getLocalStorage = (key, initialValue) => {
     return initialValue;
   }
 };
-
-const loadData = () => {
-  getData(
-    `${API}?offset=${getLocalStorage(STORAGE_PAGE_KEY, OFFSET)}&limit=${LIMIT}`
-  );
+/// ****************************
+const loadData = async () => {
+  try {
+    await getData(
+      `${API}?offset=${getLocalStorage(
+        STORAGE_PAGE_KEY,
+        OFFSET
+      )}&limit=${LIMIT}`
+    );
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     // logic...
+    let requestNumber = parseInt(getLocalStorage(STORAGE_PAGE_KEY, OFFSET));
     const { isIntersecting } = entries[0];
-    if (isIntersecting) {
-      console.log("isIntersecting");
+    if (isIntersecting && requestNumber < ITEMS_LIMIT) {
       loadData();
       setLocalStorage(
         STORAGE_PAGE_KEY,
         getLocalStorage(STORAGE_PAGE_KEY, OFFSET) + LIMIT
       );
+    } else {
+      stopRequest();
     }
   },
   {
@@ -69,4 +87,21 @@ const intersectionObserver = new IntersectionObserver(
   }
 );
 
+const stopRequest = () => {
+  let newItem = document.createElement("span");
+  newItem.innerHTML = "Todos los productos Obtenidos";
+  $app.appendChild(newItem);
+  intersectionObserver.disconnect($observe);
+};
+
 intersectionObserver.observe($observe);
+
+if (window.performance) {
+  console.info("window.performance works fine on this browser");
+}
+// Return a PerformanceNavigationTiming object
+// https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
+const navigation = window.performance.getEntriesByType("navigation")[0];
+if (navigation.type === "reload" || navigation.type === "navigate") {
+  removeLocalStorage(STORAGE_PAGE_KEY);
+}
