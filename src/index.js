@@ -51,6 +51,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 
 intersectionObserver.observe($observe);
 
-window.addEventListener("beforeunload", () => {
+window.addEventListener("beforeunload", (event) => {
+  event.preventDefault();
   localStorage.clear();
 });
