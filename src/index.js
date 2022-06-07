@@ -27,6 +27,12 @@ const getData = api => {
       newItem.classList.add('Items');
       newItem.innerHTML = output.join(" ");
       $app.appendChild(newItem);
+      if (products.length < 10) {
+        let message = document.createElement('h2');
+        message.innerHTML = 'Todos los productos Obtenidos';
+        $observe.appendChild(message);
+        intersectionObserver.disconnect();
+      }
     })
     .catch(error => console.log(error));
 }
