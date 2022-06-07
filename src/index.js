@@ -1,10 +1,8 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-const speedLoad = 1000;
+const speedLoad = 500;
 
-localStorage.clear();
-localStorage.setItem('pagination',5);
 const getData = (api) => {
   fetch(api)
     .then(response => response.json())
@@ -20,7 +18,7 @@ const getData = (api) => {
         </article>`
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
@@ -28,7 +26,8 @@ const getData = (api) => {
 }
 
 
-const loadData = async (offset) => {
+const loadData = async () => {
+  let offset = parseInt(localStorage.getItem('pagination'));
   let pagination =`?offset=${offset}&limit=10`;
   i = 0;
   setTimeout(() => {
@@ -36,19 +35,27 @@ const loadData = async (offset) => {
   },speedLoad)
 }
 
+const nextPage =()=> {
+  let offset = parseInt(localStorage.getItem('pagination'));
+  if(!offset){
+    localStorage.setItem('pagination',5);
+    return 
+  }
+  localStorage.setItem('pagination',offset+10);
+}
+
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      // let offset = parseInt(localStorage.getItem('pagination'))?parseInt(localStorage.getItem('pagination')):5;
+      nextPage();
       let offset = parseInt(localStorage.getItem('pagination'));
       if(offset>=200){
         $observe.innerHTML="<h2>Todos los productos obtenitdos</h2>";
         intersectionObserver.disconnect();
         return;
       }
-      (async () => await loadData(offset))();
-      localStorage.setItem('pagination',offset+10);
+      (async () => await loadData())();
     }
   });
 }, {
@@ -56,3 +63,6 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+window.onload = (event) => {
+  localStorage.clear();
+};
