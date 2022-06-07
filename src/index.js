@@ -1,16 +1,16 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-const PAGINATION_PATH = '?offset=5&limit=10';
 const PAGINATION_STORAGE_KEY = 'pagination';
 const INITIAL_OFFSET = 5;
 const LIMIT = 10;
 
 localStorage.removeItem(PAGINATION_STORAGE_KEY);
-localStorage.setItem(PAGINATION_STORAGE_KEY, INITIAL_OFFSET);
 
 const getData = api => {
-  const OFFSET = localStorage.getItem(PAGINATION_STORAGE_KEY);
+  const OFFSET = localStorage.getItem(PAGINATION_STORAGE_KEY) ? 
+                  parseInt(localStorage.getItem(PAGINATION_STORAGE_KEY)) + 10 : INITIAL_OFFSET;
+  localStorage.setItem(PAGINATION_STORAGE_KEY, OFFSET);
   const URL = `${api}?offset=${(Number(OFFSET))}&limit=${LIMIT}`;
   fetch(URL)
     .then(response => response.json())
@@ -38,16 +38,12 @@ const loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
+  const page = Number(localStorage.getItem(PAGINATION_STORAGE_KEY));
   if (entries[0].isIntersecting) {
     loadData();
-  } else {
-    const nextPage = Number(localStorage.getItem(PAGINATION_STORAGE_KEY)) + LIMIT;
-    localStorage.setItem(PAGINATION_STORAGE_KEY, nextPage);
-    if(nextPage>=200){
+  } else if(page>=200){
       $observe.innerHTML="Todos los productos obtenidos.";
       intersectionObserver.disconnect();
-      return;
-    }
   }
 }, {
   rootMargin: '0px 0px 100% 0px',
