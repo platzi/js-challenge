@@ -46,6 +46,10 @@ body {
   justify-content: space-between;
 }
 
+div#observe {
+  min-height: 1000px;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
