@@ -4,7 +4,12 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const INIT_INDEX = 4;
 const LIMIT = 10;
 
-let pagination = INIT_INDEX;
+localStorage.clear();
+
+const getPagination = () => {
+  const pagination = parseInt(localStorage.getItem("pagination"));
+  return Number.isInteger(pagination) ? pagination : INIT_INDEX;
+};
 
 const getData = async (api, limit, offset) => {
   try {
@@ -19,7 +24,7 @@ const getData = async (api, limit, offset) => {
       // Stop observing
       intersectionObserver.unobserve($observe);
     } else {
-      pagination+=LIMIT;
+      localStorage.setItem('pagination', getPagination()+LIMIT);
       output = products.map(product => {
         return `<article class="Card">
           <img src="${product.images[0]}" onerror="console.log('The image could not be loaded.');"/>
@@ -29,7 +34,7 @@ const getData = async (api, limit, offset) => {
           </h2>
         </article>`;
       }).join("");
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
     }
     newItem.innerHTML = output;
     $app.appendChild(newItem);
@@ -38,14 +43,15 @@ const getData = async (api, limit, offset) => {
   }
 }
 
-const loadData = async (limit, offset) => {
-  await getData(API, limit, offset);
+const loadData = async () => {
+  localStorage.setItem('pagination', getPagination());
+  await getData(API, LIMIT, getPagination());
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.map(entrie => {
     if (entrie.isIntersecting) {
-      loadData(LIMIT, pagination);
+      loadData();
     }
   });
 }, {
