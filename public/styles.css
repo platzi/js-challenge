@@ -14,7 +14,7 @@ body {
   justify-content: center;
 }
 
-.Items {
+.Item {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1.5rem;
   grid-row-gap: 1.5em;
@@ -44,6 +44,13 @@ body {
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.Message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
 }
 
 @keyframes fade {
