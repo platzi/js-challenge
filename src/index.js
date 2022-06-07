@@ -24,6 +24,11 @@ const getData = async (url) => {
     newItem.classList.add('Items');
     newItem.innerHTML = output;
     $app.appendChild(newItem);
+
+    if (products.length < 10) {
+      alert("Todos los productos Obtenidos");
+      intersectionObserver.unobserve($observe);
+    }
   } catch (e) {
     console.log(e);
   }
