@@ -57,4 +57,5 @@ const getData = async ({ api, offset, limit }) => {
     rootMargin: '0px 0px 100% 0px',
   });
 
-  intersectionObserver.observe($observe);
+}
+intersectionObserver.observe($observe);
