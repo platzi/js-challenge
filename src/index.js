@@ -8,23 +8,22 @@ const getData = (api, offset) => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.reduce((template, product) => {
+      let output = products.map(product => {
         // template
-        return template += `
-        <article class="Card">
+        let newItem = document.createElement('article');
+        newItem.classList.add('Card');
+        newItem.innerHTML = `
           <img src="${product.images[0]}" />
-          <h2>
-          <b>[${product.id}]</b>
-          ${product.title}
-            <small>$ ${product.price}</small>
-          </h2>
-        </article>
+            <h2>
+            <b>[${product.id}]</b>
+            ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
         `;
-      }, '');
-      let newItem = document.createElement('section');
-      newItem.classList.add('Items');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
+        return newItem;
+      });
+      let items = $app.getElementsByClassName('Items')[0];
+      output.forEach(item => items.appendChild(item));
     })
     .catch(error => console.log(error));
 }
