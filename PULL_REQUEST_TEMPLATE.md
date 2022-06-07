@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://js-challenge-juamez.vercel.app/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Juan Pablo Mendez
+Usuario Platzi: Juamez
+Correo Electronico: juanmendezs.a@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
