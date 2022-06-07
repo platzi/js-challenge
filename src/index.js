@@ -1,10 +1,10 @@
 
-const $app = document.getElementById('app');
+const $items = document.getElementById('items');
 const $observe = document.getElementById('observe');
 const DOMAIN = "https://api.escuelajs.co/api/v1/products"
 
 // paginator
-localStorage.setItem('pagination', 0);
+let page = localStorage.setItem('pagination', 0);
 const initialElements = 5;
 const elementsPerPage = 10;
 
@@ -17,14 +17,23 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map(product => {
-        return `<h1>${product.title}</h1>`
-      }).join(" ");
 
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
+      products.forEach(product => {
+        const output = `
+          <img 
+            src="${product.images[0]}"
+            alt="${product.description}"
+          />
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        `
+        const article = document.createElement('article');
+        article.classList.add('Card', 'Item');
+        article.innerHTML = output;
+        $items.appendChild(article);
+      })
     })
     .catch(error => console.log(error));
 }
