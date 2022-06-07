@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "PlatziStore Fix Bugs",
   "main": "index.js",
+  "homepage": "https://sagarciaescobar.github.io/js-challenge",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open"
   },
@@ -17,8 +20,8 @@
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "live-server": "1.2.2"
   },
   "dependencies": {
