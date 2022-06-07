@@ -2,16 +2,16 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-localStorage.setItem('offset', 4);
+let isFirst = true;
 
 const getData = async (api) => {
-  return fetch(`${api}?offset=${localStorage.getItem('offset')}&limit=10`)
-    .then(response => {
-      localStorage.setItem('offset', parseInt(localStorage.getItem('offset')) + 10);
-      return response.json();
-    })
+  if (!isFirst) localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
+  isFirst = false;
+
+  return fetch(`${api}?offset=${localStorage.getItem('pagination')}&limit=10`)
+    .then(response => response.json())
     .catch(error => {
-      localStorage.setItem('offset', parseInt(localStorage.getItem('offset')) + 10);
+      localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
       console.log(error);
     });
 }
@@ -30,20 +30,24 @@ const loadData = async () => {
     `;
   });
   let newItem = document.createElement('section');
-  newItem.classList.add('Item');
-  newItem.innerHTML = output;
+  newItem.classList.add('Items');
+  newItem.innerHTML = output.join('');
   $app.appendChild(newItem);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
-  loadData();
-  if (localStorage.getItem('offset') >= 200) {
-    intersectionObserver.unobserve($observe);
-    let newItem = document.createElement('section');
-    newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
-    $app.appendChild(newItem);
-  }
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      loadData();
+      if (localStorage.getItem('pagination') >= 200) {
+        intersectionObserver.unobserve($observe);
+        let newItem = document.createElement('section');
+        newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
+        $app.appendChild(newItem);
+      }
+    }
+  })
 }, {
   rootMargin: '0px 0px 100% 0px',
 });

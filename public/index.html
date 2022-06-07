@@ -19,8 +19,9 @@
 </body>
 
 <script type="text/javascript">
+  localStorage.setItem('pagination', '5');
   window.onbeforeunload = function () {
-  localStorage.clear();
+    localStorage.clear();
     return null;
   }
 </script>
