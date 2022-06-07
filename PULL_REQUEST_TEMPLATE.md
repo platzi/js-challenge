@@ -8,8 +8,8 @@ Correo Electronico: gtrujilloca@gmail.com
 
 ## Reto:
 
-- [✓] Primer problema
-- [✓] Segundo problema
-- [✓] Tercer problema
-- [✓] Cuarto Problema
-- [✓] Quinto Problema
+- ✅ Primer problema
+- ✅ Segundo problema
+- ✅ Tercer problema
+- ✅ Cuarto Problema
+- ✅ Quinto Problema
