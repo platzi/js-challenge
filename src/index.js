@@ -17,6 +17,12 @@ const getData = async (api) => {
       // template
       return (`<article class="Card"><img src="${product.images[0]}" /><h2>${product.title}<small>$ ${product.price}</small></h2></article>`);
     });
+
+    if(output.length == 0){
+      output = "<p>Todos los productos Obtenidos</p>";
+      unObserve();
+    }
+    // console.log("OUTPUT A LA VERGA ", output);
     let newItem = document.createElement('section');
     newItem.classList.add('Item');
     newItem.innerHTML = output;
@@ -66,3 +72,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+const unObserve = () => {
+  intersectionObserver.unobserve($observe);
+}
