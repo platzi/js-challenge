@@ -14,15 +14,7 @@ const getData = async api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map(product => {
-        return `<article class="Card">
-          <img alt=${product.description} src="${product.images?.length > 0 ? product.images[0] : undefined}" />
-          <h2>
-            ${product.title}
-            <small>$ ${product.price}</small>
-          </h2>
-        </article>`;
-      });
+      let output = products.map(product => productToHtmlCard(product));
 
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
@@ -39,6 +31,17 @@ const getData = async api => {
       }
     })
     .catch(error => console.log(error));
+}
+
+const productToHtmlCard = (product) => {
+  let image = product.images?.length > 0 ? product.images[0] : "";
+  return `<article class="Card">
+        <img alt=${product.description} src="${image}" />
+        <h2>
+          ${product.title}
+          <small>$ ${product.price}</small>
+        </h2>
+      </article>`;
 }
 
 const loadData = async () => {
