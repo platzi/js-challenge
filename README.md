@@ -1,3 +1,7 @@
+### Publicado en
+
+https://js-challenge-one.vercel.app/
+
 # PlatziStore
 
 Somos comercio en línea con una gran cantidad de productos a comercializar. Estamos por lanzar nuestra implementación y necesitamos resolver los problemas que presenta nuestra aplicación.
