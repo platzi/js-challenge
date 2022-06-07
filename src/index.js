@@ -5,12 +5,11 @@ const DEFAULT_LIMIT = 10;
 const DEFAULT_OFFSET = 5;
 const PRODUCT_LIMIT = 200;
 
-const getData = async api => {
-  const pagination = localStorage.getItem('pagination');
-  const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_OFFSET : DEFAULT_OFFSET;
-  localStorage.setItem('pagination', currentOffset);
+const getData = async (api, offset, limit) => {
+  const url = api + `?limit=${limit}&offset=${offset}`;
+  console.log(url)
 
-  return fetch(api + `?limit=${DEFAULT_LIMIT}&offset=${currentOffset}`)
+  return fetch(url)
     .then(response => response.json())
     .then(response => {
       let products = response;
@@ -21,7 +20,7 @@ const getData = async api => {
       newItem.innerHTML = output;
       $app.appendChild(newItem);
 
-      if (currentOffset >= PRODUCT_LIMIT) {
+      if (offset >= PRODUCT_LIMIT) {
         let message = document.createElement('p');
         message.classList.add('LimitMessage');
         message.innerHTML = "Todos los productos Obtenidos"
@@ -45,7 +44,11 @@ const productToHtmlCard = (product) => {
 }
 
 const loadData = async () => {
-  await getData(API);
+  const pagination = localStorage.getItem('pagination');
+  const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_LIMIT : DEFAULT_OFFSET;
+  localStorage.setItem('pagination', currentOffset);
+  console.log('current', currentOffset, DEFAULT_LIMIT)
+  await getData(API, currentOffset, DEFAULT_LIMIT);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
