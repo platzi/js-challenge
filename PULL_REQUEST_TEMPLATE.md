@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: Js challenge for ethereum developer program
 
-Nombre:
+Nombre: Francisco Cruz
 Usuario Platzi:
-Correo Electronico:
+Correo Electronico: megafran@msn.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
 - [ ] Quinto Problema
