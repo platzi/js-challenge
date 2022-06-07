@@ -3,7 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 // Remove offset from localStorage on each load
-localStorage.removeItem('offset');
+localStorage.removeItem('pagination');
 
 const getData = async (api) => {
   try {
@@ -21,7 +21,7 @@ const getData = async (api) => {
             </article>`;
     });
     const newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
   } catch (error) {
@@ -33,14 +33,14 @@ const loadData = async () => {
   const limit = 10;
   const initialOffset = 5;
   const offset =
-    parseInt(localStorage.getItem('offset')) + limit || initialOffset;
+    parseInt(localStorage.getItem('pagination')) + limit || initialOffset;
 
   if (offset > 200) {
     alert('Todos los productos fueron obtenidos');
     return { disconect: true };
   }
 
-  localStorage.setItem('offset', offset);
+  localStorage.setItem('pagination', offset);
 
   const queryParams = new URLSearchParams({
     offset,
