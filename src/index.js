@@ -35,14 +35,14 @@ const getData = (api) => {
 };
 
 async function loadData() {
-  let indicador = localStorage.getItem("indicador");
+  let indicador = localStorage.getItem("pagination");
   if (!indicador) {
     indicador = offset;
   } else {
     indicador = parseInt(indicador) + limit;
   }
   getData(API + `?offset=${indicador}&limit=${limit}`);
-  localStorage.setItem("indicador", indicador);
+  localStorage.setItem("pagination", indicador);
 }
 function scrollFunction() {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
