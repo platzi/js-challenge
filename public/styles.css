@@ -33,7 +33,7 @@ body {
 }
 
 .Card img {
-  width: 100%;
+  width: 100px;
   height: auto;
   border-radius: 5px 5px 0 0;
 }
@@ -54,3 +54,4 @@ body {
     opacity: 1;
   }
 }
+
