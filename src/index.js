@@ -30,9 +30,9 @@ const getData = async (api) => {
   isLoading = false;
 };
 
-const loadData = () => {
+const loadData = async () => {
   if (!isLoading) {
-    getData(API);
+    await getData(API);
   }
 };
 
