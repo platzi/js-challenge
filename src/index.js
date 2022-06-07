@@ -4,7 +4,7 @@ const $message = document.getElementById("message");
 const API = "https://api.escuelajs.co/api/v1/products";
 
 localStorage.removeItem('pagination')
-let offset = 4;
+let offset = 5;
 localStorage.setItem('pagination', offset)
 
 const getData = (async (api) => {
