@@ -2,6 +2,12 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
+// BORRAR PAGINATION DEL LOCAL STORAGE SI EXISTE
+const localPagination = window.localStorage.getItem("pagination");
+if(localPagination){
+  window.localStorage.removeItem("pagination");
+}
+
 const getData = api => {
   fetch(api)
     .then(response => response.json())
@@ -9,6 +15,7 @@ const getData = api => {
       let products = response;
       let output = products.map(product => {
         // template
+        return (`<article class="Card"><img src="${product.images[0]}" /><h2>${product.title}<small>$ ${product.price}</small></h2></article>`);
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
@@ -49,6 +56,10 @@ const loadData = () => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
+  const first = entries[0];
+  if(first.isIntersecting){
+    loadData();
+  }
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
