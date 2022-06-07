@@ -21,8 +21,10 @@ const getData = async (api) => {
     if(output.length == 0){
       output = "<p>Todos los productos Obtenidos</p>";
       unObserve();
+    } else {
+      output = output.join("");
     }
-    // console.log("OUTPUT A LA VERGA ", output);
+
     let newItem = document.createElement('section');
     newItem.classList.add('Item');
     newItem.innerHTML = output;
