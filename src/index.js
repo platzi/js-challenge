@@ -3,7 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 
-window.addEventListener('load', () => { localStorage.clear() });
+window.addEventListener('load', () => { localStorage.setItem("pagination", 5) });
 
 const handleAllProductsFetched = () => {
   $observe.innerHTML = "Todos los productos Obtenidos";
