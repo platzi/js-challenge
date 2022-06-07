@@ -8,7 +8,6 @@ const getData = async api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        console.log(product.images[0])
         return `<article class="Card">
           <img src="${product.images?.length > 0 ? product.images[0] : undefined}" />
           <h2>
@@ -18,7 +17,7 @@ const getData = async api => {
         </article>`;
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
