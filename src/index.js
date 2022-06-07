@@ -1,19 +1,20 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+
+//Initial Values for the pagination/API petition
 const limit = 10
-let offset = 180
-const storage = localStorage.getItem('offset');
+const initialOffset = 4
 
+//init the local storage 
+localStorage.setItem('offset', initialOffset);
 
-
+//get the data from the API
 const getData = api => {
   fetch(api)
     .then(response => response.json())
     .then(response => {
-      console.log(response);
       let products = response;
-
       let output = products.map(product => {
         
         //cardItemElement
@@ -36,36 +37,38 @@ const getData = api => {
         cardItem.appendChild(small);
         
         return cardItem;
-      });
+      }
+      );
 
-      console.log(output);
-
+      // Append the fetch petition elements to DOM 
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.append(...output);
       $app.appendChild(newItem);
+
+      // If the petition contains 9 or less elements means that there are no more elements to load so we said it to user and disconnect the scroll event
+      if (products.length <= 9) {
+        const container = document.createElement('section');
+        container.innerText = 'Todos los productos Obtenidos';
+        container.classList.add('last-products');
+        $app.appendChild(container);
+        intersectionObserver.disconnect($observe);
+
+      } 
     })
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  localStorage.setItem('offset', offset);
-  getData(`${API}/?limit=${limit}&offset=${offset}`);
-  console.log({storage});
-  offset += limit;
-  localStorage.setItem('offset', offset);
-  console.log({storage});
+//Function that will be called when the user scrolls the page, and set the new pagination on localStorage 
+const loadData = async () => {
+  await getData(`${API}/?limit=${limit}&offset=${localStorage.getItem('offset')}`);
+
+  const newPagination = parseInt(localStorage.getItem('offset')) + limit;
+  localStorage.setItem('offset', newPagination); 
 }
 
 
-
-let options = {
-  root: document.querySelector('#scrollArea'),
-  rootMargin: '0px',
-  threshold: 1.0
-}
-
-
+//intersectionObserver
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -76,4 +79,5 @@ const intersectionObserver = new IntersectionObserver(entries => {
   rootMargin: '0px 0px 100% 0px',
 });
 
+// Start to observe the element
 intersectionObserver.observe($observe);

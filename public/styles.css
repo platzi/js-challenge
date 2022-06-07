@@ -53,6 +53,12 @@ body {
   padding: 10px;
 }
 
+.last-products {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px
+}
+
 @keyframes fade {
   from {
     opacity: 0;
