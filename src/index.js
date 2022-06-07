@@ -1,56 +1,65 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
-const $message = document.getElementById("message");
 const API = "https://api.escuelajs.co/api/v1/products";
 
 localStorage.clear();
 
 
-const getData = (async (api, offset, limit = 10) => {
-  const response = await fetch(`${api}?offset=${offset}&limit=${limit}`)
-  const data = await response.json()
-  localStorage.setItem('pagination', offset)
-  let products = data;
-  let output = products.map((product) => {
-    return `
-        <article class="Card">
-        <img src="${product.category.image}" />
-        <h2>
-          ${product.title}
-          <small>$ ${product.price}</small>
-        </h2>
-      </article>
-        `;
-  })
-
-  let newItem = document.createElement("section");
-  newItem.classList.add("Items");
-  newItem.innerHTML = output;
-  $app.appendChild(newItem);
-  if (products.length < 10) {
-    $message.style.display = 'block'
-    intersectionObserver.disconnect()
+const getData = async (api) => {
+  try {
+    const response = await fetch(api);
+    const products = await response.json();
+    const output = products.map((product) => {
+      // Product with id=201 or more is not valid
+      if (product.id > 200) return;
+      return `<article class='Card'>
+              <img src='${product.images[0]}' alt='${product.title}' />
+              <h2>
+                ${product.title}
+                <small>$ ${product.price}</small>
+              </h2>
+            </article>`;
+    });
+    const newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = output.join('');
+    $app.appendChild(newItem);
+  } catch (error) {
+    console.error(error);
   }
-})
+};
 
-const loadData = () => {
-  getData(API);
+const loadData = async () => {
+  const limit = 10;
+  const initialOffset = 5;
+  const offset =
+    parseInt(localStorage.getItem('pagination')) + limit || initialOffset;
+
+  if (offset > 200) {
+    alert('Todos los productos fueron obtenidos');
+    return { disconect: true };
+  }
+
+  localStorage.setItem('pagination', offset);
+
+  const queryParams = new URLSearchParams({
+    offset,
+    limit,
+  });
+
+  await getData(API + '?' + queryParams);
+  return { disconect: false };
 };
 
 const intersectionObserver = new IntersectionObserver(
-  async (entries) => {
-
+  (entries, observer) =>
     entries.forEach(async (entry) => {
       if (entry.isIntersecting) {
-        const offsetFromLS = localStorage.getItem('pagination')
-        const offset = offsetFromLS ? Number(offsetFromLS) + 10 : 5
-        await getData(API, offset)
+        const { disconect } = await loadData();
+        disconect && observer.disconnect();
       }
-    })
-  },
-  {
-    rootMargin: "0px 0px 100% 0px",
-  }
+    }),
+  { rootMargin: '0px 0px 100% 0px' }
 );
 
 intersectionObserver.observe($observe);
