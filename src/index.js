@@ -14,15 +14,13 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        return `
-          <article id="${product.id}" class="Card">
+        return `<article id="${product.id}" class="Card">
             <img src="${product.images[0]}" alt="${product.title}" />
             <h2>
               Producto ${product.title}
               <small>$ ${product.price}</small>
             </h2>
-          </article>
-        `
+          </article>`
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
