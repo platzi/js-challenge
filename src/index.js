@@ -1,6 +1,9 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
+const limitProducts = 200;
+const incrementOffset = 10;
+const defaultOffset = 5;
 window.onbeforeunload = closeIt;
 
 const getData = async (api) => {
@@ -48,9 +51,14 @@ const loadData = async () => {
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
+    if (getOffset() > limitProducts) {
+      showMessage('"Todos los productos obtenidos"');
+      intersectionObserver.disconnect();
+      return;
+    }
     if (entries[0].isIntersecting) {
-      getData(getURL(getOffset(), 10));
-      setOffset(getOffset() + 5);
+      getData(getURL(getOffset(), incrementOffset));
+      setOffset(getOffset() + incrementOffset);
     }
   },
   {
@@ -60,8 +68,12 @@ const intersectionObserver = new IntersectionObserver(
 
 intersectionObserver.observe($observe);
 
+const showMessage = (message) => {
+  window.alert(message);
+};
+
 const getOffset = () => {
-  const offset = localStorage.getItem("offset") || "5";
+  const offset = localStorage.getItem("offset") || defaultOffset;
   return Number(offset);
 };
 
