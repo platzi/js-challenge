@@ -23,7 +23,7 @@ const getData = async (api, limit, offset) => {
     });
     let newItem = document.createElement('section');
     newItem.classList.add('Item');
-    newItem.innerHTML = `<main class="Main">${output.join("")}</main>`;
+    newItem.innerHTML = output.join("");
     $app.appendChild(newItem);
   } catch (error) {
     console.log(error);
