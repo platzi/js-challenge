@@ -40,14 +40,14 @@ const loadData = async (offset) => {
     console.log(error);
   }
 }
-localStorage.setItem('pagination', '6');
-loadData(6);
+localStorage.setItem('pagination', '5');
+loadData(5);
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   if(entries[0].intersectionRect.bottom > 100) {
     const pageStore = localStorage.getItem('pagination');
-    const pag = pageStore ? parseInt(pageStore) : 6;
+    const pag = pageStore ? parseInt(pageStore) : 5;
     loadData(pag);
     localStorage.setItem('pagination', (pag + 10).toString());
     if (pag + 10 >= 200) {
