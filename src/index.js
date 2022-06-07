@@ -39,8 +39,8 @@ const getData = async api => {
   }
 }
 
-const loadData = () => {
-  getData(`${API}?offset=${offset}&limit=${limit}`);
+const loadData = async () => {
+  await getData(`${API}?offset=${offset}&limit=${limit}`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
