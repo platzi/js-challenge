@@ -2,48 +2,47 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-localStorage.setItem('pagination', 5);
+
 
 const getData = async api => {
-  try {
-    const response = await fetch(api)
-    const data = await response.json();
-    buildProducts(data)
-  } catch(e) {
-    console.log(e);
-  }
+  let limit = 10;
+  let offset =  localStorage.getItem('pagination')?  parseInt(localStorage.getItem('pagination')) + limit : 5;
+  localStorage.setItem('pagination', offset);
+
+  fetch(api + `?offset=${offset}&limit=${limit}`)
+    .then(response => response.json())
+    .then(response => {
+      let products = response;
+      let output = products.map(product => {
+        return`
+          <article class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>
+          `;
+      });
+      let newItem = document.createElement('section');
+      newItem.classList.add('Items');
+      newItem.innerHTML = output;
+      $app.appendChild(newItem);
+
+      if(offset + limit >= 30) {
+        intersectionObserver.disconnect();
+        let newItem = document.createElement('section');
+        newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
+        $app.appendChild(newItem);
+      } 
+    })
+    .catch(error => console.log(error));
 }
 
-const buildProducts = products =>{
-  let output = products.map(product => {
-    return`
-    <article class="Card">
-      <img src="${product.images[0]}" />
-      <h2>
-        ${product.title}
-        <small>$ ${product.price}</small>
-      </h2>
-    </article>
-    `;
-  });
-  let newItem = document.createElement('section');
-  newItem.classList.add('Items');
-  newItem.innerHTML = output;
-  $app.appendChild(newItem);
-}
+
 
 const loadData = async () => {
-  let offset = localStorage.getItem('pagination');
-  let limit = 10;
-  let api = API + `?offset=${offset}&limit=${limit}`
-  await getData(api);
-  localStorage.setItem('pagination', parseInt(offset) + limit);
-  if(parseInt(offset) + limit >= 200) {
-    intersectionObserver.disconnect();
-    let newItem = document.createElement('section');
-    newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
-    $app.appendChild(newItem);
-  } 
+  await getData(API);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
