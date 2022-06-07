@@ -44,7 +44,10 @@ const intersectionObserver = new IntersectionObserver(entries => {
   if (pagination < 200){
     loadData(pagination)
   } else {
-    alert("Todos los productos Obtenidos")
+    let newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = '<h2>Todos los productos Obtenidos</h2>';
+    $app.appendChild(newItem);
     intersectionObserver.unobserve($observe)
   }
 }, {
