@@ -43,7 +43,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
     if (localStorage.getItem('pagination') > TOTAL_PRODUCTS) {
       alert('Todos los productos Obtenidos');
       intersectionObserver.unobserve($observe);
-      $app.innerHTML += '<h2 style="text-align:center;">Todos los productos Obtenidos</h2>';
+      $app.innerHTML += '<h1 style="text-align:center;">Se han obtenido todos los productos</h1>';
     }
     if (entries[0].isIntersecting) {
       loadData();
