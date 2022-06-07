@@ -54,3 +54,14 @@ body {
     opacity: 1;
   }
 }
+
+.alert {
+  background-color: rgb(2, 209, 140);
+  padding: 16px;
+}
+
+.alert .alert-text {
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
