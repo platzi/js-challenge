@@ -5,6 +5,7 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const initalLimit = 4;
 const Limit = 10;
 var Page = 0;
+var count = 4;
 
 const createUrl = (limit = Limit, offset = initalLimit) => {
   return `${API}?offset=${offset}&limit=${limit}`;
@@ -40,6 +41,7 @@ const getData = async (offset) => {
 
 const loadData = () => {
   const offset = addPage();
+  count = offset;
   getData(offset);
 };
 
@@ -48,6 +50,9 @@ const intersectionObserver = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         loadData();
+        if (count >= 200) {
+          unobserve();
+        }
       }
     });
   },
@@ -57,13 +62,20 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 function Card(product) {
+  if (product.id < 201) {
+    return `
+          <article class="Card">
+            <img src="${product.images[0]}" alt="${product.title}"/>
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}.00</small>
+            </h2>
+          </article>`;
+  }
+
   return `
   <article class="Card">
-    <img src="${product.images[0]}" alt="${product.title}"/>
-    <h2>
-      ${product.title}
-      <small>$ ${product.price}.00</small>
-    </h2>
+    <h2 >Todos los productos Obtenidos</h2>
   </article>`;
 }
 
@@ -72,6 +84,10 @@ function ClearLocalStorage() {
     localStorage.removeItem("pagination");
     return "";
   };
+}
+
+function unobserve() {
+  intersectionObserver.unobserve($observe);
 }
 
 intersectionObserver.observe($observe);
