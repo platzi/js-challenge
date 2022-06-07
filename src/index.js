@@ -2,29 +2,32 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = api => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      let output = products.map((product) => {
-        return `<article class='Card'>
-            <img src='${product.images[0]}' alt='${product.title}' />
-            <h2>
-              ${product.title}
-              <small>$ ${product.price}</small>
-            </h2>
-          </article>`;
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output.join('');
-      $app.appendChild(newItem);
-    })
-    .catch((error) => console.log(error));
+// Remove offset from localStorage on each load
+localStorage.removeItem('offset');
+
+const getData = async (api) => {
+  try {
+    const response = await fetch(api);
+    const products = await response.json();
+    const output = products.map((product) => {
+      return `<article class='Card'>
+              <img src='${product.images[0]}' alt='${product.title}' />
+              <h2>
+                ${product.title}
+                <small>$ ${product.price}</small>
+              </h2>
+            </article>`;
+    });
+    const newItem = document.createElement('section');
+    newItem.classList.add('Item');
+    newItem.innerHTML = output.join('');
+    $app.appendChild(newItem);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-const loadData = () => {
+const loadData = async () => {
   const limit = 10;
   const initialOffset = 5;
   const offset =
@@ -37,7 +40,7 @@ const loadData = () => {
     limit,
   });
 
-  getData(API + '?' + queryParams);
+  await getData(API + '?' + queryParams);
 };
 
 const intersectionObserver = new IntersectionObserver(
