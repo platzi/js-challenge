@@ -2,17 +2,21 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const STEP = 10;
-let pagination = 5;
+const totalProducts = 200;
+localStorage.clear();
+localStorage.setItem('pagination', 4);
+
 
 const getData = async (api) => {
-  const response = await fetch(`${api}?offset=${pagination}&limit=${STEP}`);
+  let offset = parseInt(localStorage.getItem('pagination'));
+  const response = await fetch(`${api}?offset=${offset}&limit=${STEP}`);
   try {
     const products = await response.json();
     let newItem = document.createElement('section');
     newItem.classList.add('Item');
-    products.forEach(element => newItem.appendChild(createCard(element)));
+    products.forEach(element => (element.id <= totalProducts) ? newItem.appendChild(createCard(element)) : console.log('Fuera de rango') );
     $app.appendChild(newItem);
-    pagination += STEP;
+    localStorage.setItem('pagination', (offset + STEP));
   } catch (error) {
     console.log(error)
   }
@@ -38,6 +42,10 @@ const loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
+    if (localStorage.getItem('pagination') > totalProducts) {
+      alert('Todos los productos Obtenidos');
+      intersectionObserver.unobserve($observe);
+    }
     if (entries[0].isIntersecting) {
       loadData();
     }
