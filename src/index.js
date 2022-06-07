@@ -8,9 +8,8 @@ var isLoading = false;
 const getData = async (api) => {
   let page = parseInt(localStorage.getItem("pagination"));
   isLoading = true;
-  let start = -5 + 10 * page;
 
-  for (let i = start; i < start + 10; i++) {
+  for (let i = page; i < page + 10; i++) {
     let res = await fetch(api + "/" + i);
     let data = await res.json();
     let newItem = document.createElement("section");
@@ -51,7 +50,7 @@ const intersectionObserver = new IntersectionObserver(
     }
     if (entries[0].isIntersecting) {
       loadData();
-      let newPage = page + 1;
+      let newPage = page + 10;
       itemCount += 10;
       localStorage.setItem("pagination", newPage);
     }
@@ -61,6 +60,6 @@ const intersectionObserver = new IntersectionObserver(
   }
 );
 
-localStorage.setItem("pagination", 1);
+localStorage.setItem("pagination", 5);
 loadData();
 intersectionObserver.observe($observe);
