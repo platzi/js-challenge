@@ -1,6 +1,16 @@
+
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const DOMAIN = "https://api.escuelajs.co/api/v1/products"
+
+// paginator
+let page = 0;
+const initialElements = 5;
+const elementsPerPage = 10;
+
+let intersectionObserverOptions = {
+  rootMargin: "0px",
+};
 
 const getData = api => {
   fetch(api)
@@ -8,8 +18,9 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        // template
-      });
+        return `<h1>${product.title}</h1>`
+      }).join(" ");
+
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = output;
@@ -18,14 +29,14 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
+const loadData = (OFFSET=initialElements, LIMIT=elementsPerPage) => {
+  const API = `${DOMAIN}?offset=${OFFSET}&limit=${LIMIT}`;
   getData(API);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
-
+  const offset = page * (initialElements + elementsPerPage) || initialElements;
+  loadData(OFFSET=offset);
+  page += 1;
+}, intersectionObserverOptions);
 intersectionObserver.observe($observe);
