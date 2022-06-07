@@ -2,30 +2,30 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products?limit=10';
 
-const getData = (api, offset) => {
+const getData = async (api, offset) => {
   api += `&offset=${offset}`;
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-        let newItem = document.createElement('article');
-        newItem.classList.add('Card');
-        newItem.innerHTML = `
+  try {
+    const response = await fetch(api);
+    const responseJson = await response.json();
+    let products = responseJson;
+    let output = products.map(product => {
+      // template
+      let newItem = document.createElement('article');
+      newItem.classList.add('Card');
+      newItem.innerHTML = `
           <img src="${product.images[0]}" />
             <h2>
-            <b>[${product.id}]</b>
             ${product.title}
               <small>$ ${product.price}</small>
             </h2>
         `;
-        return newItem;
-      });
-      let items = $app.getElementsByClassName('Items')[0];
-      output.forEach(item => items.appendChild(item));
-    })
-    .catch(error => console.log(error));
+      return newItem;
+    });
+    return output;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
 
 const getPage = () => {
@@ -35,9 +35,11 @@ const getPage = () => {
 
 const setPage = page => window.localStorage.setItem('pagination', page);
 
-const loadData = () => {
+const loadData = async () => {
   let page = getPage();
-  getData(API, page);
+  let data = await getData(API, page);
+  let items = $app.getElementsByClassName('Items')[0];
+  data.forEach(item => items.appendChild(item));
   setPage(page + 10);
 }
 
@@ -51,3 +53,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+(() => {
+  window.localStorage.clear();
+})();
