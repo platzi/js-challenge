@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://cuo-uz.github.io/js-challenge/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Ignacio Presas
+Usuario Platzi: cu_ouz
+Correo Electronico: ignacio_0701@hotmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [HECHO] Primer problema
+- [HECHO] Segundo problema
+- [HECHO] Tercer problema
+- [HECHO] Cuarto Problema
+- [HECHO] Quinto Problema
