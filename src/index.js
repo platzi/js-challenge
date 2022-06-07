@@ -4,7 +4,7 @@ const $observe = document.getElementById('observe');
 const DOMAIN = "https://api.escuelajs.co/api/v1/products"
 
 // paginator
-let page = 0;
+localStorage.setItem('pagination', 0);
 const initialElements = 5;
 const elementsPerPage = 10;
 
@@ -35,8 +35,11 @@ const loadData = (OFFSET=initialElements, LIMIT=elementsPerPage) => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
+  let page = parseInt(localStorage.getItem('pagination'));
   const offset = page * (initialElements + elementsPerPage) || initialElements;
+
   loadData(OFFSET=offset);
-  page += 1;
+
+  localStorage.setItem('pagination', page += 1);
 }, intersectionObserverOptions);
 intersectionObserver.observe($observe);
