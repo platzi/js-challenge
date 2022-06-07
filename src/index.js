@@ -2,7 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-localStorage.setItem('productsIndex', 187);
+localStorage.setItem('productsIndex', 4);
 const PRODUCTS_TO_FETCH = 10;
 
 const $itemsContainer = document.createElement('div');
