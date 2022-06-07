@@ -12,41 +12,40 @@ const getData =async api => {
   ?parseInt(localStorage.getItem('pagination'))+nProducts
   :firstProduct
   localStorage.setItem('pagination',offsetProduct);
-  console.log('offset',offsetProduct)
-  try {
-  const response = await fetch(`${api}?offset=${offsetProduct}&limit=${nProducts}`); 
-      let products = await response.json();
-      let output = products.map(product => {
-        return `<article class="Card">
-        <img src="${product.images[0]}" alt="${product.title}" />
-        <h2>
-          ${product.title}
-          <small>$ ${product.price}</small>
-        </h2>
-      </article>`
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Items');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    
-  } catch (error){
-    console.log(error)
+  //console.log('offset',offsetProduct)
+  if(offsetProduct<=maxProducts){
+    try {
+    const response = await fetch(`${api}?offset=${offsetProduct}&limit=${nProducts}`); 
+        let products = await response.json();
+        let output = products.map(product => {
+          return `<article class="Card">
+          <img src="${product.images[0]}" alt="${product.title}" />
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>`
+        });
+        let newItem = document.createElement('section');
+        newItem.classList.add('Items');
+        newItem.innerHTML = output.join('');
+        $app.appendChild(newItem);
+      
+    } catch (error){
+      console.log(error)
+    }
+  }else{
+    let newItem= document.createElement('div');
+    newItem.classList.add('msg');
+    newItem.style.textAlign= 'center';
+    newItem.innerHTML= "Todos los productos Obtenidos";
+    $app.appendChild(newItem);
+    $observe.remove();
   }
 }
 
 const loadData = async() => {
-  if (parseInt(localStorage.getItem('pagination'))>=200){
-    let newItem = document.createElement('div');
-    newItem.classList.add('msg');
-    newItem.style.textAlign = 'center';
-    newItem.innerHTML = "Todos los productos Obtenidos";
-    $app.appendChild(newItem);
-    $observe.remove();
-  }else{
     getData(API);
-  }
-    
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
@@ -54,6 +53,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   //console.log('entries',entries)
   if (entries[0].isIntersecting) loadData();
 }, {
+  threshold: 1,
   rootMargin: '0px 0px 100% 0px',
 });
 
