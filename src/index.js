@@ -5,7 +5,7 @@ const initalPagination = 5
 const limit = 10
 localStorage.clear()
 
-const getData = async (api) => {
+const getData = (api) => {
 
   let pagination = Number(localStorage.getItem('pagination'))
   if (!pagination) {
@@ -32,7 +32,10 @@ const getData = async (api) => {
 
       });
       if(products.length == 0){
-        alert('Todos los productos Obtenidos')
+        let newMessage = document.createElement('span');
+        newMessage.innerHTML = 'Todos los productos Obtenidos';
+        $app.appendChild(newMessage);
+        intersectionObserver.unobserve($observe);
         intersectionObserver.disconnect()
       }
       let newItem = document.createElement('section');
