@@ -1,10 +1,8 @@
- localStorage.removeItem('pagination')
- localStorage.setItem('pagination', 5);
 
- window.onbeforeunload = function () {
-  console.log("action");
- }
 
+window.onbeforeunload = () => {
+  localStorage.clear();
+}
 
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
@@ -12,8 +10,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 const PRODUCTS_PER_PAGE = 10;
-let OFFSET = localStorage.getItem('pagination');
-
+let OFFSET = Number(localStorage.getItem('pagination'));
 
 const formatProductDataToHTML = product => `
   <article class="Card">
@@ -26,19 +23,16 @@ const formatProductDataToHTML = product => `
 `;
 
 const getProducts = async api => {
-  let OFFSET = Number(localStorage.getItem('pagination'));
   try {
-    const URL = `${api}?offset=${OFFSET}&limit=${PRODUCTS_PER_PAGE}`;
-    const response = await fetch(URL, { mode: "no-cors" });
+    const URL = `${api}?offset=${OFFSET > 0 ? OFFSET + PRODUCTS_PER_PAGE : 5}&limit=${PRODUCTS_PER_PAGE}`;
+    const response = await fetch(URL);
 
     const products = await response.json();
 
     let productsHTML = products.map(formatProductDataToHTML);
 
-    localStorage.setItem('pagination', OFFSET + PRODUCTS_PER_PAGE);
-
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = productsHTML.join('');
     $app.appendChild(newItem);
 
@@ -52,8 +46,15 @@ const getProducts = async api => {
 
 const loadMoreProducts = async () => {
   try {
-   const metadata =  await getProducts(API);
-
+    const metadata =  await getProducts(API);
+    console.log(OFFSET)
+    if (OFFSET == 0) {
+      OFFSET = 5;
+      localStorage.setItem('pagination', OFFSET);
+    } else {
+      OFFSET = OFFSET + PRODUCTS_PER_PAGE
+      localStorage.setItem('pagination', OFFSET);
+    }
     if (metadata?.allProductsReady) {
       $observe.remove();
       let newItem = document.createElement('div');
