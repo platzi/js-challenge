@@ -15,9 +15,6 @@ const getData = async api => {
   try {
     const response = await fetch(api);
     const products = await response.json();
-    console.log('====================================');
-    console.log(products);
-    console.log('====================================');
     const output = products.map(product => {
       // template
       const article = document.createElement('article');
