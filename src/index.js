@@ -4,17 +4,18 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 let firstProduct=5;
 const nProducts=10;
 const maxProducts=200;
+localStorage.clear('pagination');
 
-const getData = api => {
+
+const getData =async api => {
   const offsetProduct=localStorage.getItem('pagination')!=null
-  ?localStorage.getItem('pagination')+nProducts
+  ?parseInt(localStorage.getItem('pagination'))+nProducts
   :firstProduct
   localStorage.setItem('pagination',offsetProduct);
   console.log('offset',offsetProduct)
-  fetch(`${api}?offset=${offsetProduct}&limit=${nProducts}`)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
+  try {
+  const response = await fetch(`${api}?offset=${offsetProduct}&limit=${nProducts}`); 
+      let products = await response.json();
       let output = products.map(product => {
         return `<article class="Card">
         <img src="${product.images[0]}" alt="${product.title}" />
@@ -28,11 +29,13 @@ const getData = api => {
       newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+    
+  } catch (error){
+    console.log(error)
+  }
 }
 
-const loadData = () => {
+const loadData = async() => {
     getData(API);
 }
 
