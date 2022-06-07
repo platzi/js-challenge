@@ -7,7 +7,7 @@ localStorage.setItem("pagination", '5');
 let first_time = true;
 
 const getData = api => {
-  fetch(api)
+  return fetch(api)
     .then(response => response.json())
     .then(response => {
       let products = response;
@@ -27,22 +27,18 @@ const getData = api => {
       newItem.classList.add('Items');
       newItem.innerHTML = output.join(" ");
       $app.appendChild(newItem);
-
-      if (products.length < 10) {
-        intersectionObserver.disconnect();
-      }
     })
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
+const loadData = async () => {
   const LIMIT = 10;
 
   if (!first_time) localStorage.setItem("pagination", parseInt(localStorage.getItem("pagination")) + LIMIT);
 
-  let offset = localStorage.getItem("pagination");
+  let offset = localStorage.getItem("pagination") || 5;
 
-  getData(API + `?offset=${offset}` + `&limit=${LIMIT}`); 
+  await getData(API + `?offset=${offset}` + `&limit=${LIMIT}`); 
 
   first_time = false;
 }
