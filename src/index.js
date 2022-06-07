@@ -16,7 +16,7 @@ const viewProducts = (products) => {
     `
   });
   let newItem = document.createElement('section');
-  newItem.classList.add('Item');
+  newItem.classList.add('Items');
   newItem.innerHTML = output;
   $app.appendChild(newItem);
 }
@@ -42,16 +42,22 @@ const loadData = async (offset) => {
   }
 }
 
+localStorage.setItem('pagination', '5');
+loadData(5);
+
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
-  const pagStore = localStorage.getItem('pagination');
-  const pag = pagStore ? parseInt(pagStore) : 5;
-  loadData(pag);
-  localStorage.setItem('pagination', (pag + 10).toString());
-  if (pag + 10 >= 200) {
-    intersectionObserver.unobserve($observe);
-    intersectionObserver.disconnect();
-    alert('Todos los productos Obtenidos')
+  // console.log(entries[0].intersectionRect.bottom)
+  if(entries[0].intersectionRect.bottom > 100) {
+    const pagStore = localStorage.getItem('pagination');
+    const pag = pagStore ? parseInt(pagStore) : 5;
+    loadData(pag);
+    localStorage.setItem('pagination', (pag + 10).toString());
+    if (pag + 10 >= 200) {
+      intersectionObserver.unobserve($observe);
+      intersectionObserver.disconnect();
+      alert('Todos los productos Obtenidos')
+    }
   }
 }, {
   rootMargin: '0px 0px 100% 0px',
