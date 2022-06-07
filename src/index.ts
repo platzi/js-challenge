@@ -20,6 +20,10 @@ const storePagination = (pagination: number) => {
   localStorage.setItem(PAGINATION_KEY, pagination.toString());
 };
 
+const clearLocalStorage = () => {
+  localStorage.clear();
+};
+
 const calcOffset = (
   page: number,
   initialOffset: number,
@@ -94,3 +98,4 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+clearLocalStorage();
