@@ -4,18 +4,18 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const STEP = 10;
 let pagination = 5;
 
-const getData = (api) => {
-  fetch(`${api}?offset=${pagination}&limit=${STEP}`)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      products.forEach(element => newItem.appendChild(createCard(element)));
-      $app.appendChild(newItem);
-      pagination += STEP;
-    })
-    .catch(error => console.log(error));
+const getData = async (api) => {
+  const response = await fetch(`${api}?offset=${pagination}&limit=${STEP}`);
+  try {
+    const products = await response.json();
+    let newItem = document.createElement('section');
+    newItem.classList.add('Item');
+    products.forEach(element => newItem.appendChild(createCard(element)));
+    $app.appendChild(newItem);
+    pagination += STEP;
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const createCard = (element) => {
@@ -33,8 +33,8 @@ const createCard = (element) => {
   return newCard;
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = async () => {
+  await getData(API);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
