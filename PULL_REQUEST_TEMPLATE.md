@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Daniel Osvaldo Deve
+Usuario Platzi: bartu
+Correo Electronico: bartulin@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [✔️] Primer problema
+- [✔️] Segundo problema
+- [✔️] Tercer problema
+- [✔️] Cuarto Problema
+- [✔️] Quinto Problema
