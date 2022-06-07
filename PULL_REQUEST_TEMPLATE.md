@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Enrique Castillo Ruiz
+Usuario Platzi: EnriqueCast
+Correo Electronico: enrique.castillo.itcm@gmail.com
 
 ## Reto:
 
