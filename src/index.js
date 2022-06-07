@@ -47,8 +47,10 @@ const intersectionObserver = new IntersectionObserver(
     if (offset < 200) {
       loadData(offset);
     } else {
-      alert("Todos los productos Obtenidos");
       intersectionObserver.unobserve($observe);
+      let newItem = document.createElement('section');
+      newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
+      $app.appendChild(newItem);
       return;
     }
   },
