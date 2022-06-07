@@ -20,7 +20,7 @@ const getData = async (api) => {
     $grid.setAttribute("id", "grid");
     $app.appendChild($grid);
   }
-  const offset = parseInt(localStorage.getItem("page"));
+  const offset = parseInt(localStorage.getItem("pagination"));
   if (offset === 205) {
     handleAllProductsFetched();
     return;
@@ -58,12 +58,12 @@ const createProduct = (product) => {
 const nextPage = () => {
 
 
-  const actualPage = localStorage.getItem("page");
+  const actualPage = localStorage.getItem("pagination");
   if (!actualPage) {
-    localStorage.setItem("page", 5);
+    localStorage.setItem("pagination", 5);
     return;
   }
-  localStorage.setItem("page", parseInt(actualPage) + 10);
+  localStorage.setItem("pagination", parseInt(actualPage) + 10);
 
 }
 
