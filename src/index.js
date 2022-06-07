@@ -7,7 +7,7 @@ const PRODUCTS_LIMIT = 200;
 let firstLoad = true;
 
 window.onbeforeunload = () => {
-  localStorage.removeItem("pagination" );
+  localStorage.setItem("pagination", DEFAULT_INITIAL_PAGE);
 };
 
 let page = localStorage.getItem("pagination") || DEFAULT_INITIAL_PAGE;
