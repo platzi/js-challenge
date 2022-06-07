@@ -7,6 +7,12 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+#all-loaded-msg {
+  display: none;
+  text-align: center;
+  font-weight: bold;
+}
+
 .Main {
   padding: 10px;
   grid-template-columns: minmax(auto, 768px);
