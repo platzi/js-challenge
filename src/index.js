@@ -1,7 +1,8 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
-const offset = 5;
-const API = `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=10`;
+let offset = 5;
+let limit = 10;
+const API = `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`;
 const storage = window.localStorage;
 
 const getData = (api) => {
