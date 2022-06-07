@@ -7,7 +7,6 @@ const PRODUCT_LIMIT = 200;
 
 const getData = async (api, offset, limit) => {
   const url = api + `?limit=${limit}&offset=${offset}`;
-  console.log(url)
 
   return fetch(url)
     .then(response => response.json())
