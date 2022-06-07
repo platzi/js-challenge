@@ -4,12 +4,12 @@ describe("PlatziStore Tests", () => {
     cy.wait(2000);
   })
 
-  it('Existe el titulo PlatziStore', () => {
-    cy.title().should('contain', 'PlatziStore');
-  });
-
   it("Obtener initialState del LocalStorage", () => {
     expect(localStorage.getItem('pagination')).to.eq('5');
+  });
+
+  it('Existe el titulo PlatziStore', () => {
+    cy.title().should('contain', 'PlatziStore');
   });
 
   it("Obtener los primeros 10 Productos", () => {
