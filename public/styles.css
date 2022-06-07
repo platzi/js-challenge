@@ -54,3 +54,10 @@ body {
     opacity: 1;
   }
 }
+
+
+.finalMessage {
+  border-radius: 5px;
+  background-color:rgb(116, 195, 142);
+  text-align: center;
+}

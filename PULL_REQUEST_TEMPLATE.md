@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://yurixtugal.github.io/js-challenge/public/index.html
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Yuri Giusseppe Portugal Legua
+Usuario Platzi: yurixtugal12
+Correo Electronico: yurixtugal12@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [x] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
