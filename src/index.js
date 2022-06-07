@@ -4,13 +4,9 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const DEFAULT_LIMIT = 5;
 const DEFAULT_OFFSET = 10;
 
-localStorage.clear();
-
 const getData = async api => {
   const pagination = localStorage.getItem('pagination');
   const currentOffset =  pagination ? parseInt(pagination) + DEFAULT_OFFSET : DEFAULT_LIMIT;
-  console.log('el offset es' ,currentOffset)
-  console.log('el limit es' ,DEFAULT_LIMIT)
   localStorage.setItem('pagination', currentOffset);
 
   return fetch(api + `?limit=${DEFAULT_LIMIT}&offset=${currentOffset}`)
