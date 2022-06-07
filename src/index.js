@@ -1,9 +1,9 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 
-const paginationStorage = window.localStorage;
-paginationStorage.setItem('pagination', 5);
-paginationStorage.setItem('limit', 10);
+const localStorage = window.localStorage;
+localStorage.setItem('pagination', 5);
+localStorage.setItem('limit', 10);
 
 const getData = async api => {
     fetch(api)
@@ -33,11 +33,11 @@ const getData = async api => {
             }
 
             let newItem = document.createElement('section');
-            newItem.classList.add('Item');
+            newItem.classList.add('Items');
             newItem.innerHTML = output;
             $app.appendChild(newItem);
 
-            paginationStorage.setItem('limit', limit);
+            localStorage.setItem('limit', limit);
         })
         .catch(error => console.log(error));
 }
@@ -51,15 +51,15 @@ const loadData = async (pagination, limit) => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
     // logic...
-    let pagination = Number(paginationStorage.getItem('pagination'));
-    let limit = Number(paginationStorage.getItem('limit'));
+    let pagination = Number(localStorage.getItem('pagination'));
+    let limit = Number(localStorage.getItem('limit'));
 
     entries.forEach(entry => {
         if (entry.isIntersecting) {
 
             if (entry.intersectionRatio >= 0.75) {
                 loadData(pagination, limit);
-                paginationStorage.setItem('pagination', pagination + limit);
+                localStorage.setItem('pagination', pagination + limit);
             }
         }
     });
