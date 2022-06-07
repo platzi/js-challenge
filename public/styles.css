@@ -46,6 +46,12 @@ body {
   justify-content: space-between;
 }
 
+.Center {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
