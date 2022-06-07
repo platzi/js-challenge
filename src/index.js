@@ -46,7 +46,7 @@ const loadData = async () => {
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   if (offset >= 200) {
-    newItem.innerHTML = `<h2>Todos los productos Obtenidos</h2>`;
+    newItem.innerHTML += `<h2>Todos los productos Obtenidos</h2>`;
     intersectionObserver.unobserve($observe);
     intersectionObserver.disconnect();
     return;
