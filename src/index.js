@@ -14,7 +14,7 @@ const getData = async (api) => {
     let products = data;
     let output = products.map((product) => {
       return `<article class="Card" key=${product.id}>
-            <img src=${product.category.image} />
+            <img src=${product.category.image} alt="product"/>
             <h2>
               ${product.title}
               <small>${product.price}</small>
