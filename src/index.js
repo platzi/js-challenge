@@ -19,7 +19,32 @@ const getData = api => {
 }
 
 const loadData = () => {
-  getData(API);
+  // SE ACCEDE A PAGINATION EN EL LOCALSTORAGE
+  const pagination = window.localStorage.getItem("pagination");
+  let newPagination;
+  let newOffset;
+
+  // SI NO EXISTE PAGINATION EN LOCALSTORAGE SE LE ASIGNA EL VALOR 1
+  // DE LO CONTRARIO SE LE SUMA UNA UNIDAD
+  if(!pagination){
+    newPagination = 1;
+  } else {
+    newPagination = parseInt(pagination) + 1
+  }
+
+  // SE ACTUALIZA PAGINATION EN EL LOCAL STORAGE
+  window.localStorage.setItem("pagination", `${newPagination}`);
+
+  // NEW OFFSET ES (5 * (PAGINATION + (PAGINATION - 1))) - 1
+  // EJEMPLO: PARA OBTENER LOS RESULTADOS DE LA PAGINACIÓN NÚMERO 1 
+  // DEBEMOS ACCEDER A LOS ELEMENTOS CON OFFSET 4, RESULTADOS DEL 5 AL 14
+  // ENTONCES (5 * (1 + (1 - 1))) - 1 = 4
+  // EJEMPLO: PARA OBTENER LOS RESULTADOS DE LA PAGINACIÓN NÚMERO 2 
+  // DEBEMOS ACCEDER A LOS ELEMENTOS CON OFFSET 14, RESULTADOS DEL 15 AL 24
+  // ENTONCES (5 * (2 + (2 - 1))) - 1 = 14
+  newOffset = (5 * (newPagination + (newPagination - 1))) - 1;
+
+  getData(`${API}?offset=${newOffset}&limit=10`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
