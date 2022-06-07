@@ -28,18 +28,28 @@ const calcOffset = (
   return initialOffset + page * itemsPerPage;
 };
 
+const renderItem = (products: Product[]) => {
+  const output = products.map(({ images, title, price }) => {
+    return `
+      <article class="Card">
+        <img src="${images[0]}" alt="${title} product" />
+        <h2>
+        ${title}
+          <small>$${price}</small>
+        </h2>
+      </article>`;
+  });
+  const newItem = document.createElement("section");
+  newItem.classList.add("Item");
+  newItem.innerHTML = output.join(`<br />`);
+  $app.appendChild(newItem);
+};
+
 const getData = async (api: string, offset: number, limit: number) => {
   try {
     const res = await fetch(`${api}?offset=${offset}&limit=${limit}`);
     const products: Product[] = await res.json();
-
-    const output = products.map((product) => {
-      return `<p class="Product">${product.title}</p>`;
-    });
-    const newItem = document.createElement("section");
-    newItem.classList.add("Item");
-    newItem.innerHTML = output.join(`<br />`);
-    $app.appendChild(newItem);
+    renderItem(products);
   } catch (e) {
     console.error(e);
   }
