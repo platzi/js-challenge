@@ -1,31 +1,37 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const $list = document.getElementById('list');
+var offset = 0
+var limit = 0;
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+
+const getData = (api) => {
+    fetch(api)
+        .then(response => response.json())
+        .then(response => {
+            let products = response;
+            let output = products.map(product => {
+                // template
+                return '<article class = "Card" ><img src =' + product.category.image + '/ >' +
+                    '<h2>' + product.title + ' <small > $ ' + product.price + ' </small> </h2> </article>';
+
+            }).join('');
+            let newItem = document.createElement('section');
+            newItem.classList.add('Item');
+            newItem.innerHTML = output;
+            $observe.appendChild(newItem);
+            console.log("Todos los productos Obtenidos");
+        })
+        .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+async function loadData() {
+    let apiNew = API + '?offset=' + offset + '&limit=' + limit;
+    offset = limit
+    limit = limit + 10;
+    console.log(offset, limit);
+    await getData(apiNew);
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
-
-intersectionObserver.observe($observe);
+loadData();
