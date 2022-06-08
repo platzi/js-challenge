@@ -26,7 +26,7 @@ const getData = api => {
       if(articulos!='')
       {// Si hubo algún articulo lo agrego a 'app'
         let newItem = document.createElement('section');
-        newItem.classList.add('Item');
+        newItem.classList.add('Items');
         newItem.innerHTML = articulos;
         articulos='';
         $app.appendChild(newItem); 
@@ -99,7 +99,7 @@ function FinProductos()
   intersectionObserver.unobserve($observe); // funcion para dejar de observar
   articulos='Todos los productos Obtenidos';
   let newItem = document.createElement('section');
-  newItem.classList.add('Item');
+  newItem.classList.add('Items');
   newItem.innerHTML = '<h3>'+articulos+'</h3>'; // para imprimirlo en el html
   articulos='';
   $app.appendChild(newItem); 
@@ -113,7 +113,7 @@ function paginarAPI()
   var pagination=localStorage.getItem("pagination"); // intenta de leerlo
   if(!pagination)
   {
-    pagination=4; // si no está definido lo setea en 4 (el 5to elemento como se solicitó)
+    pagination=5; // si no está definido lo setea en 5 (modificado por archivo cypress)
   }
   else
   {
