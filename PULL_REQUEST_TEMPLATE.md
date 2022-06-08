@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://jsandes.github.io/js-challenge/public/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Jonatan Sandes
+Usuario Platzi: jonatans@live.com.ar
+Correo Electronico: jonatans@live.com.ar
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
