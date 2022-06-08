@@ -45,7 +45,21 @@ body {
   display: flex;
   justify-content: space-between;
 }
-
+.Card small {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.EndItems {
+  font-size: 16px;
+  font-weight: 300;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  color: red;
+}
 @keyframes fade {
   from {
     opacity: 0;
