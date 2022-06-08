@@ -1,9 +1,9 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://pedrolgc.github.io/
 
 Nombre: Pedro Luis Gonzalez Cernuda
-Usuario Platzi: plgonzalezc@msn.com
+Usuario Platzi: PedroLGC
 Correo Electronico: plgonzalezc@msn.com
 
 ## Reto:
