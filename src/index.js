@@ -1,13 +1,11 @@
+import '../public/styles.css';
+
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 let pagination = 5;
 let limit = 10;
 let firstInteraction = true;
 const API = 'https://api.escuelajs.co/api/v1/products?limit='+limit+'&offset=';
-
-const init = () =>{
-    localStorage.setItem("pagination", pagination);
-}
 
 const getData = async api => {
     await fetch(api)
@@ -46,6 +44,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
                 getData(API+pagination);
                 if(firstInteraction){
                     firstInteraction = false;
+                    localStorage.setItem("pagination", pagination);
                 }else{
                     pagination = parseInt(localStorage.getItem("pagination")) + limit;
                     localStorage.setItem("pagination", pagination);
