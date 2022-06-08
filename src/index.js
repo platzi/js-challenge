@@ -19,6 +19,12 @@ const parseRawProduct = (product) => ({
   image: product.images[0] || 'https://via.placeholder.com/640x480',
 });
 
+const currency = (value) =>
+  value.toLocaleString('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+  });
+
 const renderList = (products, container) => {
   const fragment = document.createDocumentFragment();
   const items = document.createElement('section');
@@ -27,11 +33,13 @@ const renderList = (products, container) => {
   products.forEach((product) => {
     const item = document.createElement('article');
     item.innerHTML = `
-<code>
-<pre>
-${JSON.stringify(product, null, 2)}
-</pre>
-</code>
+<article class="Card">
+  <img src="${product.image}" />
+  <h2>
+    ${product.title}
+    <small>${currency(product.price)}</small>
+  </h2>
+</article>
 `;
 
     fragment.appendChild(item);
