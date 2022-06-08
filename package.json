@@ -6,7 +6,7 @@
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open",
-    "build": "node build/build.js"
+    "build": "npm run start"
   },
   "repository": {
     "type": "git",
