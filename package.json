@@ -6,6 +6,7 @@
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open",
+    "e2e:headless": "cypress run",
     "build": "webpack --mode=production"
   },
   "repository": {

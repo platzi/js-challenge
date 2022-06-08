@@ -62,4 +62,6 @@ typings/
 
 
 #build
-public/
+#public/
+#test
+cypress/
