@@ -27,12 +27,25 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-
+/*
 const loadData = () => {
   var request = paginarAPI();
   getData(request);
 }
+*/
 
+async function loadData()
+{
+  try
+  {
+    var request = paginarAPI();
+    getData(request);
+  }
+  catch(error)
+  {
+    console.log(error);
+  }
+}
 
 function paginarAPI()
 {
