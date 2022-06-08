@@ -1,11 +1,9 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-let initialPage = JSON.parse(localStorage.getItem('page') || '5');
-const max = 10;
-const newItem = document.createElement('section');
-newItem.classList.add('Items');
-
+localStorage.setItem('pagination', JSON.stringify(5))
+const limit = 10;
+const maxProducts = 200;
 
 window.onbeforeunload = () => {
   localStorage.clear();
@@ -16,10 +14,7 @@ const getData = async api => {
     const response = await fetch(api);
     const products = await response.json();
     const output = products.map(product => {
-      const article = document.createElement('article');
-      article.classList.add('Card');
-
-      article.innerHTML = `
+        return  `
         <article class="Card">
           <img src="${product.images[0]}" />
           <h2>
@@ -28,23 +23,25 @@ const getData = async api => {
           </h2>
         </article>
       `
-      return article.innerHTML;
     });
-    newItem.innerHTML += output.join('');
+    let newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = output;
+    
     $app.appendChild(newItem);
+    $app.appendChild($observe);
   } catch (error) {
     console.error(error);
   }
 }
 
 const loadData = () => {
-  getData(`${API}?offset=${initialPage}&limit=${max}`);
+  getData(`${API}?offset=${localStorage.getItem('pagination')}&limit=10`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
-  console.log(entries);
-  if (initialPage >= 190) {
+  if (localStorage.getItem('pagination') >= 190) {
     observe.innerHTML = `
       <h2>Todos los productos Obtenidos</h2>
     `
@@ -52,20 +49,18 @@ const intersectionObserver = new IntersectionObserver(entries => {
     return;
   }
 
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
+
+  if(entries[0].isIntersecting) {
       loadData();
       saveStorage();
-      initialPage += 10;
     }
-  })
 }, {
   rootMargin: '0px 0px 100% 0px',
   threshold: 1.0
 });
 
 const saveStorage = () => {
-  localStorage.setItem('initialPage', JSON.stringify(initialPage));
+  localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination'))+limit);
 }
 
 intersectionObserver.observe($observe);
