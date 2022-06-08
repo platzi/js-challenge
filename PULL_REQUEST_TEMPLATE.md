@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Santiago Galán Barlo
+Usuario Platzi: sgalanb
+Correo Electronico: asgalanss@gmail.com
 
 ## Reto:
 
