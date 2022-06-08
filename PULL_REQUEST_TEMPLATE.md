@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://js-challenge-iota-ten.vercel.app/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Sergio Gentiletti
+Usuario Platzi: sGentiletti
+Correo Electronico: gentiletti.sergio@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
