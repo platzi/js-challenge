@@ -1,27 +1,39 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
-let offset = 5;
-let limit = 10;
-const API = `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`;
-const storage = window.localStorage;
+const initPage = 5;
+const offset = 10;
+const productsLimit = 200;
+let firstLoad = true;
 
-const getData = (api) => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      console.log(products);
+const API = `https://api.escuelajs.co/api/v1/products/`;
 
-      storage.setItem("pagination", JSON.stringify(products))
-      if (storage.getItem("pagination")) {
-        console.log('Data is stored in localStorage');
-        storage.setItem("pagination", JSON.stringify(products))
-      } else { 
-        console.log('No data in localStorage');
-      }
+window.onbeforeunload = () => {
+  localStorage.setItem("pagination", initPage);
+};
 
-      let output = products.map(product => {
-      // template
+let page = localStorage.getItem("pagination") || initPage;
+
+const apiPaginated = (api, apiPage) => api + "?offset=" + apiPage + "&limit=10";
+
+const getData = async (api) => {
+  try {
+    const page = localStorage.getItem("pagination") || initPage;
+    if (page >= productsLimit) {
+      console.log("No more products");
+      cleanObserver();
+      return;
+    }
+
+    const response = await fetch(apiPaginated(api, page));
+    const data = await response.json();
+
+    // fetch(api)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     let products = response;
+    //     console.log(products);
+
+    let output = data.map((product) => {
       const template = `
       <article class="Card">
         <img src="${product.images[0]}" />
@@ -30,22 +42,32 @@ const getData = (api) => {
           <small>$ ${product.price}</small>
           </h2>
       </article>
-      `
-      return template
-      });
+      `;
+      return template;
+    });
 
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch((error) => console.log(error));
+    let newItem = document.createElement("section");
+    newItem.classList.add("Item");
+    newItem.innerHTML = output;
+    $app.appendChild(newItem);
+    console.log('firsLoad: ', firstLoad);
+    if (!firstLoad) {
+      
+      localStorage.setItem("pagination", parseInt(page) + offset);
+    }
+    firstLoad = false;
+  } catch (err) {
+    console.log(error);
+  }
 };
 
+const cleanObserver = () => {
+  intersectionObserver.disconnect();
+};
 
-const loadData = async (limit) => {
+const loadData = async () => {
   try {
-    await getData(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`);
+    await getData(API);
   } catch (error) {
     console.log(error);
   }
@@ -53,17 +75,14 @@ const loadData = async (limit) => {
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    // logic...
-    console.log(entries);
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        loadData(limit += 10);
-      }
-    });  
+   
+    if(entries[0].isIntersecting){
+      loadData();
+    }
   },
   {
     rootMargin: "0px 0px 100% 0px",
-    // threshold: 0.5
+    threshold: 0.5
   }
 );
 
