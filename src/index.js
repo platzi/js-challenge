@@ -2,6 +2,8 @@ const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
+let intersectionObserver;
+
 const setPaginationInStorage = (offset, limit) => {
   const pagination = {
     offset,
@@ -15,8 +17,7 @@ const getData = (api) => {
   const apiUrl = `${api}?offset=${pagination.offset}&limit=${pagination.limit}`;
   fetch(apiUrl)
     .then((response) => response.json())
-    .then((response) => {
-      let products = response;
+    .then((products) => {
       let output = products
         .map(
           (product) =>
@@ -44,7 +45,6 @@ const loadData = async (offset, limit) => {
   if (offset <= 200) {
     await getData(API);
   } else {
-    console.log(offset);
     intersectionObserver.unobserve($observe);
     let endOfItemsMessage = document.createElement("section");
     endOfItemsMessage.classList.add("Center");
@@ -55,19 +55,24 @@ const loadData = async (offset, limit) => {
   }
 };
 
-let intersectionObserver;
-
 function createObserver() {
   intersectionObserver = new IntersectionObserver(
     (entries) => {
-      const actualPagination = JSON.parse(localStorage.getItem("pagination"));
-      loadData(
-        actualPagination.offset + actualPagination.limit,
-        actualPagination.limit
-      );
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const actualPagination = JSON.parse(
+            localStorage.getItem("pagination")
+          );
+          loadData(
+            actualPagination.offset + actualPagination.limit,
+            actualPagination.limit
+          );
+        }
+      });
     },
     {
       rootMargin: "0px 0px 100% 0px",
+      threshold: 1.0,
     }
   );
   intersectionObserver.observe($observe);
@@ -76,8 +81,9 @@ function createObserver() {
 window.addEventListener(
   "load",
   (event) => {
-    loadData(5, 10);
-    createObserver();
+    loadData(5, 10).then(() => {
+      createObserver();
+    });
   },
   false
 );
