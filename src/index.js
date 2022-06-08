@@ -6,6 +6,8 @@ let $offset = 5;
 const $limit = 10;
 const RESULT_COUNT = 200;
 
+localStorage.removeItem("pagination");
+
 const updateLocalStorage = () => {
   if (localStorage.getItem('pagination')) {
     $offset = parseInt(localStorage.getItem('pagination'));
@@ -48,8 +50,9 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = async () => {
+  let promise = await getData(API);
+  return promise;
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
