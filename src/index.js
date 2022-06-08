@@ -3,6 +3,14 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const $limit = 10;
 const $offset = 4;
+
+const $notIMG = "https://dummyimage.com/400x200/000/fff";
+
+const getProductImage = (product) => {
+  return product.images && product.images.length > 0
+    ? product.images[0]
+    : $notIMG;
+};
 const getData = (api, limit, offset) => {
   console.log('getData')
   fetch(`${api}?limit=${limit}&offset=${offset}`)
@@ -14,7 +22,14 @@ const getData = (api, limit, offset) => {
       let output = products.map(product => {
         // template
         return `
-        <h2>${product.id} - ${product.title}</h2>`;
+        <article class="Card">
+        <img alt="product image" src="${getProductImage(product)}"/>
+        <h2>
+          ${product.id} - ${product.title}
+          <small>$ ${product.price}</small>
+        </h2>
+      </article>
+      `;
       });
       let newItem = document.createElement("section");
       newItem.classList.add("Item");
