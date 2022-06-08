@@ -31,15 +31,12 @@ const loadData = () => {
 };
 
 //Let local Storge
-let localStorage = {
-  start: 0,
-  limit: 10
-}
+let localStorage = 0;
 
 //Use this to put the start and the limit of a fetch with diferent information
 const loadDataWithPagination = (start, limit) => {
-  let localStorage = `?offset=${start}&limit=${limit}`
-  getData(API + localStorage);
+  let Storage = `?offset=${start}&limit=${limit}`
+  getData(API + Storage);
 };
 
 //This is a funcion to disconnect the observer
@@ -47,12 +44,18 @@ const disconnectObserver = () => {
   intersectionObserver.disconnect($observe);
 }
 
+const firstProduct = () => {
+  loadDataWithPagination(localStorage, 10)
+    localStorage = localStorage + 10;
+  }
+
+firstProduct();
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    loadDataWithPagination(localStorage.start, localStorage.limit)
-    localStorage.start = localStorage.start + localStorage.limit;
-    if (localStorage.start === 180) {
+    loadDataWithPagination(localStorage, 10)
+    localStorage = localStorage + 10;
+    if (localStorage === 180) {
       alert("Todos los productos Obtenidos");
       disconnectObserver()
     }
