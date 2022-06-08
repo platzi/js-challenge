@@ -18,7 +18,7 @@ npm run start
 
 ### Debug
 
-http://localhost:1234
+http://localhost:8080
 
 ## Access to deployed project
 

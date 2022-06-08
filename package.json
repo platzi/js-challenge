@@ -4,7 +4,7 @@
   "description": "PlatziStore Fix Bugs",
   "source": "public/index.html",
   "scripts": {
-    "start": "parcel public/index.html --public-url /",
+    "start": "parcel -p 8080 public/index.html --public-url /",
     "e2e": "cypress open",
     "build": "parcel build public/index.html --public-url ./",
     "deploy": "rm -rf dist/ && npm run build && gh-pages -d dist"
