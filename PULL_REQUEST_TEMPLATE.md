@@ -9,7 +9,7 @@ Correo Electronico:
 ## Reto:
 
 - [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
+- [x] Segundo problema
+- [x] Tercer problema
 - [ ] Cuarto Problema
 - [ ] Quinto Problema
