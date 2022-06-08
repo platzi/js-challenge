@@ -37,6 +37,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) {
     page++
     localStorage.setItem('page', page);
+    
     if (page > 1) {
       localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10)
     }
@@ -47,7 +48,6 @@ const intersectionObserver = new IntersectionObserver(entries => {
     }
     
     loadData()
-    console.log(page)
   }
 }, {
   rootMargin: '0px 0px 100% 0px',
