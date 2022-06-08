@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto: https://js-challenge-49oyx056f-sgentiletti.vercel.app/
+Solución al reto: https://js-challenge-iota-ten.vercel.app/
 
 Nombre: Sergio Gentiletti
 Usuario Platzi: sGentiletti
