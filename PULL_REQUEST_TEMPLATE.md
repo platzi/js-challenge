@@ -1,10 +1,10 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://sprightly-rabanadas-716461.netlify.app/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Ruben Escalante
+Usuario Platzi: nykoiu
+Correo Electronico: chabo_2006@hotmail.com
 
 ## Reto:
 
