@@ -46,6 +46,13 @@ body {
   justify-content: space-between;
 }
 
+.Warning {
+  padding: 15px;
+  font-size: 24px;
+  text-align: center;
+  background-color: #B5E3AC;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
