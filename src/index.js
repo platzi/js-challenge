@@ -6,9 +6,16 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 // Activador del callback del Observer
 let booleanObserver = false;
 let countPages = 1;
+let lengthResponse = 200;
 
 const getData = async api => {
   try {
+    // Este bloque revisara si ha cambiado cuantos productos existen en la API
+    let res = await fetch('https://api.escuelajs.co/api/v1/products');
+    res = await res.json()
+    lengthResponse = res.length === lengthResponse ? lengthResponse : res.length;
+
+    // Respuesta normal
     let response = await fetch(api);
     let products = await response.json();
     let output = document.createDocumentFragment();
@@ -42,19 +49,26 @@ const getData = async api => {
   }
 }
 
-const loadData = (idInitProduct = localStorage.getItem('pagination'), quantyProducts = localStorage.getItem('quanty')) => {
+const loadData = (idInitProduct = +localStorage.getItem('pagination'), quantyProducts = localStorage.getItem('quanty')) => {
   // La función por defecto tomara los valores en el local storage, cuando sea invocada por primera vez el local storage esta vacio y debe pasarsele el paginado inicial. Es decir, solo se ejecuta la primeza vez.
   if (!localStorage.length) {
     localStorage.setItem('pagination', `${idInitProduct}`);
+    localStorage.setItem('InitPagination', `${idInitProduct}`);
     localStorage.setItem('quanty', `${quantyProducts}`);
-    localStorage.setItem('limite', `${(+idInitProduct ? 201 - +idInitProduct : 200) / quantyProducts}`);
+    localStorage.setItem('limite', `${(+idInitProduct ? lengthResponse - +idInitProduct : lengthResponse) / quantyProducts}`);
   } else {
     // Actualización de la posición
     localStorage.setItem('pagination', `${+idInitProduct + +quantyProducts}`);
+    idInitProduct = +localStorage.getItem('pagination');
   }
+
+  let initPagination = localStorage.getItem('InitPagination');
 
   const url = `${API}?offset=${+idInitProduct ? +idInitProduct - 1 : 0}&limit=${quantyProducts}`;
   getData(url);
+
+  // Actualización del limite si hubo un cambio en la cantidad de productos de la API
+  localStorage.setItem('limite', `${Math.ceil((+initPagination ? lengthResponse - +initPagination : lengthResponse) / quantyProducts)}`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => entries.forEach(entry => {
