@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto: https://moratdev.github.io/js-challenge/
+Solución al reto: https://moratdev.github.io/js-challenge/public/index.html
 
 Nombre: Diego Mora
 Usuario Platzi: MoratDev
