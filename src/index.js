@@ -6,15 +6,23 @@ const API = "https://api.escuelajs.co/api/v1/products";
 
 const LIMIT = 10;
 const INITIAL_PAGE = 5;
+const LAST_PAGE = 200;
 
 
-localStorage.setItem('pagination', 0);
-
-const loadPagination = () => {
-  return parseInt(localStorage.getItem('pagination') || FIST_PAGE);
+const savePagination = (pagination) => {
+  localStorage.setItem('pagination', Math.max(INITIAL_PAGE, pagination));
 }
 
-let indexValue = loadPagination();
+const loadPagination = () => {
+  return parseInt(localStorage.getItem('pagination') || INITIAL_PAGE);
+}
+
+const clearPagination = () => {
+  localStorage.removeItem('pagination');
+}
+
+let currentPage = loadPagination();
+
 
 const getData = async (api) => {
   try {
@@ -34,6 +42,13 @@ const getData = async (api) => {
     newItem.classList.add('Items');
     newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
+
+    savePagination(currentPage);
+    currentPage += products.length;
+
+    if (currentPage === LAST_PAGE) {
+      endScroll();
+    }
   } catch (error) {
     console.log(error);
   };
@@ -41,9 +56,10 @@ const getData = async (api) => {
 };
 
 const loadData = () => {
-  const apiRequest = API.concat(`?offset=${INITIAL_PAGE}&limit=${LIMIT}`)
+  const apiRequest = API.concat(`?limit=${LIMIT}&offset=${currentPage}`)
   getData(apiRequest);
-  localStorage.setItem('pagination' , +indexValue +1);
+ 
+
 };
 
 const endScroll = () =>{
@@ -53,22 +69,13 @@ const endScroll = () =>{
   message.innerText = 'Fin! Todos los productos Obtenidos';
   messageContainer.appendChild(message);
   $main.appendChild(messageContainer);
-
   intersectionObserver.unobserve($observe);
 };
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     if (entries[0].isIntersecting) {
-      indexValue = +localStorage.getItem('pagination');
-
-      if (indexValue === 20) {
-        endScroll();
-      } else {
-        loadData();
-      }
-    } else {
-      return;
+      loadData();
     }
   },
   {
@@ -77,3 +84,4 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+window.addEventListener('beforeunload', () => clearPagination());
