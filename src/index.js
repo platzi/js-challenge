@@ -72,3 +72,7 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+
+window.addEventListener("beforeunload", function (e) {
+  localStorage.removeItem('pagination');
+}, false);
