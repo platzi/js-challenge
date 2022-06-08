@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://dicaalba.github.io/js-challenge/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Diana Alfaro
+Usuario Platzi: dicaalba
+Correo Electronico: dicaalba@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [ X ] Primer problema
+- [ X ] Segundo problema
+- [ X ] Tercer problema
+- [ X ] Cuarto Problema
+- [ X ] Quinto Problema
