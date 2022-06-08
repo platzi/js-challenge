@@ -46,11 +46,8 @@ const loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry =>{
-    if(entry.isIntersecting) {
-      loadData();
-    }
-  })
+  
+  if (entries[0].isIntersecting) loadData();
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
