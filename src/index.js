@@ -8,7 +8,11 @@ let offset = 5;
 
 const addElement = (items) => {
 	return items.map((item) => {
-		return `<article class="Card"><img src=${item.images[0]} /><h2>${item.id} - ${item.title} <strong>$${item.price}</strong></h2></article>`;
+		return `
+		<article class="Card">
+			<img src=${item.images[0]} />
+			<h2>${item.id} - ${item.title} <strong>$${item.price}</strong></h2>
+		</article>`;
 	});
 };
 
@@ -34,8 +38,8 @@ const getData = async (api) => {
 };
 
 const loadData = async () => {
-	let pageable = "?offset=" + offset + "&limit=" + limit;
-	getData(API + pageable);
+	let pagination = `?offset=${offset}&limit=${limit}`;
+	getData(API + pagination);
 };
 
 const intersectionObserver = new IntersectionObserver(
