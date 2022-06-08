@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://ocmv.github.io/js-challenge/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Oriana Morillo
+Usuario Platzi: ocmv
+Correo Electronico: orianacmv@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
