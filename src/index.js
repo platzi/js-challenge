@@ -4,13 +4,12 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 //Initial Values for the pagination/API petition
 const limit = 10
-const initialOffset = 8
+const initialOffset = 5
 
-//init the local storage 
-console.log(sessionStorage.getItem('offset'));
-sessionStorage.setItem('offset', initialOffset);
+//init the local storage, althought the local storage is deleted by reload or close the browser, the pagination will be reseted with this line
+localStorage.setItem('offset', initialOffset);
 
-//get the data from the API
+//Get the data from the API
 const getData = api => {
   fetch(api)
     .then(response => response.json())
@@ -61,12 +60,12 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-//Function that will be called when the user scrolls the page, and set the new pagination on sessionStorage 
+//Function that will be called when the user scrolls the page, and set the new pagination on localStorage 
 const loadData = async () => {
-  await getData(`${API}/?limit=${limit}&offset=${sessionStorage.getItem('offset')}`);
+  await getData(`${API}/?limit=${limit}&offset=${localStorage.getItem('offset')}`);
 
-  const newPagination = parseInt(sessionStorage.getItem('offset')) + limit;
-  sessionStorage.setItem('offset', newPagination); 
+  const newPagination = parseInt(localStorage.getItem('offset')) + limit;
+  localStorage.setItem('offset', newPagination); 
 }
 
 
@@ -85,20 +84,11 @@ const intersectionObserver = new IntersectionObserver(entries => {
 intersectionObserver.observe($observe);
 
 
+//to delete the localStorage when the user reload the page or close the browser
 window.addEventListener("beforeunload", function (e) {
   const confirmationMessage = "\o/";
 
   (e || window.event).returnValue = confirmationMessage; 
-  sessionStorage.clear();
+  localStorage.clear();
   return confirmationMessage;                            
 });
-
-//to erase local storage when the user reload the page
-// window.addEventListener('load', () => {
-//   sessionStorage.clear();
-// })
-
-//to erase local storage when the user close the page
-// window.addEventListener('beforeunload', () => {
-//   sessionStorage.clear();
-// })
