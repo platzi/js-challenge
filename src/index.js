@@ -1,57 +1,54 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-const TOTAL_PRODUCTS = 200;
+const ARTICLE_OFFSET = 5;
+const ARTICLE_LIMIT = 10;
+const ARTICLE_TOTAL = 200;
 
-const getData = async (api, offset, limit) => {
-  api += `?offset=${offset}&limit=${limit}`;
-  try {
-    const response = await fetch(api);
-    const responseJson = await response.json();
-    let products = responseJson;
-    let output = products.map(product => {
-      // template
-      let newItem = document.createElement('article');
-      newItem.classList.add('Card');
-      newItem.innerHTML = `
-          <img src="${product.images[0]}" />
+const getData = api => {
+  return fetch(api)
+    .then(response => response.json())
+    .then(response => {
+      let products = response;
+      let output = products.reduce((template, product) => {
+        // template
+        return template += `
+          <article class="Card">
+            <img src="${product.images[0]}" />
             <h2>
             ${product.title}
               <small>$ ${product.price}</small>
             </h2>
-        `;
-      return newItem;
-    });
-    return output;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+          </article>
+          `;
+      }, '');
+      let newItem = document.createElement('section');
+      newItem.classList.add('Items');
+      newItem.innerHTML = output;
+      $app.appendChild(newItem);
+    })
+    .catch(error => console.log(error));
 }
 
 const getPage = () => {
-  let page = window.localStorage.getItem('pagination');
-  return page ? parseInt(page): 4;
+  let page = localStorage.getItem('pagination');
+  return page ? parseInt(page) + ARTICLE_LIMIT: ARTICLE_OFFSET;
 }
 
-const setPage = page => window.localStorage.setItem('pagination', page);
-
-const loadData = async (page, limit) => {
-  let data = await getData(API, page, limit);
-  let items = $app.getElementsByClassName('Items')[0];
-  data.forEach(item => items.appendChild(item));
+const loadData = async page => {
+  await getData(`${API}?offset=${page}&limit=${ARTICLE_LIMIT}`);
+  window.localStorage.setItem('pagination', page);
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
+const intersectionObserver = new IntersectionObserver(async entries => {
   // logic...
   let entry = entries[0];
   if (!entry.isIntersecting) return;
-
+  
   let page = getPage();
+  await loadData(page);
 
-  if (page + 10 > TOTAL_PRODUCTS) {
-    loadData(page, TOTAL_PRODUCTS - page);
-
+  if (page + ARTICLE_LIMIT > ARTICLE_TOTAL) {
     let message = document.createElement('h2');
     message.style.textAlign = 'center';
     message.innerHTML = 'Todos los productos Obtenidos';
@@ -60,9 +57,6 @@ const intersectionObserver = new IntersectionObserver(entries => {
     intersectionObserver.unobserve($observe);
     return;
   }
-  
-  loadData(page, 10);
-  setPage(page + 10);
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
