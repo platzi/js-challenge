@@ -42,7 +42,7 @@ const getData = (api) => {
         let template = `
         <article class="Card">
           <img src=${images[0]}>
-          <h2>${title} ${id}
+          <h2>${title}
             <small>$ ${price}</small>
           </h2>
         </article>
