@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto: 
+Solución al reto: https://jsandes.github.io/js-challenge/public/
 
 Nombre: Jonatan Sandes
 Usuario Platzi: jonatans@live.com.ar
