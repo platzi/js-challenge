@@ -1,31 +1,68 @@
-const $app = document.getElementById('app');
-const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const $app = document.getElementById("app");
+const $observe = document.getElementById("observe");
+const API = "https://api.escuelajs.co/api/v1/products";
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
-}
+const total = 200;
+let offset = 5;
+let limit = 10;
+let loading = false;
 
-const loadData = () => {
-  getData(API);
-}
+const getData = async (api) => {
+  try {
+    loading = true;
+    const response = await fetch(api);
+    const result = await response.json();
+    const products = result;
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
+    const output = products.map(
+      (product) =>
+        `
+        <article class="Card">
+          <img src="${product.images[0]}" />
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>
+      `
+    );
+    let newItem = document.createElement("section");
+    newItem.classList.add("Item");
+    // Set products without commas
+    newItem.innerHTML = output.join(" ");
+    $app.appendChild(newItem);
+
+    // Set next page
+    offset += 10;
+    // If the total of remaining products is less than the limit, set a new limit
+    if (offset < total && total - offset < 10) limit = total - offset;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading = false;
+  }
+};
+
+const loadData = async () => {
+  await getData(`${API}?offset=${offset}&limit=${limit}`);
+};
+
+const hasMoreProductos = () => {
+  return offset + limit <= total;
+};
+
+const intersectionObserver = new IntersectionObserver(
+  async (entries) => {
+    if (!loading && entries[0].intersectionRatio > 0 && hasMoreProductos()) {
+      loadData();
+    } else if (!hasMoreProductos()) {
+      alert("Todos los productos Obtenidos");
+      intersectionObserver.disconnect();
+    }
+  },
+  {
+    rootMargin: "0px 0px 100% 0px",
+  }
+);
 
 intersectionObserver.observe($observe);
