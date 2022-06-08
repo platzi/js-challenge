@@ -54,3 +54,26 @@ body {
     opacity: 1;
   }
 }
+
+.Alert {
+  padding: 20px;
+  background-color: #2196F3;
+  color: white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.Closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Closebtn:hover {
+  color: black;
+}

@@ -20,6 +20,43 @@ npm run start
 
 http://localhost:8080/public/
 
+### Deploy
+
+Crea un worktree para la rama gh-pages en la carpeta dist. Elimina la carpeta si existe.
+```
+rm -rf ./dist
+git worktree add dist gh-pages
+```
+
+Construye el proyecto; copia las carpetas public y src, y su contenido a dist.
+```
+npm run build
+```
+
+Ingresa a la carpeta dist
+```
+cd dist
+```
+
+Agrega los cambios
+```
+git add .
+```
+
+Realiza un commit
+```
+git commit -am 'Ejemplo de mensaje'
+```
+
+Sube los cambios a la rama gh-pages
+```
+git push origin gh-pages
+```
+
+Revisa la página: https://alula96.github.io/js-challenge/public/
+
+**_DOCS:_** [Deploying your JS App to Github Pages the easy way (or not)](https://medium.com/linagora-engineering/deploying-your-js-app-to-github-pages-the-easy-way-or-not-1ef8c48424b7)
+
 ### Documentación
 
 - Variable llamada $app donde haremos render de nuestra app.
