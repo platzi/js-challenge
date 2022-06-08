@@ -11,6 +11,9 @@ const store = {
   get: () => {
     return JSON.parse(localStorage.getItem(appStoreKey) || 0);
   },
+  clear: () => {
+    localStorage.removeItem(appStoreKey);
+  },
 };
 
 const parseRawProduct = (product) => ({
@@ -69,6 +72,12 @@ const loadData = (offset = 5, limit = paginationIncrement) => {
     renderList(products, $app);
   });
 };
+
+(function clearData() {
+  $app.innerHTML = '';
+  store.clear();
+  scrollTo(0, 0);
+})();
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
