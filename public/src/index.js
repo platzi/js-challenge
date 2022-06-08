@@ -2,7 +2,8 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
-let offset = 5;
+// let limitInit = 2
+let pagination = 5;
 let limit = 10;
 const getData = (api) => {
   fetch(api)
@@ -12,8 +13,9 @@ const getData = (api) => {
       let output = products.map((product) => {
         return product;
       });
-      let pagination = Number(localStorage.getItem("offset"));
-      if (pagination >= 190) {
+      console.log(output);
+      let paginationItems = Number(localStorage.getItem("pagination"));
+      if (paginationItems >= 190) {
         endDataPrint();
       } else {
         dataPrint(output);
@@ -44,8 +46,8 @@ const dataPrint = (data) => {
     main.appendChild(items);
     $app.appendChild(main);
   });
-  offset += 10;
-  limit = 10;
+  pagination = pagination + limit;
+  limit = 2;
 };
 const endDataPrint = () => {
   let message = document.createElement("p");
@@ -53,16 +55,16 @@ const endDataPrint = () => {
   message.innerText = "All products obtened";
   $app.appendChild(message);
   intersectionObserver.unobserve($observe);
-  localStorage.removeItem("offset");
+  localStorage.removeItem("pagination");
 };
 
 window.BeforeUnloadEvent = () => {
-  localStorage.removeItem("offset");
+  localStorage.removeItem("pagination");
 };
 
 const loadData = async () => {
-  localStorage.setItem("offset", offset);
-  let params = `?offset=${offset}&limit=${limit}`;
+  localStorage.setItem("pagination", pagination);
+  let params = `?offset=${pagination}&limit=${limit}`;
   await getData(`${API}${params}`);
 };
 let options = {
