@@ -1,10 +1,10 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://ethereum-challenge-cbravo.netlify.app
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Carlos Bravo Revelo
+Usuario Platzi: C-Bravo
+Correo Electronico: carlos.bravo@udea.edu.co
 
 ## Reto:
 
