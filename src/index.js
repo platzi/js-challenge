@@ -1,15 +1,13 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-let offset = 0;
-let page = 1;
-if (sessionStorage.getItem("is_reloaded")) localStorage.clear();
+let offset = 5;
 const getData = api => {
   fetch(`${api}?offset=${offset}&limit=10`)
   .then(response => response.json())
   .then(response => {
     let products = response;
-    // console.log(products)
+    console.log(products)
     let output = products.map(product => {
       return`<article class="Card">
       <img src="${product.images[0]}" alt="image of ${product.title}" />
@@ -24,9 +22,8 @@ const getData = api => {
     newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
 
-    localStorage.setItem('pageNumber', page);
-    page++;
-    if (offset === 200){
+    localStorage.setItem('pagination', offset);
+    if (offset >= 200){
       $app.innerHTML+= `<h1 style="color:#3c484e;text-align:center;border:1px">Todos Los Productos Obtenidos</h1>`
       intersectionObserver.unobserve($observe);
       intersectionObserver.disconnect();
