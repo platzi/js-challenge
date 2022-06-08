@@ -1,3 +1,6 @@
+//init the local storage, althought the local storage is deleted by reload or close the browser, the pagination will be reseted with this line
+localStorage.setItem("initialState", 5);
+
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
@@ -6,9 +9,6 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const limit = 10
 // const initialOffset = 5
 
-//init the local storage, althought the local storage is deleted by reload or close the browser, the pagination will be reseted with this line
-localStorage.setItem("initialState", 5);
-// console.log(localStorage.getItem("initialState"));
 
 //Get the data from the API
 const getData = api => {
@@ -84,11 +84,11 @@ const intersectionObserver = new IntersectionObserver(entries => {
 intersectionObserver.observe($observe);
 
 
-//to delete the localStorage when the user reload the page or close the browser
+// to delete the localStorage when the user reload the page or close the browser
 window.addEventListener("beforeunload", function (e) {
   const confirmationMessage = "\o/";
 
   (e || window.event).returnValue = confirmationMessage; 
-  localStorage.clear();
+  localStorage.setItem("initialState", 5);
   return confirmationMessage;                            
 });
