@@ -26,7 +26,7 @@ const getData = (api, currentPage) => {
       });
       localStorage.setItem('itemsInPage', itemsInPage);
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
@@ -62,13 +62,15 @@ const productCardTemplate = (templateType, product) => {
     case '0':
     default:
       return '' +
-        '<article class="Card">' +
-          '<img src="' + product.images[0] +'"></img>' +
-          '<h2>' + 
-          product.title + 
-          '<small>Precio: $' + product.price + '</small>' +
-          '</h2>' +
-        '</article>';
+        '<div class="Item">' +
+          '<article class="Card">' +
+            '<img src="' + product.images[0] +'"></img>' +
+            '<h2>' + 
+            product.title + 
+            '<small>Precio: $' + product.price + '</small>' +
+            '</h2>' +
+          '</article>' +
+        '</div>';
   }
 }
 
