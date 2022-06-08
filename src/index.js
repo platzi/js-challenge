@@ -40,10 +40,11 @@ const renderProducts = (productList) => {
 };
 
 const resetStorage = () => {
-  localStorage.removeItem("offset");
+  localStorage.removeItem(localStorageOffset);
 };
 
 function closeIt() {
+  console.log("HELLO");
   resetStorage();
 }
 
@@ -59,8 +60,9 @@ const intersectionObserver = new IntersectionObserver(
       return;
     }
     if (entries[0].isIntersecting) {
-      getData(getURL(getOffset(), incrementOffset));
-      setOffset(getOffset() + incrementOffset);
+      const offset = getOffset();
+      setOffset(offset ? offset + incrementOffset : defaultOffset);
+      getData(getURL(offset, incrementOffset));
     }
   },
   {
@@ -75,7 +77,7 @@ const showMessage = (message) => {
 };
 
 const getOffset = () => {
-  const offset = localStorage.getItem(localStorageOffset) || defaultOffset;
+  const offset = localStorage.getItem(localStorageOffset);
   return Number(offset);
 };
 
