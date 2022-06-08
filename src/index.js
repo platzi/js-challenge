@@ -53,9 +53,9 @@ const getData = api => {
         `;
       });
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
-      $items.appendChild(newItem);
+      $app.appendChild(newItem);
       if (validateAllShowedItems()) {
         let message = document.createElement('section');
         message.innerHTML = '<p>Todos los productos Obtenidos</p>';
