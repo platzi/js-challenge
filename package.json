@@ -6,7 +6,7 @@
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open",
-    "build": "npm run build"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "live-server": "1.2.2"
   },
   "dependencies": {
-    "cypress": "10.0.1"
+    "cypress": "10.0.1",
+    "webpack": "^5.73.0"
   }
 }
