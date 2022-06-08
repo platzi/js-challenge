@@ -1,6 +1,6 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
-const API = "https://api.escuelajs.co/api/v1/products?offset=5&limit=10";
+const API = "https://api.escuelajs.co/api/v1/products";
 
 const getData = (api) => {
   fetch(api)
@@ -25,13 +25,37 @@ const getData = (api) => {
     .catch((error) => console.log(error));
 };
 
+//Use this if you get all the informaation
 const loadData = () => {
   getData(API);
 };
 
+//Let local Storge
+let localStorage = {
+  start: 0,
+  limit: 10
+}
+
+//Use this to put the start and the limit of a fetch with diferent information
+const loadDataWithPagination = (start, limit) => {
+  let localStorage = `?offset=${start}&limit=${limit}`
+  getData(API + localStorage);
+};
+
+//This is a funcion to disconnect the observer
+const disconnectObserver = () => {
+  intersectionObserver.disconnect($observe);
+}
+
+
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    // logic...
+    loadDataWithPagination(localStorage.start, localStorage.limit)
+    localStorage.start = localStorage.start + localStorage.limit;
+    if (localStorage.start === 180) {
+      alert("Todos los productos Obtenidos");
+      disconnectObserver()
+    }
   },
   {
     rootMargin: "0px 0px 100% 0px",
@@ -39,5 +63,3 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
-
-loadData();
