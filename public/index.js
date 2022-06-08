@@ -1,63 +1,81 @@
-const $app = document.getElementById('app');
-const $observe = document.getElementById('observe');
-const API = `https://api.escuelajs.co/api/v1/products`;
-const offset = 5;
+const $app = document.getElementById("app");
+const $observe = document.getElementById("observe");
+const API = "https://api.escuelajs.co/api/v1/products";
 
-const getData = (api) => {
-  let pagination = parseInt(localStorage.getItem('pagination'));
-  if (!pagination) {
-    localStorage.setItem('pagination', offset);
-    pagination = offset;
-  } else {
-    pagination += 10;
-    localStorage.setItem('pagination', pagination);
-  }
-  fetch(`${api}?offset=${pagination}&limit=10`)
+localStorage.setItem("pagination", 5);
+let offset = localStorage.getItem('offset') == 0;
+
+if (offset == 0) localStorage.setItem("pagination", 0);
+localStorage.setItem("limit", 10);
+
+let pagination = localStorage.getItem("pagination");
+let limit = localStorage.getItem("limit");
+let fullAPI = API + `?offset=${pagination}&limit=${limit}`;
+
+const getData = async (api) => {
+  fetch(api)
     .then((response) => response.json())
     .then((response) => {
-      let output = '';
       let products = response;
-      if (products.length === 0) {
-        intersectionObserver.disconnect();
-        output = `<h2>Todos los productos Obtenidos</h2>`;
+      let output = products.map((product) => {
+        return `<article class="Card">
+          <img src="${product.images[0]}"/>
+            <h2>
+            ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+        </article>`;
+      });
+      let newItem = document.getElementsByClassName('Item');
+      if (newItem.length < 2) {
+        newItem = document.createElement("section");
+        newItem.classList.add("Item");
+        output.forEach(element => {
+          newItem.insertAdjacentHTML('beforeend', element);
+        })
+        $app.appendChild(newItem);
       } else {
-        output = products.map((product) => {
-          return `<article class="Card">
-                  <img src=${product.images[0]} alt=${product.title} />
-                  <h2>
-                  ${product.title}
-                  <small>${product.price}</small>
-                  </h2>
-                </article>`;
-        }).join('');
+        output.forEach(element => {
+          newItem[1].insertAdjacentHTML('beforeend', element);
+        })
       }
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
     })
     .catch((error) => console.log(error));
 };
 
 const loadData = async () => {
-  await getData(API);
+  await getData(fullAPI);
 };
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        loadData();
+      if (entry.intersectionRatio >= 0.8) {
+        if (offset >= 199) {
+          $app.insertAdjacentHTML(
+            "beforeEnd",
+            `<h1>Todos los productos Obtenidos</h1>`
+          );
+          intersectionObserver.disconnect();
+        } else {
+          loadData();
+          offset = Number(localStorage.getItem("offset")) + 10;
+          localStorage.setItem("offset", offset);
+          fullAPI = API + `?offset=${offset}&limit=${limit}`;
+        }
       }
     });
   },
   {
-    rootMargin: '0px 0px 100% 0px',
+    rootMargin: "0px 0px 100% 0px",
   }
 );
 
 intersectionObserver.observe($observe);
 
-onbeforeunload = () => {
-  localStorage.clear();
-}; 
+window.addEventListener("beforeunload", function () {
+  return localStorage.clear(), localStorage.setItem("offset", 0);
+});
+window.addEventListener("beforereload", function () {
+  return localStorage.clear(), localStorage.setItem("offset", 0);
+});
