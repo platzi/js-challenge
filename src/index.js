@@ -48,6 +48,8 @@ const loadData = () => {
   getData(API, $limit, offset);
   window.localStorage.setItem("pagination", offset);
 };
+
+window.localStorage.removeItem("pagination");
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -60,3 +62,6 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+window.onbeforeunload = () => {
+  window.localStorage.removeItem("pagination");
+};
