@@ -27,7 +27,7 @@
 		"eslint-plugin-import": "^2.25.2",
 		"eslint-plugin-n": "^15.0.0",
 		"eslint-plugin-promise": "^6.0.0",
-		"live-server": "1.2.2"
+		"live-server": "^1.1.0"
 	},
 	"dependencies": {
 		"cypress": "10.0.1",
