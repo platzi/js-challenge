@@ -1,8 +1,8 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-const $limit = 5;
-const $offset = 4;
+const $limit = 10;
+const $offset = 5;
 
 const $notIMG = "https://dummyimage.com/400x200/000/fff";
 
