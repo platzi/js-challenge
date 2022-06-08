@@ -13,13 +13,12 @@ const getData = (api) => {
       console.log(products);
 
       storage.setItem("pagination", JSON.stringify(products))
-      // evaluar si hay datos en el localStorage
-      // if (!storage.getItem("pagination")) {
-      //   // si hay datos en el localStorage, los actualizamos a  la variable products
-      //   storage.setItem("pagination", JSON.stringify(products))
-      // } else { 
-      //   console.log('no habia datos en el localStorage')
-      // }
+      if (storage.getItem("pagination")) {
+        console.log('Data is stored in localStorage');
+        storage.setItem("pagination", JSON.stringify(products))
+      } else { 
+        console.log('No data in localStorage');
+      }
 
       let output = products.map(product => {
       // template
@@ -44,9 +43,9 @@ const getData = (api) => {
 };
 
 
-const loadData = async () => {
+const loadData = async (limit) => {
   try {
-    await getData(API);
+    await getData(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`);
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +57,7 @@ const intersectionObserver = new IntersectionObserver(
     console.log(entries);
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        loadData();
+        loadData(limit += 10);
       }
     });  
   },
