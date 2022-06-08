@@ -13,18 +13,15 @@ const getData = async(api) => {
             const url = `${api}/?offset=${offset}&limit=${limit}`;
             const response = await fetch(url);
             const products = await response.json();
-            let output = products.map(product => {
-                // template
-                return `
-                  <article class="Card">
+            let output = products.map(product =>
+                `<article class="Card">
                     <img src="${product.images[0]}" />
                     <h2>
                       ${product.title}
                       <small>$ ${product.price}</small>
                     </h2>
-                  </article>
-                `
-            });
+                  </article>`
+            );
             let newItem = document.createElement('section');
             newItem.classList.add('Items');
             newItem.innerHTML = output;
