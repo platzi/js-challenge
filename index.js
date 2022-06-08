@@ -29,7 +29,7 @@ const getData = api => {
 }
 
 
-const loadData = () => {
+const loadData = async () => {
   getData(API);
 }
 

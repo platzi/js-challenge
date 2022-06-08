@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: La pagina creada se encuentra en el siguiente [Link](https://sergiogval.github.io/js-challenge/)
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Sergio Valadez
+Usuario Platzi: sergioval
+Correo Electronico: sergioval@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
+- [x] Primer problema
 - [x] Segundo problema
 - [x] Tercer problema
 - [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Quinto Problema
