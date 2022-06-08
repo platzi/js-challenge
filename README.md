@@ -70,14 +70,14 @@ intersectionObserver.observe($observe);
 
 ## RETO
 
-### Primer problema
+### Primer problema [LISTO]
 
 1. Analiza la API: fakeapi.platzi.com
 2. Implementa la API de productos iniciando en el producto 5 y obteniendo los siguientes 10 productos.
 3. Guarda en localStorage la posición inicial ("pagination") y actualízala en cada petición nueva para traer los siguientes productos.
 4. Crear la lógica para implementar un scroll infinito con Intersection Observer.
 
-### Segundo Problema
+### Segundo Problema [LISTO]
 
 1. Crear la estructura de HTML para mostrar cada producto dentro de Items
 2. Crear un article con la clase "Card" para contener la imagen, título y precio de un producto:
@@ -94,7 +94,7 @@ intersectionObserver.observe($observe);
 
 3. Index.html debe de cumplir con los elementos mínimos de SEO (title = "PlatziStore", descripcion = "...")
 
-### Tercer Problema
+### Tercer Problema [LISTO]
 
 Cuando cerramos la pestaña o recargamos la pagina se debe de volver a mostrar los primeros 10 Productos.
 
@@ -102,14 +102,14 @@ Cuando cerramos la pestaña o recargamos la pagina se debe de volver a mostrar l
 2. Eliminar el localStorage.
 3. Actualiza la función loadData() a Async/Await.
 
-### Cuarto Problema
+### Cuarto Problema [LISTO]
 
 La API utilizada "fakeAPI" retorna 200 productos, utilizaremos la paginación propuesta en su documentación para obtener los productos en bloques de 10, cuando la última petición sea ejecutada debes de mostrar un mensaje "Todos los productos Obtenidos", a su vez debes de destruir el intersection observer.
 
 1. Implementar mensaje: "Todos los productos Obtenidos".
 2. Deja de observar el elemento "observe".
 
-### Quinto Problema (Bonus)
+### Quinto Problema (Bonus) [IN PROGRESS...]
 
 Desplegar la aplicación en alguno de los siguientes servicios: GitHub Pages, Netlify, Vercel.
 
