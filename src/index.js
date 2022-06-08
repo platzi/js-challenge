@@ -3,9 +3,6 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 let offset = JSON.parse(localStorage.getItem('pagination') || '5');
 const limit = 10;
-const newItem = document.createElement('section');
-newItem.classList.add('Items');
-
 
 window.onbeforeunload = () => {
   localStorage.clear();
@@ -32,7 +29,9 @@ const getData = async api => {
       `
       return article.innerHTML;
     });
-    newItem.innerHTML += output.join('');
+    const newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
   } catch (error) {
     console.error(error);
@@ -46,7 +45,7 @@ const loadData = async () => {
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   if (offset >= 200) {
-    newItem.innerHTML += `<h2>Todos los productos Obtenidos</h2>`;
+    $app.innerHTML += `Todos los productos Obtenidos`;
     intersectionObserver.unobserve($observe);
     intersectionObserver.disconnect();
     return;
