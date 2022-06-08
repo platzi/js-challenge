@@ -2,10 +2,15 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const limit = 10;
-localStorage.setItem("pagination",5);
+
+const getPagination = () => {
+    const offset = parseInt(localStorage.getItem('pagination')) + 10 || 5;
+    localStorage.setItem('pagination', offset);
+    return offset;
+}
 
 const getData = api => {
-  let offset = localStorage.getItem('pagination');
+  let offset = getPagination();
   fetch(`${api}?offset=${offset}&limit=${limit}`)
     .then(response => response.json())
     .then(response => {
@@ -34,7 +39,6 @@ const getData = api => {
       newItem.classList.add('Items');
       newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
-      localStorage.setItem("pagination",limit+parseInt(offset));
       if(output.length < 10){
         let newItem = document.createElement('div');
         newItem.classList.add('Warning');
