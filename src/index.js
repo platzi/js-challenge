@@ -11,7 +11,13 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        // template
+        return `<article class="Card">
+          <img src="${product.images[0]}" />
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>`
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
