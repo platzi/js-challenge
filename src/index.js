@@ -24,7 +24,7 @@ const getData = async api => {
       });
       output = output.join('');
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
