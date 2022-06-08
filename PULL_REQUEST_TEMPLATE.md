@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: Primer reto del Ethereum Developer Program
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Jhonatan Jose Maria Ibañez Taccsi
+Usuario Platzi: jhonatanit
+Correo Electronico: jhonatan.ibatac@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
