@@ -43,18 +43,18 @@ const getData = async api => {
 }
 
 const loadData = (idInitProduct = localStorage.getItem('pagination'), quantyProducts = localStorage.getItem('quanty')) => {
-  const url = `${API}?offset=${+idInitProduct ? +idInitProduct - 1 : 0}&limit=${quantyProducts}`;
-  getData(url);
-
   // La función por defecto tomara los valores en el local storage, cuando sea invocada por primera vez el local storage esta vacio y debe pasarsele el paginado inicial. Es decir, solo se ejecuta la primeza vez.
   if (!localStorage.length) {
     localStorage.setItem('pagination', `${idInitProduct}`);
     localStorage.setItem('quanty', `${quantyProducts}`);
     localStorage.setItem('limite', `${(+idInitProduct ? 201 - +idInitProduct : 200) / quantyProducts}`);
+  } else {
+    // Actualización de la posición
+    localStorage.setItem('pagination', `${+idInitProduct + +quantyProducts}`);
   }
 
-  // Actualización de la posición
-  localStorage.setItem('pagination', `${+idInitProduct + +quantyProducts}`);
+  const url = `${API}?offset=${+idInitProduct ? +idInitProduct - 1 : 0}&limit=${quantyProducts}`;
+  getData(url);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => entries.forEach(entry => {
