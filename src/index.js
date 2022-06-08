@@ -25,6 +25,16 @@ const updateLocalStorage = () => {
   return `?offset=${$offset}&limit=${$limit}`;  
 }
 
+const validateAllShowedItems = () => {
+  if (localStorage.getItem('pagination')) {
+    $offset = parseInt(localStorage.getItem('pagination'));
+    if ($offset >= RESULT_COUNT) {
+      return true;
+    }
+    return false;
+  }
+}
+
 const getData = api => {
   let $pagination = updateLocalStorage();
   fetch(api + $pagination)
@@ -46,6 +56,11 @@ const getData = api => {
       newItem.classList.add('Item');
       newItem.innerHTML = output;
       $items.appendChild(newItem);
+      if (validateAllShowedItems()) {
+        let message = document.createElement('section');
+        message.innerHTML = '<p>Todos los productos Obtenidos</p>';
+        $observe.appendChild(message);
+      }
     })
     .catch(error => console.log(error));
 }
