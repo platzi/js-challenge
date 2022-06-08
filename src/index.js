@@ -7,6 +7,7 @@ const limit = 10
 const initialOffset = 8
 
 //init the local storage 
+console.log(sessionStorage.getItem('offset'));
 sessionStorage.setItem('offset', initialOffset);
 
 //get the data from the API
@@ -82,3 +83,22 @@ const intersectionObserver = new IntersectionObserver(entries => {
 
 // Start to observe the element
 intersectionObserver.observe($observe);
+
+
+window.addEventListener("beforeunload", function (e) {
+  const confirmationMessage = "\o/";
+
+  (e || window.event).returnValue = confirmationMessage; 
+  sessionStorage.clear();
+  return confirmationMessage;                            
+});
+
+//to erase local storage when the user reload the page
+// window.addEventListener('load', () => {
+//   sessionStorage.clear();
+// })
+
+//to erase local storage when the user close the page
+// window.addEventListener('beforeunload', () => {
+//   sessionStorage.clear();
+// })
