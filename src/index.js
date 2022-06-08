@@ -1,39 +1,43 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-
-let miStorage = window.localStorage;
+const limit = 10;
+const miStorage = window.localStorage;
 miStorage.clear();
-miStorage.setItem("pagination", 0);
 
-const getElements = product => {
-    const pagination = parseInt(miStorage.getItem("pagination"))
-    return product.id >= (10 * pagination) - 5 && product.id <= 4 + (10 * pagination);
-}
 
 const getData = async(api) => {
-    await fetch(api)
+
+    const pagination = miStorage.getItem('pagination') ?  parseInt(miStorage.getItem('pagination')) + limit : 5;
+    miStorage.setItem('pagination', pagination);
+
+    await fetch(api+`/?limit=${limit}&offset=${pagination-1}`)
         .then(response => response.json())
         .then(response => {
-            let products = response;
-            let output = products.filter(getElements).map(product => {
-                return `
-                    <article class="Card">
-                        <img src="${product.images[0]}" alt="${product.description}" title="${product.title}" />
-                        <h2>${product.title}<small>$ ${product.price}</small></h2>
-                    </article>
-                `
-            });
-            let newItem = document.createElement('section');
-            newItem.classList.add('Items');
-            newItem.innerHTML = output;
-            $app.appendChild(newItem);
+            if(response.length == 0){
+                alert("Todos los productos Obtenidos")
+                $observe.remove(); 
+            }else{
+                let products = response;
+                let output = products.map(product => {
+                    return `
+                        <article class="Card">
+                            <img src="${product.images[0]}" alt="${product.description}" title="${product.title}" />
+                            <h2>${product.title}<small>$ ${product.price}</small></h2>
+                        </article>
+                    `
+                });
+                let newItem = document.createElement('section');
+                newItem.classList.add('Items');
+                newItem.innerHTML = output;
+                $app.appendChild(newItem);
+            }
         })
         .catch(error => console.log(error));
+    
 }
 
 const loadData = () => {
-    miStorage.setItem("pagination", parseInt(miStorage.getItem("pagination"))+1);
     getData(API);
 }
 
@@ -41,12 +45,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
     const paginacion = miStorage.getItem("pagination");
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            if (paginacion < 20) {
-                loadData();
-            } else {
-                alert("Todos los productos Obtenidos")
-               $observe.remove(); 
-            }
+            loadData();
         }
     });
 }, {
