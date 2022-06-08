@@ -20,16 +20,15 @@ const getData = api => {
       });
 
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
 }
 
-const loadData = async (offset, first) => {
-  console.log(`offset ${offset}`);
-  
+const loadData = async (offset) => {
+
   localStorage.setItem('pagination', offset);
 
   if(offset > 200){
@@ -37,32 +36,27 @@ const loadData = async (offset, first) => {
     intersectionObserver.disconnect();
   }
 
-  if(first){
-    getData(`${API}?offset=5&limit=10`);  
-  }else{
-    getData(`${API}?offset=${offset}&limit=10`);  
-  }  
+  getData(`${API}?offset=${offset}&limit=10`);  
+
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   const pagina = localStorage.getItem('pagination');
   entries.forEach(async entry => {
     if (entry.isIntersecting) {
-      console.log(`al reinicio`);
-      await loadData(parseInt(pagina)+10, false);
+      await loadData(parseInt(pagina));
     }
   });
 }, {
   rootMargin: '0px 0px 100% 0px'
 });
 
-intersectionObserver.observe($observe);
-
 window.onload = async function() {
-  await loadData(5, true);
+  intersectionObserver.observe($observe);
+  localStorage.setItem('pagination', '5');
 }
 
 window.onbeforeunload = function () {
   localStorage.clear();
-  localStorage.setItem('pagination', '0');
+  localStorage.setItem('pagination', '5');
 }
