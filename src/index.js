@@ -44,11 +44,11 @@ const loadData = async () => {
 };
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  let offset = parseInt(localStorage.getItem(storageKey));
+  let last = parseInt(localStorage.getItem(lastItem));
   if(entries[0].isIntersecting){
     loadData();
   }else{
-    if(offset>=200){
+    if(last>=200){
       const info = `<p class="Info">Todos los productos Obtenidos</p>`;
       $observe.innerHTML = info;
       intersectionObserver.disconnect();
