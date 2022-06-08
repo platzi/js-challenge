@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://pedrolgc.github.io/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Pedro Luis Gonzalez Cernuda
+Usuario Platzi: PedroLGC
+Correo Electronico: plgonzalezc@msn.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
