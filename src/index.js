@@ -2,7 +2,7 @@ const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
-const initPosition = 0;
+const initPosition = 5;
 const limit = 10;
 
 const getData = async (api, offset, limit) => {
@@ -23,8 +23,8 @@ const getData = async (api, offset, limit) => {
         `;
       });
       let newItem = document.createElement("section");
-      newItem.classList.add("Item");
-      newItem.innerHTML = output;
+      newItem.classList.add("Items");
+      newItem.innerHTML = output.join("");
       $app.appendChild(newItem);
     }
 
@@ -48,29 +48,35 @@ const getData = async (api, offset, limit) => {
 
 const loadData = () => {
   let positionString = localStorage.getItem("pagination");
-  let position = initPosition;
-  if (!isNaN(positionString)) {
-    position = Number(positionString);
+  if (positionString && !isNaN(positionString)) {
+    position = Number(positionString) + limit;
+  } else {
+    position = initPosition;
   }
-  localStorage.setItem("pagination", position + limit);
+  localStorage.setItem("pagination", position);
   getData(API, position, limit);
 };
 
 const init = async () => {
   localStorage.clear();
-  localStorage.setItem("pagination", initPosition + limit);
+  localStorage.setItem("pagination", initPosition);
   await getData(API, initPosition, limit);
 };
 
-document.onload = init();
+window.onload = () => {
+  localStorage.clear();
+};
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+    if (entries[0].isIntersecting) {
+      loadData();
+    }
+    /*entries.forEach((entry, index) => {
+      if (entry.isIntersecting && index !==0 ) {
         loadData();
       }
-    });
+    });*/
   },
   {
     rootMargin: "0px 0px 100% 0px",
