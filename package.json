@@ -4,7 +4,8 @@
   "description": "PlatziStore Fix Bugs",
   "main": "index.js",
   "scripts": {
-    "start": "live-server --open=public --entry-file=index.html",
+    "deploy": "gh-pages -d public",
+    "start": "live-server --port=5050 --open=public --entry-file=index.html",
     "e2e": "cypress open"
   },
   "repository": {
@@ -17,8 +18,9 @@
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
+  "homepage": "https://k-viera.github.io/js-challenge/",
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "live-server": "1.2.2"
   },
   "dependencies": {

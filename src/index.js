@@ -1,31 +1,72 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const API = 'https://api.escuelajs.co/api/v1/products?offset=_OFFSET_&limit=10';
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
+let getData = url => {
+  return new Promise((resolve, reject) => {
+    fetch(url).then(response => response.json()).then(response => {
+      resolve(response);
+    }).catch(error => reject(error));
+  })
+}
+
+
+let loadNextData = async () => {
+  localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
+  let url = API.replace('_OFFSET_', localStorage.getItem('pagination'));
+  await getData(url).then(response => {
+    addChilds(response);
+  })
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+addChilds = (products) => {
+  if (products.length <= 0) {
+    localStorage.setItem('observer', 0);
+    var footer = document.getElementById('footer');
+    footer.removeAttribute("hidden"); 
+    alert("todos los productos ya fueron cargados");
+  } else {
+    let newItem = document.getElementById('Products');
+    products.map(product => {
+      let newDiv = document.createElement('div');
+      newDiv.setAttribute('class', 'Card');
+      newDiv.innerHTML =
+        `
+          <img src="${product.images[0]}" alt="${product.title}">
+          <h2>${product.title}</h2>
+          <p>Precio: $${product.price}</p>
+      `;
+      newItem.appendChild(newDiv);
+    });
+  }
+
+}
+
+let loadData = async () => {
+  localStorage.setItem('pagination', 4);
+  localStorage.setItem('observer', 1);
+  let url = API.replace('_OFFSET_', localStorage.getItem('pagination'));
+  let newItem = document.createElement('div');
+  newItem.setAttribute('id', 'Products');
+  newItem.setAttribute('class', 'Items');
+  $app.appendChild(newItem);
+  await getData(url).then(response => {
+    addChilds(response);
+  })
+    .catch(error => console.log(error));
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+  entries.forEach(entry => {
+    if (entry.isIntersecting && localStorage.getItem('observer') === '1') {
+      loadNextData();
+    }
+  })
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
 
 intersectionObserver.observe($observe);
+
+loadData();
