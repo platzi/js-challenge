@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Rodrigo Ramos Xochiteotzin
+Usuario Platzi: rdrx
+Correo Electronico: rodrx20@gmail.com
 
 ## Reto:
 

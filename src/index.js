@@ -22,9 +22,19 @@ const loadData = () => {
   getData(API);
 }
 
+const savePosition = (position) => {
+  return localStorage.setItem("pagination", JSON.stringify(position))
+}
+
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+
+    }
+  })
 }, {
+  threshold: .85,
+  root: $observe,
   rootMargin: '0px 0px 100% 0px',
 });
 
