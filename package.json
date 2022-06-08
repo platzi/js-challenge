@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
-    "build": "webpack --config webpack.config.js",
     "e2e": "cypress open"
   },
   "repository": {
