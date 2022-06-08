@@ -2,6 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const limit = 10;
+window.localStorage.removeItem('pagination');
 
 function setPagination(){
   let pagination;
@@ -14,7 +15,7 @@ function setPagination(){
   return pagination;
 }
 
-const getData = api => {
+const getData = async (api) => {
   const pagination = setPagination();
   fetch(`${api}?offset=${pagination}&limit=${limit}`)
     .then(response => response.json())
@@ -38,8 +39,8 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = async () => {
+ await getData(API);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
