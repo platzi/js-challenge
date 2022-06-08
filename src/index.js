@@ -62,15 +62,13 @@ const productCardTemplate = (templateType, product) => {
     case '0':
     default:
       return '' +
-        '<div class="Item">' +
-          '<article class="Card">' +
-            '<img src="' + product.images[0] +'"></img>' +
-            '<h2>' + 
-            product.title + 
-            '<small>Precio: $' + product.price + '</small>' +
-            '</h2>' +
-          '</article>' +
-        '</div>';
+        '<article class="Card">' +
+          '<img src="' + product.images[0] +'"></img>' +
+          '<h2>' + 
+          product.title + 
+          '<small>Precio: $' + product.price + '</small>' +
+          '</h2>' +
+        '</article>';
   }
 }
 
