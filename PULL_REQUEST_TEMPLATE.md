@@ -2,14 +2,18 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Eimer Wilfer Castro Hincapie
+Usuario Platzi: ewcastroh10
+Correo Electronico: ewcastroh10@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
+
+## Despliegue:
+Reto desplegado en GitHub Pages
+https://ewcastroh.github.io/js-challenge/public/
