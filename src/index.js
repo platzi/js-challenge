@@ -4,7 +4,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 const getData = async (api) => {
   const limit = 10;
-  const offset = localStorage.getItem('offset') ? parseInt(localStorage.getItem('offset')) + limit : 5;
+  const offset = localStorage.getItem('pagination') ? parseInt(localStorage.getItem('pagination')) + limit : 5;
 
   try {
     const response = await fetch(`${api}?offset=${offset}&limit=${limit}`)
@@ -19,17 +19,17 @@ const getData = async (api) => {
             <small>$ ${product.price}</small>
           </h2>
         </article>`
-    });
+      });
     }
     else {
       intersectionObserver.disconnect();
     }
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output;
     $app.appendChild(newItem);
 
-    localStorage.setItem('offset', offset);
+    localStorage.setItem('pagination', offset);
 
   }
   catch (error) {
@@ -53,5 +53,5 @@ const intersectionObserver = new IntersectionObserver(entries => {
 intersectionObserver.observe($observe);
 
 window.addEventListener("beforeunload", function (e) {
-  localStorage.removeItem('offset');
+  localStorage.removeItem('pagination');
 }, false);
