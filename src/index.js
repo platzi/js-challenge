@@ -2,10 +2,24 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const DEFAULT_OFFSET = 4;
+const DEFAULT_OFFSET = 5;
 const DEFAULT_LIMIT = 10;
 
-localStorage.setItem('offset', DEFAULT_OFFSET);
+const clearPagination = () => {
+  localStorage.removeItem('pagination')
+}
+
+const getPagination = () => {
+  if(!localStorage.getItem("pagination")) {
+    localStorage.setItem("pagination", DEFAULT_OFFSET)
+  }
+  return parseInt(localStorage.getItem('pagination'))
+}
+
+const setPagination = (value) => {
+  localStorage.setItem("pagination", value)
+}
+
 
 const getData = async (api) => {
   try {
@@ -19,11 +33,16 @@ const getData = async (api) => {
   }
 }
 
-const loadData = async (offset = 4, limit = DEFAULT_LIMIT) => {
-  localStorage.setItem("offset", `${offset+limit}`);
-  
+const loadData = async () => {  
+  let offset;
+
+  if($app.childNodes.length !== 0) {
+    setPagination(getPagination()+DEFAULT_LIMIT)
+  }
+  offset = getPagination()
+
   try {
-    let products = await getData(`${API}?offset=${offset}&limit=${limit}`)
+    let products = await getData(`${API}?offset=${offset}&limit=${DEFAULT_LIMIT}`)
 
     let output = ``;
     
@@ -59,11 +78,13 @@ const loadData = async (offset = 4, limit = DEFAULT_LIMIT) => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
   if(entries[0].isIntersecting) {
-    let offset = parseInt(localStorage.getItem("offset"))||DEFAULT_OFFSET
-    loadData(offset);
+    loadData()
   }
 }, {
   rootMargin: '0px 0px 100% 0px',
+  threshold: '1.0'
 });
 
 intersectionObserver.observe($observe);
+
+clearPagination();
