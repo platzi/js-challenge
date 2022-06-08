@@ -21,7 +21,6 @@ const getData = async (api) => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      console.log(products);
       if(products.length === 0){
         alert('Todos los productos Obtenidos');
         intersectionObserver.disconnect();
