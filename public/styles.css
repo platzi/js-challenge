@@ -13,6 +13,9 @@ body {
   display: grid;
   justify-content: center;
 }
+.Main h1{
+  text-align: center;
+}
 
 .Items {
   grid-template-columns: repeat(2, 1fr);
@@ -32,6 +35,10 @@ body {
   animation-name: fade;
 }
 
+.Card:hover{
+  transform: scale(1.05);
+}
+
 .Card img {
   width: 100%;
   height: auto;
@@ -39,11 +46,15 @@ body {
 }
 
 .Card h2 {
-  font-size: 18px;
+  font-size: 2.5vmin;
   font-weight: 300;
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.Card small{
+  font-weight: 600;
 }
 
 @keyframes fade {
