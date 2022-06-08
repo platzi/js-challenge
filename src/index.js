@@ -4,10 +4,11 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 //Initial Values for the pagination/API petition
 const limit = 10
-const initialOffset = 5
+// const initialOffset = 5
 
 //init the local storage, althought the local storage is deleted by reload or close the browser, the pagination will be reseted with this line
-localStorage.setItem("initialState", initialOffset);
+localStorage.setItem("initialState", 5);
+console.log(localStorage.getItem("initialState"));
 
 //Get the data from the API
 const getData = api => {
