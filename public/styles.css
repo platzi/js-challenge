@@ -45,7 +45,18 @@ body {
   display: flex;
   justify-content: space-between;
 }
-
+/*
+#app{
+  height: 200vh;
+  width: 100%;
+  background-color: blue;
+}
+*/
+#observe{
+  height: 100PX;
+  width: 100%;
+  background-color: yellow;
+}
 @keyframes fade {
   from {
     opacity: 0;
