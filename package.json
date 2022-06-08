@@ -17,12 +17,12 @@
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
+  "homepage": "https://pabpol.github.io/js-challenge/",
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "live-server": "1.2.2"
   },
   "dependencies": {
-    "cypress": "10.0.1",
-    "gh-pages": "^4.0.0"
+    "cypress": "10.0.1"
   }
 }
