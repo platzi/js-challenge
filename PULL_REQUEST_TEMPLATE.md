@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Pedro Luis Gonzalez Cernuda
+Usuario Platzi: plgonzalezc@msn.com
+Correo Electronico: plgonzalezc@msn.com
 
 ## Reto:
 
