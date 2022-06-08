@@ -1,6 +1,8 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+var articulos='';
+
 inicializar();
 function inicializar()
 {
@@ -13,17 +15,13 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        // template
-        //format(`${product.title}`,`${product.price}`,`${product.images}`);
-        //var output =(`${product.id}: ${product.title}`);
-        var output =format(`${product.title}`,`${product.price}`,`${product.images}`);
-      console.log("Hola yo ya estoy aca...");
+      articulos =articulos+format(`${product.title}`,`${product.price}`,`${product.images}`);
+      });
+      //console.log(articulos);
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);        
-      });
-
+      newItem.innerHTML = articulos;
+      $app.appendChild(newItem);     
     })
     .catch(error => console.log(error));
 }
@@ -38,7 +36,7 @@ function paginarAPI()
   var pagination=localStorage.getItem("pagination");
   if(!pagination)
   {
-    pagination=4; // it doesn't have to enter here but just in case there is a problem with localstorage
+    pagination=4; 
   }
   else
   {
@@ -72,11 +70,7 @@ intersectionObserver.observe($observe);
 
 function format(titulo, precio, imagenes)
 {
-  
-  $html="Product="+titulo+"<br>";
-  $html=$html+"Price="+precio+"<br>";
-  $html=$html+"Images="+imagenes+"<br><br>";
+  imagenes=imagenes.split(",",1); //solo tomo la primer imagen para seguir estructura solicitada
+  $html='<article class="Card"><img src="'+imagenes+'" /><h2>'+titulo+'<small>$ '+precio+'</small></h2></article>';
   return $html;
-
-  alert($html);
 }
