@@ -9,19 +9,20 @@ const getData = api => {
       let products = response;
       let newItem = document.createElement('div');
       newItem.setAttribute('id', 'Products');
+      newItem.setAttribute('class', 'Items');
       products.map(product => {
         let newDiv = document.createElement('div');
-        newDiv.innerHTML = 
-         `
-          <div>
+        newDiv.setAttribute('class', 'Card');
+        newDiv.innerHTML =
+          `
             <h2>${product.title}</h2>
             <p>${product.description}</p>
-            <p>${product.price}</p>
-          </div>
-        `
+            <p>Precio: $${product.price}</p>
+            <img src="${product.images[0]}" alt="${product.title}">
+        `;
+        console.log(1);
         newItem.appendChild(newDiv);
       });
-      newItem.classList.add('Item');
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
@@ -45,16 +46,15 @@ const loadNextData = () => {
     .then(response => {
       let products = response;
       let newItem = document.getElementById('Products');
-      console.log("hola",newItem)
       products.map(product => {
         let newDiv = document.createElement('div');
+        newDiv.setAttribute('class', 'Card');
         newDiv.innerHTML =
           `
-          <div>
             <h2>${product.title}</h2>
             <p>${product.description}</p>
-            <p>${product.price}</p>
-          </div>
+            <p>Precio: $${product.price}</p>
+            <img src="${product.images[0]}" alt="${product.title}">
         `;
         console.log(1);
         newItem.appendChild(newDiv);
