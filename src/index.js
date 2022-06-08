@@ -25,10 +25,20 @@ const getData = async api => {
             </h2>
           </article>
         `;
-      });
+      }).join('');
+            
+      // If there isn't new elements, stop infinite scroll
+      if(products.length === 0){
+        // stop observing intersection
+        intersectionObserver.unobserve($observe);
+
+        // display message all products already displayed
+        output = "<small>Todos los productos obtenidos</small>";
+      }
+      
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
-      newItem.innerHTML = output.join('');
+      newItem.innerHTML = output;
       $app.appendChild(newItem);
 
       // update offset for next query to API
