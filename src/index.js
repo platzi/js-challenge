@@ -2,84 +2,55 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products?offset=_OFFSET_&limit=10';
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let newItem = document.createElement('div');
-      newItem.setAttribute('id', 'Products');
-      newItem.setAttribute('class', 'Items');
-      products.map(product => {
-        let newDiv = document.createElement('div');
-        newDiv.setAttribute('class', 'Card');
-        newDiv.innerHTML =
-          `
-          <img src="${product.images[0]}" alt="${product.title}">
-          <h2>${product.title}</h2>
-          <p>Precio: $${product.price}</p>
-        `;
-        console.log(1);
-        newItem.appendChild(newDiv);
-      });
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
-}
-
-function getNextData(url) { 
-  fetch(url)
-  .then(response => response.json())
-  .then(response => {
-    return response;
+let getData = url => {
+  return new Promise((resolve, reject) => {
+    fetch(url).then(response => response.json()).then(response => {
+      resolve(response);
+    }).catch(error => reject(error));
   })
-  .catch(error => console.log(error));
 }
 
-const loadNextData = () => { 
-  console.log("preuba")
-  localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination') )+ 10);
+
+let loadNextData = async () => {
+  localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
   let url = API.replace('_OFFSET_', localStorage.getItem('pagination'));
-  fetch(url)
-  .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let newItem = document.getElementById('Products');
-      products.map(product => {
-        let newDiv = document.createElement('div');
-        newDiv.setAttribute('class', 'Card');
-        newDiv.innerHTML =
-          `
-            <img src="${product.images[0]}" alt="${product.title}">
-            <h2>${product.title}</h2>
-            <p>Precio: $${product.price}</p>
-        `;
-        console.log(1);
-        newItem.appendChild(newDiv);
-      });
-      console.log("chao",newItem)
-  })
-  .catch(error => console.log(error));
+  await getData(url).then(response => {
+    addChilds(response);
+   })
+    .catch(error => console.log(error));
+ }
+
+addChilds = (products) => {
+  let newItem = document.getElementById('Products');
+  products.map(product => {
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('class', 'Card');
+    newDiv.innerHTML =
+      `
+        <img src="${product.images[0]}" alt="${product.title}">
+        <h2>${product.title}</h2>
+        <p>Precio: $${product.price}</p>
+    `;
+    newItem.appendChild(newDiv);
+  });
 }
 
-const loadData = () => {
+let loadData = async () => {
   localStorage.setItem('pagination', 4);
   let url = API.replace('_OFFSET_', localStorage.getItem('pagination'));
-  getData(url);
-}
-
-
-const range = (start, stop, step) =>{
-  var a = [start], b = start;
-  while (b < stop) {
-      a.push(b += step || 1);
-  }
-  return a;
+  let newItem = document.createElement('div');
+  newItem.setAttribute('id', 'Products');
+  newItem.setAttribute('class', 'Items');
+  $app.appendChild(newItem);
+  await getData(url).then(response => {
+    addChilds(response);
+  })
+    .catch(error => console.log(error));
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if(entry.isIntersecting) {
+    if (entry.isIntersecting) {
       loadNextData();
     }
   })
