@@ -6,10 +6,15 @@ const API = "https://api.escuelajs.co/api/v1/products";
 
 const LIMIT = 10;
 const INITIAL_PAGE = 5;
-const LAST_PAGE = 200;
 
-let indexValue;
+
 localStorage.setItem('pagination', 0);
+
+const loadPagination = () => {
+  return parseInt(localStorage.getItem('pagination') || FIST_PAGE);
+}
+
+let indexValue = loadPagination();
 
 const getData = async (api) => {
   try {
@@ -72,7 +77,3 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
-
-window.addEventListener("beforeunload", function (e) {
-  localStorage.removeItem('pagination');
-}, false);
