@@ -39,14 +39,16 @@ const loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  const page = localStorage.getItem(PAGINATION_STR);
-  if (entries[0].isIntersecting) {
-    loadData();
-  } 
-  if(page > 200){
+  
+  if(parseInt(localStorage.getItem(PAGINATION_STR)) > 200){
     $observe.innerHTML="Todos los productos Obtenidos.";
       intersectionObserver.disconnect();
   }
+
+  if (entries[0].isIntersecting) {
+    loadData();
+  } 
+  
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
