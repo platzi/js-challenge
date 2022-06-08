@@ -12,7 +12,6 @@ const getData = (api) => {
       let output = products.map((product) => {
         return product;
       });
-      console.log(output);
       let paginationItems = Number(localStorage.getItem("pagination"));
       if (paginationItems >= 190) {
         endDataPrint();
