@@ -2,14 +2,14 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const storageKey = 'pagination';
-const initialOffset = 5;
+const lastItem = 'lastItem';
 const limit = 10;
 
-localStorage.removeItem(storageKey);
-localStorage.setItem(storageKey, initialOffset);
+localStorage.clear();
+localStorage.setItem(storageKey, 5);
 
 const getData = api => {
-  const offset = parseInt(localStorage.getItem(storageKey));
+  const offset = parseInt(localStorage.getItem(lastItem)) || parseInt(localStorage.getItem(storageKey));
   fetch(api+`?offset=${offset}&limit=${limit}`)
     .then(response => response.json())
     .then(response => {
@@ -33,7 +33,8 @@ const getData = api => {
       });
       newItem.innerHTML = output;
       $app.appendChild(newItem);
-      localStorage.setItem(storageKey, offset+limit);
+      localStorage.setItem(lastItem, offset+limit);
+      localStorage.setItem(storageKey, offset);
     })
     .catch(error => console.log(error));
 };
@@ -41,8 +42,6 @@ const getData = api => {
 const loadData = async () => {
   await getData(API);
 };
-
-loadData();
 
 const intersectionObserver = new IntersectionObserver(entries => {
   let offset = parseInt(localStorage.getItem(storageKey));
