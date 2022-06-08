@@ -59,7 +59,7 @@ const productCardTemplate = (templateType, product) => {
           '<img src="' + product.images[0] +'"></img>' +
           '<h2>' + product.description + '</h2>' +
         '</article>';
-    case '1':
+    case '0':
     default:
       return '' +
         '<article class="Card">' +
