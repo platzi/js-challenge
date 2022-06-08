@@ -5,20 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "deploy": "gh-pages -d src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/platzi/js-challenge.git"
+    "url": "git+https://github.com/matisyk/js-challenge.git"
   },
   "keywords": [],
-  "author": "Oscar Barajas <oscar@platzi.com>",
+  "author": "Matias Sykuler <matiassykuler7@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
   "homepage": "https://github.com/platzi/js-challenge#readme",
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "live-server": "1.2.2"
   },
   "dependencies": {
