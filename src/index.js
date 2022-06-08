@@ -1,22 +1,23 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const maxProducts = 200;
+const limit = 10;
 
 const getData = async (api) => {
   let pagination = getPagination();
   savePagination(pagination);
-  const limit = 10;
 
   try {
-    const fetchData = await fetch(`${api}?offset=${pagination}&limit=${limit}`);
-    const products = await fetchData.json();
-
-    if (products.length === 0) {
+    if (pagination >= maxProducts) {
       let theEnd = document.createElement('p');
       theEnd.innerHTML = 'Todos los productos obtenidos';
       $app.appendChild(theEnd);
       return;
     }
+
+    const fetchData = await fetch(`${api}?offset=${pagination}&limit=${limit}`);
+    const products = await fetchData.json();
 
     let output = products.map(product => {
       // template
@@ -31,7 +32,7 @@ const getData = async (api) => {
       `;
     });
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output;
     $app.appendChild(newItem);
   } catch (error) {
@@ -45,7 +46,7 @@ const loadData = async () => {
 
 const getPagination = () => {
   if (!localStorage.getItem('pagination')) {
-    return 4;
+    return 5;
   }
 
   return Number(localStorage.getItem('pagination')) + 10;
