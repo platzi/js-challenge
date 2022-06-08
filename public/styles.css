@@ -46,6 +46,12 @@ body {
   justify-content: space-between;
 }
 
+.NoMoreItems {
+  text-align: center;
+  animation-duration: 4s;
+  animation-name: fade;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
