@@ -18,7 +18,11 @@ npm run start
 
 ### Debug
 
-http://localhost:8080/public/
+http://localhost:8080
+
+## Access to deployed project
+
+https://nicovalen7.github.io/platzi-js-challenge/
 
 ### Documentación
 
