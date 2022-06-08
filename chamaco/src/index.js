@@ -18,27 +18,23 @@ const getData = (api) => {
       let products = response;
 
       if (products.length === 0) {
-        let lastItem = document.createElement('section');
-        lastItem.innerHTML = '<h2>Todos los productos Obtenidos 😊</h2>';
-        $app.appendChild(lastItem);
-
+        alert('Todos los productos Obtenidos');
         destroyed();
         return;
       }
       updateInitialValue(products.slice(-1)[0].id);
 
       let output = products.map((e) => {
-        return `
-        <article class='Card'>
-          <img src='${e.images[0]}' />
-          <h2>
-          ${e.title}
-          <small>
-          ${e.price}
-          </small>
-          </h2>
-        </article>
-      `;
+        return (
+          "<article class='Card'><img src='" +
+          e.images[0] +
+          "'/><h2>" +
+          e.title +
+          ' ' +
+          '<small>$ ' +
+          e.price +
+          '</small></h2></article>'
+        );
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
