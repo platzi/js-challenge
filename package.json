@@ -1,27 +1,41 @@
 {
-  "name": "js-challenge",
-  "version": "1.0.0",
-  "description": "PlatziStore Fix Bugs",
-  "main": "index.js",
-  "scripts": {
-    "start": "live-server --open=public --entry-file=index.html",
-    "e2e": "cypress open"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/platzi/js-challenge.git"
-  },
-  "keywords": [],
-  "author": "Oscar Barajas <oscar@platzi.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/platzi/js-challenge/issues"
-  },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
-  "devDependencies": {
-    "live-server": "1.2.2"
-  },
-  "dependencies": {
-    "cypress": "10.0.1"
-  }
+	"name": "js-challenge",
+	"version": "1.0.0",
+	"description": "PlatziStore Fix Bugs",
+	"main": "index.js",
+	"scripts": {
+		"start": "live-server --open=public --entry-file=index.html",
+		"e2e": "cypress open",
+		"format": "prettier --write .",
+		"lint": "eslint --fix . --ext .js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/platzi/js-challenge.git"
+	},
+	"keywords": [],
+	"author": "Oscar Barajas <oscar@platzi.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/platzi/js-challenge/issues"
+	},
+	"homepage": "https://github.com/platzi/js-challenge#readme",
+	"devDependencies": {
+		"eslint": "^8.0.1",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"live-server": "1.2.2"
+	},
+	"dependencies": {
+		"cypress": "10.0.1",
+		"prettier": "^2.6.2"
+	},
+	"pnpm": {
+		"overrides": {
+			"glob-parent@<5.1.2": ">=5.1.2"
+		}
+	}
 }

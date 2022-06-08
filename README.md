@@ -27,21 +27,21 @@ http://localhost:8080/public/
 - Constante 'API': Utilizamos la FakeAPI de Platzi.
 
 ```javascript
-const $app = document.getElementById("app");
-const $observe = document.getElementById("observe");
-const API = "https://api.escuelajs.co/api/v1/products";
+const $app = document.getElementById('app');
+const $observe = document.getElementById('observe');
+const API = 'https://api.escuelajs.co/api/v1/products';
 ```
 
 Función llamada 'getData' que se encarga de hacer Fetch a una API y debe de construir un elemento nuevo en el DOM.
 
 ```javascript
-const getData = (api) => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      const products = response;
-    })
-    .catch((error) => console.log(error));
+const getData = api => {
+	fetch(api)
+		.then(response => response.json())
+		.then(response => {
+			const products = response;
+		})
+		.catch(error => console.log(error));
 };
 ```
 
@@ -49,7 +49,7 @@ Función encargada de obtener de los Productos.
 
 ```javascript
 const loadData = () => {
-  getData(API);
+	getData(API);
 };
 ```
 
@@ -57,12 +57,12 @@ Intersection Observer
 
 ```javascript
 const intersectionObserver = new IntersectionObserver(
-  (entries) => {
-    // logic...
-  },
-  {
-    rootMargin: "0px 0px 100% 0px",
-  }
+	entries => {
+		// logic...
+	},
+	{
+		rootMargin: '0px 0px 100% 0px',
+	}
 );
 
 intersectionObserver.observe($observe);
@@ -84,11 +84,11 @@ intersectionObserver.observe($observe);
 
 ```html
 <article class="Card">
-  <img src="imagen.png" />
-  <h2>
-    Producto
-    <small>$ Precio</small>
-  </h2>
+	<img src="imagen.png" />
+	<h2>
+		Producto
+		<small>$ Precio</small>
+	</h2>
 </article>
 ```
 
