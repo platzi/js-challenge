@@ -29,7 +29,7 @@ const getData = (api) => {
                   <small>${product.price}</small>
                   </h2>
                 </article>`;
-        });
+        }).join('');
       }
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
