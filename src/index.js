@@ -22,19 +22,24 @@ const getData = async (api) => {
     .then(response => {
       let products = response;
       console.log(products);
-      let output = products.map(product => {
-        return `<article class="Card">
-          <img src="${product.images[0]}" />
-          <h2>
-          ${product.id}-${product.title}
-            <small>$ ${product.price}</small>
-          </h2>
-        </article>`
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Items');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
+      if(products.length === 0){
+        alert('Todos los productos Obtenidos');
+        intersectionObserver.disconnect();
+      }else{
+          let output = products.map(product => {
+          return `<article class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+            ${product.id}-${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>`
+        });
+        let newItem = document.createElement('section');
+        newItem.classList.add('Items');
+        newItem.innerHTML = output;
+        $app.appendChild(newItem);
+      }
     })
     .catch(error => console.log(error));
 }
