@@ -23,7 +23,6 @@ const getData = (api) => {
 };
 const dataPrint = (data) => {
   data.map((product) => {
-    let main = document.createElement("section");
     let items = document.createElement("div");
     let card = document.createElement("article");
     let img = document.createElement("img");
@@ -35,14 +34,12 @@ const dataPrint = (data) => {
     img.src = product.images[0];
     card.classList.add("Card");
     items.classList.add("Items");
-    main.classList.add("Main");
 
     card.appendChild(img);
     card.appendChild(title);
     card.appendChild(price);
     items.appendChild(card);
-    main.appendChild(items);
-    $app.appendChild(main);
+    $app.appendChild(items);
   });
   pagination = pagination + limit;
   limit = 2;
