@@ -3,9 +3,12 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 let offset = 5,
   limit = 10
-localStorage.setItem('pagination', offset);
+  
+  const getData = async (api) => {
 
-const getData = async (api,pagination) => {
+  localStorage.setItem('pagination', offset);
+  let pagination = localStorage.getItem('pagination');
+
   await fetch(api+`?offset=${pagination}&limit=${limit}`)
     .then(response => response.json())
     .then(response => {
@@ -33,23 +36,18 @@ const getData = async (api,pagination) => {
       }
     })
     .catch(error => console.log(error));
-  
+    
+  offset += limit;
 }
 
 //Actualiza la función loadData() a Async/Await
-const loadData = async (pagination) => {
-  await getData(API,pagination);
+const loadData = async () => {
+  await getData(API);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
   //Guarda en localStorage la posición inicial ("pagination") y actualízala en cada petición nueva para traer los siguientes productos
-  if (entries[0].isIntersecting){
-    let pagination = localStorage.getItem('pagination');
-    loadData(pagination-1)
-    localStorage.setItem('pagination', parseInt(pagination)+limit);
-  }
-
+  if (entries[0].isIntersecting){loadData()}
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
