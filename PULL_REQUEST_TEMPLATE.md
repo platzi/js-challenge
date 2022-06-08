@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Luis Fernando Ushiña Gualpa
+Usuario Platzi: guffenix
+Correo Electronico: guffenix@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [OK] Primer problema
+- [OK] Segundo problema
+- [OK] Tercer problema
+- [OK] Cuarto Problema
+- [OK] Quinto Problema
