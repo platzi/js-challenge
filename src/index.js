@@ -1,15 +1,38 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
-const OFFSET = 5;
+const INITIAL_OFFSET = 5;
 const LIMIT = 10;
-const STORAGE_PAGE_KEY = "pageStored";
+const STORAGE_PAGE_KEY = "pagination";
 const ITEMS_LIMIT = 200;
+
+if (window.performance) {
+  console.info("window.performance works fine on this browser");
+}
+// Return a PerformanceNavigationTiming object
+// https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
+// Use this because the requirements do not consider the "back_forward"
+const navigation = window.performance.getEntriesByType("navigation")[0];
+if (navigation.type === "reload" || navigation.type === "navigate") {
+  localStorage.clear();
+}
+
+let offset = INITIAL_OFFSET;
 
 const getData = (api) => {
   fetch(api)
     .then((response) => response.json())
     .then((response) => {
+      let requestOffset = parseInt(localStorage.getItem(STORAGE_PAGE_KEY));
+      if (requestOffset > ITEMS_LIMIT) {
+        let newMessageItem = document.createElement("message");
+        newMessageItem.innerHTML =
+          "<h1>Todos los productos fueron mostrados</h1>";
+        $app.append(newMessageItem);
+        intersectionObserver.disconnect();
+        return;
+      }
+
       let products = response;
       let output = products.map(
         (product) => `
@@ -23,63 +46,26 @@ const getData = (api) => {
         `
       );
       let newItem = document.createElement("section");
-      newItem.classList.add("Item");
+      newItem.classList.add("Items");
       newItem.innerHTML = output.join(" ");
       $app.appendChild(newItem);
+
+      localStorage.setItem(STORAGE_PAGE_KEY, offset);
+      offset += LIMIT;
     })
     .catch((error) => console.log(error));
 };
 
-/// ******Storage Tools********
-const setLocalStorage = (key, value) => {
-  try {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  } catch (e) {
-    console.error(e);
-  }
-};
-const removeLocalStorage = (key) => {
-  try {
-    window.localStorage.removeItem(key);
-  } catch (e) {
-    console.error(e);
-  }
-};
-const getLocalStorage = (key, initialValue) => {
-  try {
-    const item = window.localStorage.getItem(key);
-    return item != null ? JSON.parse(item) : initialValue;
-  } catch (e) {
-    return initialValue;
-  }
-};
-/// ****************************
 const loadData = async () => {
-  try {
-    await getData(
-      `${API}?offset=${getLocalStorage(
-        STORAGE_PAGE_KEY,
-        OFFSET
-      )}&limit=${LIMIT}`
-    );
-  } catch (e) {
-    console.error(e);
-  }
+  await getData(API + "?offset=" + offset + "&limit=" + LIMIT);
 };
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     // logic...
-    let requestNumber = parseInt(getLocalStorage(STORAGE_PAGE_KEY, OFFSET));
     const { isIntersecting } = entries[0];
-    if (isIntersecting && requestNumber < ITEMS_LIMIT) {
+    if (isIntersecting) {
       loadData();
-      setLocalStorage(
-        STORAGE_PAGE_KEY,
-        getLocalStorage(STORAGE_PAGE_KEY, OFFSET) + LIMIT
-      );
-    } else {
-      stopRequest();
     }
   },
   {
@@ -96,12 +82,6 @@ const stopRequest = () => {
 
 intersectionObserver.observe($observe);
 
-if (window.performance) {
-  console.info("window.performance works fine on this browser");
-}
-// Return a PerformanceNavigationTiming object
-// https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
-const navigation = window.performance.getEntriesByType("navigation")[0];
-if (navigation.type === "reload" || navigation.type === "navigate") {
-  removeLocalStorage(STORAGE_PAGE_KEY);
-}
+setTimeout(() => {
+  intersectionObserver.observe($observe);
+}, 2100);
