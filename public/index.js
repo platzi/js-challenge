@@ -54,7 +54,7 @@ const intersectionObserver = new IntersectionObserver(
         if (offset >= 199) {
           $app.insertAdjacentHTML(
             "beforeEnd",
-            `<h1>Todos los productos Obtenidos</h1>`
+            `<h2>Todos los productos Obtenidos</h2>`
           );
           intersectionObserver.disconnect();
         } else {
