@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
+  "homepage": "https://github.com/platzi/js-challenge/public",
   "devDependencies": {
     "live-server": "1.2.2"
   },
