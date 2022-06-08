@@ -8,7 +8,7 @@ const limit = 10
 
 //init the local storage, althought the local storage is deleted by reload or close the browser, the pagination will be reseted with this line
 localStorage.setItem("initialState", 5);
-console.log(localStorage.getItem("initialState"));
+// console.log(localStorage.getItem("initialState"));
 
 //Get the data from the API
 const getData = api => {
