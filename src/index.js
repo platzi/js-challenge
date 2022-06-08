@@ -1,31 +1,40 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const API = 'https://api.escuelajs.co/api/v1/products/5';
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+const getData = async () => {
+  const response = await fetch(API);
+  const data = await response.json();
+  return data;
+}
+const loadData = data => {
+  $app.innerHTML = 
+  `<div class="Card">
+    <div class="Item">
+      <h2>${data.title}</h2>
+      <img src="${data.category.image}" alt="${data.name}">
+      <p>${data.description}</p>
+      <span>Price:  ${data.price} USD</span>
+    </div>
+  </div>
+  `;
 }
 
-const loadData = () => {
-  getData(API);
-}
+getData().then(loadData);
+console.log(getData()); 
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
 
-intersectionObserver.observe($observe);
+// $observe.addEventListener('click', () => {
+//     axios.get(API)
+//         .then(response => {
+//             console.log(response.data);
+//    
+
+// const intersectionObserver = new IntersectionObserver(entries => {
+//   // logic...
+// }, {
+//   rootMargin: '0px 0px 100% 0px',
+//   threshold: 0.5
+// });
+
+// intersectionObserver.observe($observe);
