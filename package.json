@@ -4,7 +4,8 @@
   "description": "PlatziStore Fix Bugs",
   "main": "index.js",
   "scripts": {
-    "deploy": "gh-pages -d public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "live-server --port=5050 --open=public --entry-file=index.html",
     "e2e": "cypress open"
   },
