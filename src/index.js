@@ -4,10 +4,10 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 //Initial Values for the pagination/API petition
 const limit = 10
-const initialOffset = 4
+const initialOffset = 8
 
 //init the local storage 
-localStorage.setItem('offset', initialOffset);
+sessionStorage.setItem('offset', initialOffset);
 
 //get the data from the API
 const getData = api => {
@@ -15,6 +15,7 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
+      console.log(products);
       let output = products.map(product => {
         
         //cardItemElement
@@ -30,11 +31,11 @@ const getData = api => {
         img.src = product.images[0];
         title.innerText = product.title;
         small.innerText = `$${product.price}`;
-
-        //Append Childs
+        
+        //Append Child Elements
+        title.append(small);
         cardItem.appendChild(img);
         cardItem.appendChild(title);
-        cardItem.appendChild(small);
         
         return cardItem;
       }
@@ -59,12 +60,12 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-//Function that will be called when the user scrolls the page, and set the new pagination on localStorage 
+//Function that will be called when the user scrolls the page, and set the new pagination on sessionStorage 
 const loadData = async () => {
-  await getData(`${API}/?limit=${limit}&offset=${localStorage.getItem('offset')}`);
+  await getData(`${API}/?limit=${limit}&offset=${sessionStorage.getItem('offset')}`);
 
-  const newPagination = parseInt(localStorage.getItem('offset')) + limit;
-  localStorage.setItem('offset', newPagination); 
+  const newPagination = parseInt(sessionStorage.getItem('offset')) + limit;
+  sessionStorage.setItem('offset', newPagination); 
 }
 
 
