@@ -26,7 +26,7 @@ const getData = async (api) => {
     }
     let newItem = document.createElement('section');
     newItem.classList.add('Items');
-    newItem.innerHTML = output;
+    newItem.innerHTML = output.join("");
     $app.appendChild(newItem);
 
     localStorage.setItem('pagination', offset);
