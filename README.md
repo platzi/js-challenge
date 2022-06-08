@@ -20,6 +20,10 @@ npm run start
 
 http://localhost:1234
 
+## Access to deployed project
+
+https://nicovalen7.github.io/platzi-js-challenge/
+
 ### Documentación
 
 - Variable llamada $app donde haremos render de nuestra app.
