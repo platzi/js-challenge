@@ -6,7 +6,7 @@
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
     "e2e": "cypress open",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,15 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-transform-runtime": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "babel-loader": "^8.2.5",
     "caseless": "^0.12.0",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "cypress": "^10.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
     "webpack": "^5.73.0"
   }
 }
