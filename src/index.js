@@ -1,5 +1,3 @@
-import '../public/styles.css'
-
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const $templateCard = document.getElementById('template-article').content;
