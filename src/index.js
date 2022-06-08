@@ -7,12 +7,18 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map(product => {
-        // template
-      });
+      let output = products.map((product) => 
+        `<article class="Card">
+          <img src="${product.category.image}" />
+          <h2>
+            ${product.title}
+            <small>$ ${product.price}</small>
+          </h2>
+        </article>`
+      );
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      newItem.classList.add('Items');
+      newItem.innerHTML = output.toString().split(",").join("");
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
@@ -29,3 +35,5 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+document.addEventListener('DOMContentLoaded', loadData, false);
