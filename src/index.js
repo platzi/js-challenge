@@ -2,7 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 
 const localStorage = window.localStorage;
-localStorage.setItem('pagination', 5);
+localStorage.clear();
 localStorage.setItem('limit', 10);
 
 const getData = async api => {
@@ -47,19 +47,21 @@ const loadData = async (pagination, limit) => {
     const API = `https://api.escuelajs.co/api/v1/products?offset=${pagination}&limit=${limit}`;
 
     await getData(API);
+
+    localStorage.setItem('pagination', pagination);
+
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
     // logic...
-    let pagination = Number(localStorage.getItem('pagination'));
     let limit = Number(localStorage.getItem('limit'));
+    let pagination = (localStorage.getItem('pagination')) ? Number(localStorage.getItem('pagination')) + Number(limit) : 5;
 
     entries.forEach(entry => {
         if (entry.isIntersecting) {
 
             if (entry.intersectionRatio >= 0.75) {
                 loadData(pagination, limit);
-                localStorage.setItem('pagination', pagination + limit);
             }
         }
     });
