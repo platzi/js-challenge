@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
-    "e2e": "cypress open",
-    "deploy": "gh-pages -d build"
+    "e2e": "cypress open"
   },
   "repository": {
     "type": "git",

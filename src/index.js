@@ -11,13 +11,13 @@ const getData = async (api,pagination) => {
       console.log(products);
       let output = products.map(product => {
         // template
-        return `<article class="Card">
-          <img loading="lazy" src="${product.category.image}" />
+        return `
+        <article class="Card">
+          <img loading="lazy" alt="${product.description}" src="${product.category.image}" />
           <h2>
             ${product.title}
             <small>$ ${product.price}</small>
           </h2>
-          <p>${product.description}</p>
         </article>`;
       });
       let newItem = document.createElement('section');
