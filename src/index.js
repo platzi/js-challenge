@@ -1,31 +1,79 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const appStoreKey = 'jsChallengeCurrentOffset';
+const paginationIncrement = 10;
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
-}
+const store = {
+  save: (data) => {
+    localStorage.setItem(appStoreKey, JSON.stringify(data));
+  },
+  get: () => {
+    return JSON.parse(localStorage.getItem(appStoreKey) || 0);
+  },
+};
 
-const loadData = () => {
-  getData(API);
-}
-
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
+const parseRawProduct = (product) => ({
+  title: product.title || 'No disponible',
+  price: product.price || 'N/D',
+  image: product.images[0] || 'https://via.placeholder.com/640x480',
 });
+
+const renderList = (products, container) => {
+  const fragment = document.createDocumentFragment();
+  const items = document.createElement('section');
+  items.classList.add('Item');
+
+  products.forEach((product) => {
+    const item = document.createElement('article');
+    item.innerHTML = `
+<code>
+<pre>
+${JSON.stringify(product, null, 2)}
+</pre>
+</code>
+`;
+
+    fragment.appendChild(item);
+  });
+
+  items.appendChild(fragment.cloneNode(true));
+  container.appendChild(items);
+};
+
+const getData = (urlString) =>
+  fetch(urlString)
+    .then((response) => response.json())
+    .then((products) => products.map(parseRawProduct))
+    .catch((error) => {
+      console.error(error);
+      return [];
+    });
+
+const loadData = (offset = 5, limit = paginationIncrement) => {
+  const urlSearchParams = new URLSearchParams({
+    offset,
+    limit,
+  });
+
+  getData(API + '?' + urlSearchParams).then((products) => {
+    store.save(offset + paginationIncrement);
+    renderList(products, $app);
+  });
+};
+
+const intersectionObserver = new IntersectionObserver(
+  (entries) => {
+    // logic...
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadData(store.get());
+      }
+    });
+  },
+  {
+    rootMargin: '0px 0px 0px 0px',
+  }
+);
 
 intersectionObserver.observe($observe);
