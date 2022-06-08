@@ -19,7 +19,7 @@ const getData = (api) => {
       let products = response;
       if (products.length === 0) {
         intersectionObserver.disconnect();
-        output = `<div class="info">Todos los productos Obtenidos</div>`;
+        output = `<h2>Todos los productos Obtenidos</h2>`;
       } else {
         output = products.map((product) => {
           return `<article class="Card">
