@@ -4,17 +4,15 @@ const API = "https://api.escuelajs.co/api/v1/products";
 
 let intersectionObserver;
 
-const setPaginationInStorage = (offset, limit) => {
-  const pagination = {
-    offset,
-    limit,
-  };
-  localStorage.setItem("pagination", JSON.stringify(pagination));
+const PAGINATION_LIMIT = 10;
+
+const setPaginationInStorage = (offset) => {
+  localStorage.setItem("pagination", offset);
 };
 
 const getData = (api) => {
   const pagination = JSON.parse(localStorage.getItem("pagination"));
-  const apiUrl = `${api}?offset=${pagination.offset}&limit=${pagination.limit}`;
+  const apiUrl = `${api}?offset=${pagination}&limit=${PAGINATION_LIMIT}`;
   fetch(apiUrl)
     .then((response) => response.json())
     .then((products) => {
@@ -40,8 +38,8 @@ const getData = (api) => {
     .catch((error) => console.log(error));
 };
 
-const loadData = async (offset, limit) => {
-  setPaginationInStorage(offset, limit);
+const loadData = async (offset) => {
+  setPaginationInStorage(offset);
   if (offset <= 200) {
     await getData(API);
   } else {
@@ -60,13 +58,12 @@ function createObserver() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const actualPagination = JSON.parse(
-            localStorage.getItem("pagination")
-          );
-          loadData(
-            actualPagination.offset + actualPagination.limit,
-            actualPagination.limit
-          );
+          const actualOffset = JSON.parse(localStorage.getItem("pagination"));
+          if (!actualOffset) {
+            loadData(5);
+          } else {
+            loadData(actualOffset + PAGINATION_LIMIT);
+          }
         }
       });
     },
@@ -81,9 +78,14 @@ function createObserver() {
 window.addEventListener(
   "load",
   (event) => {
-    loadData(5, 10).then(() => {
-      createObserver();
-    });
+    createObserver();
   },
   false
 );
+
+window.addEventListener("beforeunload", function () {
+  return localStorage.clear(), setPaginationInStorage(0);
+});
+window.addEventListener("beforereload", function () {
+  return localStorage.clear(), setPaginationInStorage(0);
+});
