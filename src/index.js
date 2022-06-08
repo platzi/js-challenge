@@ -14,22 +14,29 @@ const getProductImage = (product) => {
 const getData = async (api, limit, offset) => {
   const response = await fetch(`${api}?limit=${limit}&offset=${offset}`);
   const products = await response.json();
-  let output = products.map((product) => {
-    return `
-      <article class="Card">
-        <img alt="product image" src="${getProductImage(product)}"/>
-        <h2>
-          ${product.id} - ${product.title}
-          <small>$ ${product.price}</small>
-        </h2>
-      </article>
-    `;
-  });
+  if (products.length) {
+    let output = products.map((product) => {
+      return `
+          <article class="Card">
+            <img alt="product image" src="${getProductImage(product)}"/>
+            <h2>
+              ${product.id} - ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>
+        `;
+    });
 
-  let newItem = document.createElement("section");
-  newItem.classList.add("Items");
-  newItem.innerHTML = output;
-  $app.appendChild(newItem);
+    let newItem = document.createElement("section");
+    newItem.classList.add("Items");
+    newItem.innerHTML = output;
+    $app.appendChild(newItem);
+  } else {
+    let noMoreProductsCopy = document.createElement("h2");
+    noMoreProductsCopy.innerHTML = "Todos los productos Obtenidos";
+    $app.appendChild(noMoreProductsCopy);
+    intersectionObserver.unobserve($observe);
+  }
 };
 
 const loadData = async () => {
@@ -45,6 +52,7 @@ window.localStorage.removeItem("pagination");
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
+      console.log("observer");
       if (entry.isIntersecting) loadData();
     });
   },
