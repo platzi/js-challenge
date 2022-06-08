@@ -3,8 +3,17 @@
 body {
   margin: 0;
   padding: 0;
-  color: #3c484e;
+  color: #FFFF;
   font-family: "Open Sans", sans-serif;
+  background-color: #04091D;
+}
+
+.topbar {
+  padding: 20px;
+}
+
+.logo img {
+  width: 10%;
 }
 
 .Main {
@@ -50,6 +59,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
