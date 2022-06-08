@@ -46,6 +46,12 @@ body {
   justify-content: space-between;
 }
 
+.last-products {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px
+}
+
 @keyframes fade {
   from {
     opacity: 0;

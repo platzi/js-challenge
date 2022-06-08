@@ -1,3 +1,10 @@
+# Changes By-OneDrako (Gabriel Hernández Valdez)
+
+This challenge was made for the "Primer reto del Ethereum Developer Program" by Platzi.
+My Platzi user is OneDrako :).
+The page is online on github: https://onedrako.github.io/js-challenge/public/
+Have a nice day!
+
 # PlatziStore
 
 Somos comercio en línea con una gran cantidad de productos a comercializar. Estamos por lanzar nuestra implementación y necesitamos resolver los problemas que presenta nuestra aplicación.
@@ -36,12 +43,12 @@ Función llamada 'getData' que se encarga de hacer Fetch a una API y debe de con
 
 ```javascript
 const getData = (api) => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      const products = response;
-    })
-    .catch((error) => console.log(error));
+	fetch(api)
+		.then((response) => response.json())
+		.then((response) => {
+			const products = response;
+		})
+		.catch((error) => console.log(error));
 };
 ```
 
@@ -49,7 +56,7 @@ Función encargada de obtener de los Productos.
 
 ```javascript
 const loadData = () => {
-  getData(API);
+	getData(API);
 };
 ```
 
@@ -57,12 +64,12 @@ Intersection Observer
 
 ```javascript
 const intersectionObserver = new IntersectionObserver(
-  (entries) => {
-    // logic...
-  },
-  {
-    rootMargin: "0px 0px 100% 0px",
-  }
+	(entries) => {
+		// logic...
+	},
+	{
+		rootMargin: "0px 0px 100% 0px",
+	}
 );
 
 intersectionObserver.observe($observe);
@@ -84,11 +91,11 @@ intersectionObserver.observe($observe);
 
 ```html
 <article class="Card">
-  <img src="imagen.png" />
-  <h2>
-    Producto
-    <small>$ Precio</small>
-  </h2>
+	<img src="imagen.png" />
+	<h2>
+		Producto
+		<small>$ Precio</small>
+	</h2>
 </article>
 ```
 
