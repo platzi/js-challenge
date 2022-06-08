@@ -1,25 +1,29 @@
 {
-  "name": "js-challenge",
+  "name": "platzi-js-challenge",
   "version": "1.0.0",
   "description": "PlatziStore Fix Bugs",
-  "main": "index.js",
+  "source": "public/index.html",
   "scripts": {
-    "start": "live-server --open=public --entry-file=index.html",
-    "e2e": "cypress open"
+    "start": "parcel public/index.html --public-url /",
+    "e2e": "cypress open",
+    "build": "parcel build public/index.html --public-url ./",
+    "deploy": "rm -rf dist/ && npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/platzi/js-challenge.git"
+    "url": "git+https://github.com/nicovalen7/platzi-js-challenge.git"
   },
   "keywords": [],
-  "author": "Oscar Barajas <oscar@platzi.com>",
+  "author": "Nicolás Valentinuzzi <nicovalentinuzzi@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/platzi/js-challenge/issues"
+    "url": "https://github.com/nicovalen7/platzi-js-challenge/issues"
   },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
+  "homepage": "https://github.com/nicovalen7/platzi-js-challenge#readme",
   "devDependencies": {
-    "live-server": "1.2.2"
+    "gh-pages": "^4.0.0",
+    "live-server": "1.2.2",
+    "parcel": "^2.6.0"
   },
   "dependencies": {
     "cypress": "10.0.1"

@@ -18,7 +18,7 @@ npm run start
 
 ### Debug
 
-http://localhost:8080/public/
+http://localhost:1234
 
 ### Documentación
 
