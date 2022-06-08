@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: 1, 2, 3 y 4
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Javier Garcia
+Usuario Platzi: stratoff
+Correo Electronico: jegn28@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
 - [ ] Quinto Problema
