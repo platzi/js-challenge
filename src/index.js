@@ -11,38 +11,36 @@ const getProductImage = (product) => {
     : $dummyUrl;
 };
 
-const getData = (api, limit, offset) => {
-  fetch(`${api}?limit=${limit}&offset=${offset}`)
-    .then((response) => response.json())
-    .then((response) => {
-      let products = response;
-      let output = products.map((product) => {
-        return `
-          <article class="Card">
-            <img alt="product image" src="${getProductImage(product)}"/>
-            <h2>
-              ${product.id} - ${product.title}
-              <small>$ ${product.price}</small>
-            </h2>
-          </article>
-        `;
-      });
-      let newItem = document.createElement("section");
-      newItem.classList.add("Items");
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch((error) => console.log(error));
+const getData = async (api, limit, offset) => {
+  const response = await fetch(`${api}?limit=${limit}&offset=${offset}`);
+  const products = await response.json();
+  let output = products.map((product) => {
+    return `
+      <article class="Card">
+        <img alt="product image" src="${getProductImage(product)}"/>
+        <h2>
+          ${product.id} - ${product.title}
+          <small>$ ${product.price}</small>
+        </h2>
+      </article>
+    `;
+  });
+
+  let newItem = document.createElement("section");
+  newItem.classList.add("Items");
+  newItem.innerHTML = output;
+  $app.appendChild(newItem);
 };
 
-const loadData = () => {
+const loadData = async () => {
   let offset = window.localStorage.getItem("pagination")
     ? parseInt(window.localStorage.getItem("pagination")) + $limit
     : $offset;
-
-  getData(API, $limit, offset);
+  await getData(API, $limit, offset);
   window.localStorage.setItem("pagination", offset);
 };
+
+window.localStorage.removeItem("pagination");
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
@@ -56,3 +54,7 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+
+window.onbeforeunload = () => {
+  window.localStorage.removeItem("pagination");
+};
