@@ -3,13 +3,15 @@
 Solución al reto:
 
 Nombre:
-Usuario Platzi:
-Correo Electronico:
+Usuario Platzi: espinozajgch
+Correo Electronico: espinozajgx@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [x] Quinto Problema
+
+url: https://famous-duckanoo-9022ed.netlify.app/public/
