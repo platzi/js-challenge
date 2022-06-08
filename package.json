@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
-  "homepage": "https://pabpol.github.io/js-challenge/plublic#index.html",
+  "homepage": "https://pabpol.github.io/js-challenge/plublic",
   "devDependencies": {
     "gh-pages": "^4.0.0",
     "live-server": "1.2.2"
