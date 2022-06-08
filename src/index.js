@@ -64,7 +64,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 
     entries.forEach((entry) => {
       if (entry.isIntersecting) { // cuando se ve $observe se cargan mas datos de la API
-        setTimeout( () => { loadData() }, 100); //retardo de 100ms para consumir la API
+        loadData(); //Sin retardo para ver si por eso platzi no lo pudo renderizar. a mi me renderiza bien y el cypress me lo detecta bien tambnien
       }
     });
 
