@@ -3,18 +3,21 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
 const total = 30;
-let initialOffset = 4;
+let initialOffset = 5;
 let limit = 10;
 let loading = false;
 
 localStorage.clear();
 
+const getOffset = () =>
+  localStorage.getItem("pagination")
+    ? Number(localStorage.getItem("pagination")) + 10
+    : initialOffset;
+
 const getData = async (api) => {
   try {
     loading = true;
-    let offset = localStorage.getItem("pagination")
-      ? Number(localStorage.getItem("pagination"))
-      : initialOffset;
+    let offset = getOffset();
 
     const response = await fetch(`${api}?offset=${offset}&limit=${limit}`);
     const result = await response.json();
@@ -33,13 +36,12 @@ const getData = async (api) => {
       `
     );
     let newItem = document.createElement("section");
-    newItem.classList.add("Item");
+    newItem.classList.add("Items");
     // Set products without commas
     newItem.innerHTML = output.join(" ");
     $app.appendChild(newItem);
 
     // Set next page
-    offset += 10;
     localStorage.setItem("pagination", offset);
     // If the total of remaining products is less than the limit, set a new limit
     if (offset < total && total - offset < 10) limit = total - offset;
@@ -55,11 +57,7 @@ const loadData = async () => {
 };
 
 const hasMoreProductos = () => {
-  let offset = localStorage.getItem("pagination")
-    ? Number(localStorage.getItem("pagination"))
-    : initialOffset;
-
-  return offset + limit <= total;
+  return getOffset() + limit <= total;
 };
 
 const intersectionObserver = new IntersectionObserver(
