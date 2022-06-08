@@ -28,7 +28,7 @@ const getData = async api => {
     let output = addElement(products);
 
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output
     $app.appendChild(newItem)
 
