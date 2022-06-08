@@ -1,4 +1,23 @@
-# PlatziStore
+# Challenge
+
+
+Nombre: José Vinicio Flores Arias
+
+Usuario Platzi: @xfirepc
+
+Correo Electronico: vinygfx@gmail.com
+
+GithubPages: https://xfirepc.github.io/proyects/platzi-challenge/
+## Reto:
+
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
+
+
+## Problema
 
 Somos comercio en línea con una gran cantidad de productos a comercializar. Estamos por lanzar nuestra implementación y necesitamos resolver los problemas que presenta nuestra aplicación.
 
