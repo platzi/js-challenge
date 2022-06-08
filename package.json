@@ -1,7 +1,7 @@
 {
   "name": "js-challenge",
   "version": "1.0.0",
-  "description": "PlatziStore Fix Bugs",
+  "description": "PlatziStore",
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/platzi/js-challenge.git"
+    "url": "git+https://github.com/INNeira/js-challenge.git"
   },
   "keywords": [],
-  "author": "Oscar Barajas <oscar@platzi.com>",
+  "author": "Ignacio Neira <ineira16@platzi.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
