@@ -1,10 +1,11 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-localStorage.setItem('pagination', JSON.stringify(5))
 const limit = 10;
 const maxProducts = 200;
+localStorage.setItem('pagination', JSON.stringify(5))
 
+let current = parseInt(localStorage.getItem('pagination'));
 window.onbeforeunload = () => {
   localStorage.clear();
 }
@@ -26,41 +27,42 @@ const getData = async api => {
     });
     let newItem = document.createElement('section');
     newItem.classList.add('Items');
-    newItem.innerHTML = output;
-    
+    newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
     $app.appendChild($observe);
+    current+=limit;
+    saveStorage();
   } catch (error) {
     console.error(error);
   }
 }
 
 const loadData = () => {
-  getData(`${API}?offset=${localStorage.getItem('pagination')}&limit=10`);
+  getData(`${API}?offset=${current}&limit=${limit}`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
-  if (localStorage.getItem('pagination') >= 190) {
+  if (localStorage.getItem('pagination') >= maxProducts) {
     observe.innerHTML = `
       <h2>Todos los productos Obtenidos</h2>
     `
     intersectionObserver.unobserve($observe);
     return;
   }
-
-
   if(entries[0].isIntersecting) {
-      loadData();
-      saveStorage();
-    }
+    loadData();
+    saveStorage(current)
+  }
+
+ 
 }, {
   rootMargin: '0px 0px 100% 0px',
   threshold: 1.0
 });
 
-const saveStorage = () => {
-  localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination'))+limit);
+const saveStorage = (current) => {
+  localStorage.setItem('pagination',current);
 }
 
 intersectionObserver.observe($observe);
