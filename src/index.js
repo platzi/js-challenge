@@ -5,27 +5,30 @@ const firstPage = 5;
 const amount = 10;
 window.localStorage.clear();
 const getData = async (api) => {
-  try {
-    let response = await fetch(api);
-    response = await response.json();
-    let products = response;
-    if (response.length === 0) {
-      let title = document.createElement("h3");
-      title.innerHTML = "Todos los productos obtenidos";
-      $app.appendChild(title);
-      intersectionObserver.unobserve($observe);
-    }
-    let output = products.map((product) => {
+  const pagination = localStorage.getItem("pagination")
+    ? Number(localStorage.getItem("pagination")) + amount
+    : firstPage;
+  localStorage.setItem("pagination", pagination);
+  const response = await fetch(api + `/?limit=${amount}&offset=${pagination}`);
+  const products = await response.json();
+  if (products.length > 0) {
+    const output = await products.map((product) => {
       return Card(product);
     });
     let newItem = document.createElement("section");
-    newItem.classList.add("Item");
-    newItem.innerHTML = output;
+    newItem.classList.add("Items");
+    output.map((products) => {
+      newItem.innerHTML += products;
+    });
     $app.appendChild(newItem);
-  } catch (err) {
-    console.log(err);
+  } else {
+    let newItem = document.createElement("h3");
+    newItem.innerHTML = "Todos los productos Obtenidos";
+    $app.appendChild(newItem);
+    $observe.remove();
   }
 };
+
 const Card = (product) => {
   return `<article class="Card">
           <img src="${product.images[0]}" alt="${product.title}" />
@@ -37,21 +40,12 @@ const Card = (product) => {
         </article>`;
 };
 const loadData = async () => {
-  let offset = Number(localStorage.getItem("pagination"));
-  if (!offset) {
-    localStorage.setItem("pagination", firstPage);
-    offset = firstPage;
-  } else {
-    offset = offset + amount;
-    localStorage.setItem("pagination", offset);
-  }
-  await getData(`${API}?offset=${offset}&limit=${amount}`);
+  await getData(API);
 };
-
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    entries.forEach((entrie) => {
-      if (entrie.isIntersecting) {
+    entries.forEach((entry) => {
+      if (entry.intersectionRatio > 0) {
         loadData();
       }
     });
@@ -60,5 +54,4 @@ const intersectionObserver = new IntersectionObserver(
     rootMargin: "0px 0px 100% 0px",
   }
 );
-
 intersectionObserver.observe($observe);
