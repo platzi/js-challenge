@@ -21,15 +21,18 @@ const getData = api => {
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = articulos;
+      articulos='';
       $app.appendChild(newItem);     
     })
     .catch(error => console.log(error));
 }
 
+
 const loadData = () => {
   var request = paginarAPI();
   getData(request);
 }
+
 
 function paginarAPI()
 {
@@ -44,6 +47,7 @@ function paginarAPI()
   }
   localStorage.setItem("pagination",pagination);  
   var request=API+'?offset='+pagination+'&limit=10';
+  console.log(request);
   return request;
 }
 
