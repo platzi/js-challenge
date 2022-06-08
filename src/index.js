@@ -7,7 +7,7 @@ const limit = 10
 const initialOffset = 5
 
 //init the local storage, althought the local storage is deleted by reload or close the browser, the pagination will be reseted with this line
-localStorage.setItem('offset', initialOffset);
+localStorage.setItem("initialState", initialOffset);
 
 //Get the data from the API
 const getData = api => {
@@ -42,7 +42,7 @@ const getData = api => {
 
       // Append the fetch petition elements to DOM 
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.append(...output);
       $app.appendChild(newItem);
 
@@ -61,10 +61,10 @@ const getData = api => {
 
 //Function that will be called when the user scrolls the page, and set the new pagination on localStorage 
 const loadData = async () => {
-  await getData(`${API}/?limit=${limit}&offset=${localStorage.getItem('offset')}`);
+  await getData(`${API}/?limit=${limit}&offset=${localStorage.getItem("initialState")}`);
 
-  const newPagination = parseInt(localStorage.getItem('offset')) + limit;
-  localStorage.setItem('offset', newPagination); 
+  const newPagination = parseInt(localStorage.getItem("initialState")) + limit;
+  localStorage.setItem("initialState", newPagination); 
 }
 
 
