@@ -50,7 +50,7 @@ const getData = (api) => {
         return template;
       });
       let newItem = document.createElement("section");
-      newItem.classList.add("Item");
+      newItem.classList.add("Items");
       let articles = output.join(" ");
       newItem.innerHTML = articles;
       $app.appendChild(newItem);
