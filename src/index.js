@@ -1,62 +1,71 @@
-const $app = document.getElementById("app");
-const $observe = document.getElementById("observe");
-const API = "https://api.escuelajs.co/api/v1/products";
-const firstPage = 5;
-const amount = 10;
-window.localStorage.clear();
-const getData = async (api) => {
+const $app = document.getElementById('app');
+const $observe = document.getElementById('observe');
+const API = 'https://api.escuelajs.co/api/v1/products';
+const limit = 10;
+
+let offset = 5
+localStorage.setItem("pagination", offset);
+
+const addElement = (items) => {
+  return items.map(item => {
+    return `<article class="Card">
+              <img src=${item.images[0]} />
+                <h2>
+                 ${item.id} - ${item.title}
+                  <small>$ ${item.price}</small>
+                </h2>
+            </article>`});
+}
+const getData = async api => {
+
+  const response = await fetch(api)
+  const products = await response.json()
+
+  localStorage.removeItem("pagination");
+
   try {
-    let response = await fetch(api);
-    response = await response.json();
-    let products = response;
-    if (response.length === 0) {
-      let title = document.createElement("h3");
-      title.innerHTML = "Todos los productos obtenidos";
-      $app.appendChild(title);
-      intersectionObserver.unobserve($observe);
-    }
-    let output = products.map((product) => {
-      return Card(product);
-    });
-    let newItem = document.createElement("section");
-    newItem.classList.add("Item");
-    newItem.innerHTML = output;
-    $app.appendChild(newItem);
+    let output = addElement(products);
+
+    let newItem = document.createElement('section');
+    newItem.classList.add('Item');
+    newItem.innerHTML = output
+    $app.appendChild(newItem)
+
+    localStorage.setItem("pagination", parseInt(offset)+parseInt(limit));
+      offset = parseInt(localStorage.getItem("pagination"));
+      console.log("loadData pagination=" + (offset));
   } catch (err) {
-    console.log(err);
+    console.error(err)
   }
-};
-const Card = (product) => {
-  return `<article class="Card">
-          <img src="${product.images[0]}" alt="${product.title}" />
-          <h1>${product.id}</h1>
-          <h2>
-            ${product.title}
-            <small>$${product.price}</small>
-          </h2>
-        </article>`;
-};
+}
+
+
+
 const loadData = async () => {
-  let offset = Number(localStorage.getItem("pagination"));
-  if (!offset) {
-    localStorage.setItem("pagination", firstPage);
-    offset = firstPage;
-  } else {
-    offset = offset + amount;
-    localStorage.setItem("pagination", offset);
-  }
-  await getData(`${API}?offset=${offset}&limit=${amount}`);
+
+  offset = localStorage.getItem("pagination");
+  console.log("loadData Init="+offset)
+
+  let pageable = '?offset='+offset+'&limit='+limit;
+  getData(API+pageable);
+
 };
 
-const intersectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entrie) => {
-      if (entrie.isIntersecting) {
-        loadData();
-      }
-    });
-  },
-  {
-    rootMargin: "0px 0px 100% 0px",
-  }
-);
+const intersectionObserver = new IntersectionObserver(entries => {
+  // logic...
+
+  offset = parseInt(localStorage.getItem("pagination"));
+
+  if(entries[0].isIntersecting){
+    loadData();
+  }else{
+    if(offset>=200){
+      const info = `<p class="Info">Todos los productos Obtenidos</p>`;
+      $observe.innerHTML = info;
+      intersectionObserver.disconnect();
+    }
+  }/**/
+}, {
+  rootMargin: '0px 0px 100% 0px',
+});
+intersectionObserver.observe($observe);
