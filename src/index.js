@@ -2,7 +2,7 @@ const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
-const total = 200;
+const total = 30;
 let initialOffset = 4;
 let limit = 10;
 let loading = false;
@@ -13,7 +13,7 @@ const getData = async (api) => {
   try {
     loading = true;
     let offset = localStorage.getItem("pagination")
-      ? localStorage.getItem("pagination")
+      ? Number(localStorage.getItem("pagination"))
       : initialOffset;
 
     const response = await fetch(`${api}?offset=${offset}&limit=${limit}`);
@@ -40,9 +40,7 @@ const getData = async (api) => {
 
     // Set next page
     offset += 10;
-    if (response.ok) {
-      localStorage.setItem("pagination", offset);
-    }
+    localStorage.setItem("pagination", offset);
     // If the total of remaining products is less than the limit, set a new limit
     if (offset < total && total - offset < 10) limit = total - offset;
   } catch (error) {
@@ -57,6 +55,10 @@ const loadData = async () => {
 };
 
 const hasMoreProductos = () => {
+  let offset = localStorage.getItem("pagination")
+    ? Number(localStorage.getItem("pagination"))
+    : initialOffset;
+
   return offset + limit <= total;
 };
 
