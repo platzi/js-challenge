@@ -3,14 +3,20 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
 const total = 200;
-let offset = 5;
+let initialOffset = 4;
 let limit = 10;
 let loading = false;
+
+localStorage.clear();
 
 const getData = async (api) => {
   try {
     loading = true;
-    const response = await fetch(api);
+    let offset = localStorage.getItem("pagination")
+      ? localStorage.getItem("pagination")
+      : initialOffset;
+
+    const response = await fetch(`${api}?offset=${offset}&limit=${limit}`);
     const result = await response.json();
     const products = result;
 
@@ -34,6 +40,9 @@ const getData = async (api) => {
 
     // Set next page
     offset += 10;
+    if (response.ok) {
+      localStorage.setItem("pagination", offset);
+    }
     // If the total of remaining products is less than the limit, set a new limit
     if (offset < total && total - offset < 10) limit = total - offset;
   } catch (error) {
@@ -44,7 +53,7 @@ const getData = async (api) => {
 };
 
 const loadData = async () => {
-  await getData(`${API}?offset=${offset}&limit=${limit}`);
+  await getData(API);
 };
 
 const hasMoreProductos = () => {
