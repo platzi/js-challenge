@@ -2,7 +2,6 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
-// let limitInit = 2
 let pagination = 5;
 let limit = 10;
 const getData = (api) => {
@@ -37,14 +36,12 @@ const dataPrint = (data) => {
     img.src = product.images[0];
     card.classList.add("Card");
     items.classList.add("Items");
-    main.classList.add("Main");
 
     card.appendChild(img);
     card.appendChild(title);
     card.appendChild(price);
     items.appendChild(card);
-    main.appendChild(items);
-    $app.appendChild(main);
+    $app.appendChild(items);
   });
   pagination = pagination + limit;
   limit = 2;
