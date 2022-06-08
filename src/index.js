@@ -15,10 +15,9 @@ const getData = api => {
         newDiv.setAttribute('class', 'Card');
         newDiv.innerHTML =
           `
-            <h2>${product.title}</h2>
-            <p>${product.description}</p>
-            <p>Precio: $${product.price}</p>
-            <img src="${product.images[0]}" alt="${product.title}">
+          <img src="${product.images[0]}" alt="${product.title}">
+          <h2>${product.title}</h2>
+          <p>Precio: $${product.price}</p>
         `;
         console.log(1);
         newItem.appendChild(newDiv);
@@ -51,10 +50,9 @@ const loadNextData = () => {
         newDiv.setAttribute('class', 'Card');
         newDiv.innerHTML =
           `
-            <h2>${product.title}</h2>
-            <p>${product.description}</p>
-            <p>Precio: $${product.price}</p>
             <img src="${product.images[0]}" alt="${product.title}">
+            <h2>${product.title}</h2>
+            <p>Precio: $${product.price}</p>
         `;
         console.log(1);
         newItem.appendChild(newDiv);
