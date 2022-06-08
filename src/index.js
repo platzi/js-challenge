@@ -4,6 +4,8 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 let isMore = true;
 let isFirst = true;
+let isLoading = false;
+localStorage.setItem('pagination', 0)
 
 const getData = async api => {
 
@@ -27,30 +29,35 @@ const getData = async api => {
       // template
     });
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
   } catch (error) {
     console.log(error)
   }
 
-  if (!isMore) intersectionObserver.disconnect()
+  if (!isMore){
+    intersectionObserver.disconnect()
+    let newItem = document.createElement('p');
+    newItem.style = "text-align:center";
+    newItem.innerHTML = 'Todos los productos Obtenidos'
+    $app.appendChild(newItem)
+  }
 }
 
-const loadData = async (page) => {
-  let start = page * 10 + 5
-  getData(`${API}?offset=${start}&limit=10`);
+const loadData = async (start) => {
+  await getData(`${API}?offset=${start}&limit=10`);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
-  let page = 0;
-  if(localStorage.getItem('page') !== null && !isFirst){
-    page = parseInt(localStorage.getItem('page'))
+  if (entries[0].isIntersecting){
+    let page = parseInt(localStorage.getItem('pagination'))
+    let newPage = page != 0 ? page + 10 : 5
+    localStorage.setItem('pagination', newPage)
+    loadData(newPage).finally(() => { isLoading = false; })
   }
-  loadData(page)
-  localStorage.setItem('page', `${page + 1}`)
-  isFirst = false;
+
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
