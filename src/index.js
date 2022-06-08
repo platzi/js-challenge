@@ -7,6 +7,7 @@ localStorage.clear('pagination');
 
 const getData = async(api) => {
     const offset = localStorage.getItem('pagination') == null ? 5 : parseInt(localStorage.getItem('pagination')) + limit
+
     localStorage.setItem('pagination', offset);
     if (offset <= 200) {
         try {
@@ -21,7 +22,7 @@ const getData = async(api) => {
                       <small>$ ${product.price}</small>
                     </h2>
                   </article>`
-            );
+            ).join("");
             let newItem = document.createElement('section');
             newItem.classList.add('Items');
             newItem.innerHTML = output;
