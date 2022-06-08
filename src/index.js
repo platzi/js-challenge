@@ -63,7 +63,7 @@ const hasMoreProductos = () => {
 };
 
 const intersectionObserver = new IntersectionObserver(
-  async (entries) => {
+  (entries) => {
     if (!loading && entries[0].intersectionRatio > 0 && hasMoreProductos()) {
       loadData();
     } else if (!hasMoreProductos()) {
