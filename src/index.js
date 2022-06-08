@@ -3,7 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 //Iniciamos el producto 5 y obteniendo los siguientes 10 productos.
-localStorage.setItem('paginationIndex', 4);
+localStorage.setItem('pagination', 5);
 const PRODUCTS_TO_FETCH = 10;
 
 const $itemsContainer = document.createElement('div');
@@ -22,10 +22,10 @@ const getData = (api, index, limit) =>
   .catch(error => console.log(error));
 
 const loadData = async () => {
-  const products = await getData(API, localStorage.getItem('paginationIndex'), PRODUCTS_TO_FETCH);
+  const products = await getData(API, localStorage.getItem('pagination'), PRODUCTS_TO_FETCH);
   console.log(products);
   products.map(product => $itemsContainer.appendChild(getCardElement(product)));
-  localStorage.setItem('paginationIndex', PRODUCTS_TO_FETCH + +localStorage.getItem('paginationIndex'));
+  localStorage.setItem('pagination', PRODUCTS_TO_FETCH + +localStorage.getItem('pagination'));
   if (products.length < 10) {
     handleObserveStatus(false);
     $app.appendChild($completeMessage);
@@ -73,5 +73,5 @@ handleObserveStatus(true);
 
 //Eliminamos el storage (Tercer Problema, item 2)
 window.onbeforeunload = () => {
-  localStorage.removeItem('paginationIndex');
+  localStorage.removeItem('pagination');
 };

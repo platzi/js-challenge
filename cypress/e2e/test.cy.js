@@ -13,12 +13,12 @@ describe("PlatziStore Tests", () => {
   });
 
   it("Obtener los primeros 10 Productos", () => {
-    cy.get('*[class^="Items"]').find('article').should('have.length', 10)
+    cy.get('*[class^="items"]').find('article').should('have.length', 10)
   });
 
   it('Desplácese hacia abajo y renderice nuevos productos', () => {
     cy.scrollTo('bottom')
-    cy.get('*[class^="Items"]').should('have.length', 2);
+    cy.get('*[class^="items"]').should('have.length', 2);
   });
 
   it('Comprobar el nombre del Producto', () => {
