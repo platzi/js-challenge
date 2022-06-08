@@ -11,23 +11,27 @@ localStorage.setItem('pagination', 5);
 const getData = api => {
   let initial_position = localStorage.getItem("pagination");
   
-  if (initial_position >= max_products) {
-    initial_position = 0;
-  } 
-  url=`${api}?offset=${initial_position}&limit=${number_of_products}`;
-  fetch(url)
-    .then(response => response.json())
-    .then(response => {
-        let products = response;
-        let output = products.map(product => {
-          return buildCard(product);
-        });
-        let newItem = document.createElement('section');
-        newItem.classList.add('Items');
-        newItem.innerHTML = output;
-        $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+  if (initial_position < max_products) {
+    url=`${api}?offset=${initial_position}&limit=${number_of_products}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+          let products = response;
+          let output = products.map(product => {
+            return buildCard(product);
+          });
+          let newItem = document.createElement('section');
+          newItem.classList.add('Items');
+          newItem.innerHTML = output;
+          $app.appendChild(newItem);
+      })
+      .catch(error => console.log(error));
+  }else{
+    let newItem = document.createElement('div');
+    newItem.innerHTML = "Todos los productos Obtenidos";
+    $app.appendChild(newItem);
+    $observe.remove();
+  }
 }
 
 const buildCard = (product) => {
