@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://ocmv.github.io/js-challenge/
 
 Nombre: Oriana Morillo
 Usuario Platzi: ocmv
