@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Matias Sykuler
+Usuario Platzi: matisyk
+Correo Electronico: matiassykuler7@gmail.com
 
 ## Reto:
 
