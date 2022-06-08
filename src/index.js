@@ -9,9 +9,10 @@ const getData = async (api) => {
   try {
     const response = await fetch(`${api}?offset=${offset}&limit=${limit}`)
     let products = await response.json();
-
-    let output = products.map(product => {
-      return `<article class="Card">
+    let output = `<article class="Card"><h2>Todos los productos Obtenidos</h2></article`;
+    if (products.length > 0) {
+      output = products.map(product => {
+        return `<article class="Card">
           <img src="${product.images[0]}" />
           <h2>
             ${product.title}
@@ -19,6 +20,10 @@ const getData = async (api) => {
           </h2>
         </article>`
     });
+    }
+    else {
+      intersectionObserver.disconnect();
+    }
     let newItem = document.createElement('section');
     newItem.classList.add('Item');
     newItem.innerHTML = output;
