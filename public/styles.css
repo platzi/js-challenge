@@ -14,6 +14,22 @@ body {
   justify-content: center;
 }
 
+.platzi-logo img {
+  width: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.platzi-logo {
+  border-radius: 20px;
+  display: flex;
+  padding: 20px;
+  color: #fff;
+  align-items: center;
+  background-color: #03091E;
+  margin-bottom: 10px;
+}
+
 .Items {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1.5rem;
@@ -46,10 +62,20 @@ body {
   justify-content: space-between;
 }
 
+.end-list {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 5px 10px;
+  text-align: center;
+  background-color: #98CA3F;
+  color: #15332A;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
