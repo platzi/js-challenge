@@ -1,15 +1,16 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://github.com/Matias-Leiva/js-challenge
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Matías Oscar Leiva
+Usuario Platzi: matiasoscarleiva
+Correo Electronico: matiasoscarleiva@gmail.com
+Netlify Link: https://js-challenge-matias-oscar-leiva.netlify.app/
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
