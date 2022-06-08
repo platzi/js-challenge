@@ -5,8 +5,6 @@ const API = "https://api.escuelajs.co/api/v1/products";
 // Clear local storage
 localStorage.clear();
 
-// Message box
-
 const getData = async (api) => {
 	// API url
 	const url = api.url + "?offset=" + api.offset + "&limit=" + api.limit;
@@ -37,7 +35,7 @@ const getData = async (api) => {
 	if (products.length < api.limit) {
 		intersectionObserver.unobserve($observe);
 		let message = document.getElementById("message");
-		// Avoid duplicates
+		// Avoid duplicated elements
 		if (!message) {
 			message = document.createElement("p");
 			message.setAttribute("id", "message");
