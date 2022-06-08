@@ -13,7 +13,7 @@ Correo Electronico: EmanuelSandries27@gmail.com
 ## Reto:
 
 - [X] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
 - [ ] Quinto Problema
