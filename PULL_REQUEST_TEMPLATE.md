@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: Blockchain bootcamp Solidity
 
 Nombre: Christian Mora
 Usuario Platzi: cf.mora
