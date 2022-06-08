@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://github.com/MartinIglesias86/js-challenge
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Martin Iglesias
+Usuario Platzi: martin_codes86
+Correo Electronico: martin.iglesias19@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
