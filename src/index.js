@@ -43,7 +43,7 @@ const getData = (api, currentPage) => {
     .catch(error => console.log(error));
 }
 
-const loadData = (currentPage) => {
+async function loadData(currentPage) {
   getData(API, currentPage);
 }
 
@@ -63,12 +63,13 @@ const intersectionObserver = new IntersectionObserver(entries => {
     if(debug) console.log('nextPage = ' + nextPage);
     localStorage.setItem('pagination', nextPage);
   }
-  loadData(parseInt(localStorage.getItem('pagination')));
-  if(debug) console.log('itemsInPage = ' + localStorage.getItem('itemsInPage'));
-  if(parseInt(localStorage.getItem('itemsInPage')) < itemsPerPage) {
-    // EOF
-    if(debug) console.log('Todos los productos Obtenidos'); // TODO
-  }
+  loadData(parseInt(localStorage.getItem('pagination'))).then(function() {
+    if(debug) console.log('itemsInPage = ' + localStorage.getItem('itemsInPage'));
+    if(parseInt(localStorage.getItem('itemsInPage')) < itemsPerPage) {
+      // EOF
+      if(debug) console.log('Todos los productos Obtenidos'); // TODO
+    }
+  });
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
