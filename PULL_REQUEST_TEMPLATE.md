@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Ivan Guerrero
+Usuario Platzi: guerreroivan789
+Correo Electronico: guerrero.ivan.789@gmail.com
 
 ## Reto:
 
