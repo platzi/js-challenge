@@ -15,7 +15,6 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      console.log(products);
       let output = products.map(product => {
         
         //cardItemElement
