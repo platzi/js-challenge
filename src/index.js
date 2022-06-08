@@ -40,7 +40,7 @@ const getData = async api => {
       countPages++;
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -49,7 +49,6 @@ const loadData = (idInitProduct = localStorage.getItem('position'), quantyProduc
   getData(url);
 
   // La función por defecto tomara los valores en el local storage, cuando sea invocada por primera vez el local storage esta vacio y debe pasarsele el paginado inicial. Es decir, solo se ejecuta la primeza vez.
-  console.log(localStorage.length)
   if (!localStorage.length) {
     localStorage.setItem('position', `${idInitProduct}`);
     localStorage.setItem('quanty', `${quantyProducts}`);
