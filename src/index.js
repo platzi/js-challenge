@@ -7,7 +7,7 @@ localStorage.clear('pagination');
 
 const getData = async(api, offset) => {
     localStorage.setItem('pagination', offset);
-    const url = `${api}?offset=${offset}&limit=${limit}`;
+    const url = `${api}/?offset=${offset}&limit=${limit}`;
     try {
         const response = await fetch(url);
         const products = await response.json();
@@ -24,7 +24,7 @@ const getData = async(api, offset) => {
         );
         let newItem = document.createElement('section');
         newItem.classList.add('Items');
-        newItem.innerHTML = output.join('');
+        newItem.innerHTML = output;
         $app.appendChild(newItem);
         localStorage.setItem('pagination', offset);
     } catch (error) {
