@@ -46,6 +46,22 @@ body {
   justify-content: space-between;
 }
 
+.Card small {
+  font-size: 16px;
+  margin-bottom: auto;
+  margin-top: auto;
+  padding-left: 10px;
+  font-weight: 200;
+}
+
+.Container {
+  display: flex;
+}
+
+.Loader {
+  text-align: center;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
