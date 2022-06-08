@@ -86,6 +86,11 @@ const intersectionObserver = new IntersectionObserver(
       if (entry.isIntersecting) {
         loadData(store.get());
       }
+
+      if (store.get() >= 200) {
+        intersectionObserver.unobserve($observe);
+        alert('Todos los productos obtenidos');
+      }
     });
   },
   {
