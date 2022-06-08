@@ -16,7 +16,7 @@ function itemTemplate(data) {
 
 const getData = (api) => {
   localStorage.getItem('pagination') ?
-    localStorage.setItem('pagination', Number(localStorage.getItem('pagination') + 10)) :
+    localStorage.setItem('pagination', Number(localStorage.getItem('pagination')) + 10) :
     localStorage.setItem('pagination', 5);
   const currentPage = localStorage.getItem('pagination');
   const paginatedApi = `${api}?offset=${(Number(currentPage))}&limit=10`;
