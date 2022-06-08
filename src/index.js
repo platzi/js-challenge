@@ -11,7 +11,7 @@ localStorage.setItem(PAGINATION_STR, INITIAL_OFFSET);
 const getData = api => {
   const currentOffset = parseInt(localStorage.getItem(PAGINATION_STR)) 
 
-  localStorage.setItem(PAGINATION_STR, parseInt(currentOffset + 10 ))
+  localStorage.setItem(PAGINATION_STR, parseInt(currentOffset + 10))
   
   fetch(`${api}?offset=${currentOffset - 1}&limit=${LIMIT}`)
     .then(response => response.json())
@@ -43,9 +43,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) {
     loadData();
   } 
-  
   if(page > 200){
-    
     $observe.innerHTML="Todos los productos Obtenidos.";
       intersectionObserver.disconnect();
   }
