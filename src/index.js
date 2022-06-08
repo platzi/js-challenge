@@ -16,27 +16,36 @@ let loadNextData = async () => {
   let url = API.replace('_OFFSET_', localStorage.getItem('pagination'));
   await getData(url).then(response => {
     addChilds(response);
-   })
+  })
     .catch(error => console.log(error));
- }
+}
 
 addChilds = (products) => {
-  let newItem = document.getElementById('Products');
-  products.map(product => {
-    let newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'Card');
-    newDiv.innerHTML =
-      `
-        <img src="${product.images[0]}" alt="${product.title}">
-        <h2>${product.title}</h2>
-        <p>Precio: $${product.price}</p>
-    `;
-    newItem.appendChild(newDiv);
-  });
+  if (products.length <= 0) {
+    localStorage.setItem('observer', 0);
+    var footer = document.getElementById('footer');
+    footer.removeAttribute("hidden"); 
+    alert("todos los productos ya fueron cargados");
+  } else {
+    let newItem = document.getElementById('Products');
+    products.map(product => {
+      let newDiv = document.createElement('div');
+      newDiv.setAttribute('class', 'Card');
+      newDiv.innerHTML =
+        `
+          <img src="${product.images[0]}" alt="${product.title}">
+          <h2>${product.title}</h2>
+          <p>Precio: $${product.price}</p>
+      `;
+      newItem.appendChild(newDiv);
+    });
+  }
+
 }
 
 let loadData = async () => {
   localStorage.setItem('pagination', 4);
+  localStorage.setItem('observer', 1);
   let url = API.replace('_OFFSET_', localStorage.getItem('pagination'));
   let newItem = document.createElement('div');
   newItem.setAttribute('id', 'Products');
@@ -50,7 +59,7 @@ let loadData = async () => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && localStorage.getItem('observer') === '1') {
       loadNextData();
     }
   })

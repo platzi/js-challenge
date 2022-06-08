@@ -54,6 +54,17 @@ body {
   border-radius: 5px 5px 0 0;
 }
 
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.footer {
+  background: white;
+  text-align: center;
+}
+
 @keyframes fade {
   from {
     opacity: 0;
