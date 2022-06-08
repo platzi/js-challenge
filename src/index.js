@@ -17,7 +17,7 @@ const getData = async (api) => {
     const products = await response.json();
     const output = products.map((product) => {
       return `<article class="Card" >
-        <img src="${product.images[0]}" />
+        <img src="${product.images[0]}" alt="${product.description}" />
         <h2>
           ${product.title}
           <small>$ ${product.price}</small>
