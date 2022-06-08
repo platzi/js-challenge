@@ -54,3 +54,7 @@ body {
     opacity: 1;
   }
 }
+
+.message {
+  font-size: 6rem;
+}
