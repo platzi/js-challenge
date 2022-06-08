@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/platzi/js-challenge/issues"
   },
-  "homepage": "https://github.com/platzi/js-challenge#readme",
+  "homepage": "http://perezcatriel.github.io/js-challenge/public",
   "devDependencies": {
     "live-server": "1.2.2"
   },
