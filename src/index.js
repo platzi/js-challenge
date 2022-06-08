@@ -9,14 +9,17 @@ window.addEventListener("beforeunload", function(e){
 
 const handleOffset = () => {
   const pagination = localStorage.getItem("pagination") ? parseInt(localStorage.getItem("pagination")) + LIMIT : 5;
-  localStorage.setItem("pagination", pagination);
+  if (pagination <= 195) {
+    localStorage.setItem("pagination", pagination);
+  }
   return pagination;
 }
 
 const getData = async api => {
 
   try {
-    const resp = await fetch(api + `/?limit=${LIMIT}&offset=${handleOffset()}`);
+    const pagination = handleOffset();
+    const resp = await fetch(api + `/?limit=${LIMIT}&offset=${pagination}`);
     const products = await resp.json();
     const output = await products.map(product => `
       <article class="Card">
@@ -33,6 +36,14 @@ const getData = async api => {
       newItem.innerHTML += product;
     });
     $app.appendChild(newItem);
+
+    if (pagination === 195 || output.length < 10) {
+      const msgNoMoreProducts = document.createElement('section');
+      msgNoMoreProducts.innerHTML = "<h3 style='text-align:center;'>Todos los productos Obtenidos</h3>";
+      document.getElementsByClassName("Main")[0].appendChild(msgNoMoreProducts);
+      intersectionObserver.unobserve($observe);
+    }
+
   } catch (err) {
     console.log(err)
   }
