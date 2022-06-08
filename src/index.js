@@ -21,7 +21,7 @@ const getData = api => {
          `);
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
-       newItem.innerHTML = output.join(' ');
+      newItem.innerHTML = output.join(' ');
       $app.appendChild(newItem);
     })
     .catch(error => console.log(error));
@@ -39,15 +39,15 @@ const intersectionObserver = new IntersectionObserver(entries => {
     localStorage.setItem('page', page);
 
     if (page > 1) {
-      localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10)
+      localStorage.setItem('pagination', parseInt(localStorage.getItem('pagination')) + 10);
     }
 
     if (page > 20) {
-     alert("Todos los productos Obtenidos")
+     alert("Todos los productos Obtenidos");
      intersectionObserver.unobserve($observe);
     }
 
-    loadData()
+    loadData();
   }
   }, {
     rootMargin: '0px 0px 100% 0px',
