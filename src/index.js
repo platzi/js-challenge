@@ -18,23 +18,29 @@ const getData = (api, limit, offset) => {
     .then(response => {
       
       let products = response;
-      console.log(products)
-      let output = products.map(product => {
-        // template
-        return `
-        <article class="Card">
-        <img alt="product image" src="${getProductImage(product)}"/>
-        <h2>
-          ${product.id} - ${product.title}
-          <small>$ ${product.price}</small>
-        </h2>
-      </article>
-      `;
-      });
-      let newItem = document.createElement("section");
-      newItem.classList.add("Item");
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
+      if (products.length) {
+        let output = products.map((product) => {
+          return `
+              <article class="Card">
+                <img alt="product image" src="${getProductImage(product)}"/>
+                <h2>
+                  ${product.id} - ${product.title}
+                  <small>$ ${product.price}</small>
+                </h2>
+              </article>
+            `;
+        });
+    
+        let newItem = document.createElement("section");
+        newItem.classList.add("Items");
+        newItem.innerHTML = output;
+        $app.appendChild(newItem);
+      } else {
+        let noMoreProductsCopy = document.createElement("h2");
+        noMoreProductsCopy.innerHTML = "Todos los productos Obtenidos";
+        $app.appendChild(noMoreProductsCopy);
+        intersectionObserver.unobserve($observe);
+      }
     })
     .catch((error) => console.log(error));
 };
