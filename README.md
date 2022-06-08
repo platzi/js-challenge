@@ -10,7 +10,7 @@ PlatziStore tiene varios bugs, tareas sin completar y recursos a implementar par
 npm install
 ```
 
-### Ejecución
+### Ejecución 
 
 ```
 npm run start
