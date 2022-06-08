@@ -12,11 +12,29 @@
 <body>
   <div class="Main">
     <h1>PlatziStore</h1>
-    <div id="app"></div>
+    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+      when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+      It has survived not only five centuries, but also the leap into electronic typesetting, 
+      remaining essentially unchanged. 
+      It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+      and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h6>
+      <br>
+    <div id="app">
+      <!--<input type="button" onclick="loadData()" value="Dsiplay">--><!--this is for testing-->
+    </div>
+    <!-- This is for testing
+    <input type="button" onclick="nextPage()" value="next">
+    <input type="button" onclick="prevPage()" value="previous">-->
     <div id="observe"></div>
   </div>
 </body>
 
 <script type="text/javascript" src="../src/index.js"></script>
-
+<script>
+  window.onload=function(){
+    localStorage.setItem('actualPage', 1);//initialize actual page everytime the page is reloaded
+    //loadData(); //used for loading the data on reload
+  }
+</script>
 </html>
