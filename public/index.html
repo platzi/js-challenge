@@ -13,6 +13,11 @@
 <body>
   <div class="Main">
     <h1>PlatziStore</h1>
+    <div id="eofAlert" class="alert">
+      <script type="text/javascript">document.getElementById('eofAlert').style.display='none';</script>
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+      <div id="eofAlertMessage" class="alertMessage"></div>
+    </div>
     <div id="app"></div>
     <div id="observe"></div>
   </div>
