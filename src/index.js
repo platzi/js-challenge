@@ -2,31 +2,34 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = api => {
+const getData = async (api) => {
   const limit = 10;
   const offset = localStorage.getItem('offset') ? parseInt(localStorage.getItem('offset')) + limit : 5;
 
-  fetch(`${api}?offset=${offset}&limit=${limit}`)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        return `<article class="Card">
+  try {
+    const response = await fetch(`${api}?offset=${offset}&limit=${limit}`)
+    let products = await response.json();
+
+    let output = products.map(product => {
+      return `<article class="Card">
           <img src="${product.images[0]}" />
           <h2>
             ${product.title}
             <small>$ ${product.price}</small>
           </h2>
         </article>`
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
+    });
+    let newItem = document.createElement('section');
+    newItem.classList.add('Item');
+    newItem.innerHTML = output;
+    $app.appendChild(newItem);
 
-      localStorage.setItem('offset', offset);
-    })
-    .catch(error => console.log(error));
+    localStorage.setItem('offset', offset);
+
+  }
+  catch (error) {
+    console.log(error)
+  }
 }
 
 const loadData = () => {
@@ -43,3 +46,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+window.addEventListener("beforeunload", function (e) {
+  localStorage.removeItem('offset');
+}, false);
