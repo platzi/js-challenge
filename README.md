@@ -68,6 +68,12 @@ const intersectionObserver = new IntersectionObserver(
 intersectionObserver.observe($observe);
 ```
 
+
+## LINK PULICACION
+
+Puedes ver la publicacion en: [etherium-platzi-challenge](https://etheriumplatzichallenge.netlify.app/)
+
+
 ## RETO
 
 ### Primer problema

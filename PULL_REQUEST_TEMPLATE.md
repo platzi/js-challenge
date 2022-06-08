@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Carlos García Trujillo
+Usuario Platzi: Carlos García Trujillo
+Correo Electronico: gtrujilloca@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
