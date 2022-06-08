@@ -10,6 +10,8 @@ body {
 .Main {
   padding: 10px;
   grid-template-columns: minmax(auto, 768px);
+  width: 90%;
+	max-width: 1000px;
   display: grid;
   justify-content: center;
 }
@@ -33,9 +35,10 @@ body {
 }
 
 .Card img {
+  min-height: 200px;
   width: 100%;
-  height: auto;
-  border-radius: 5px 5px 0 0;
+	margin-bottom: 10px;
+	border-radius: 15px;
 }
 
 .Card h2 {
