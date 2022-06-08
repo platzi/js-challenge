@@ -4,6 +4,10 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const appStoreKey = 'jsChallengeCurrentOffset';
 const paginationIncrement = 10;
 
+if (!location.pathname.includes('public')) {
+  location.href = '/public';
+}
+
 const store = {
   save: (data) => {
     localStorage.setItem(appStoreKey, JSON.stringify(data));
