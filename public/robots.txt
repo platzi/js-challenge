@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unrivaled-zabaione-be42c2.netlify.app/sitemap.xml
