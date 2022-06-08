@@ -3,12 +3,16 @@ const $observe = document.getElementById('observe');
 
 const API = 'https://api.escuelajs.co/api/v1/products';
 const KEY = 'pagination';
-const INITIAL = '5';
+const INITIAL = '4';
 const PRODUCTS_PER_PAGE = 10;
+let wasAbove = false;
+let offset = 5;
+let previousY = 0;
+let previousRatio = 0;
 
 const init = function () {
-  localStorage.setItem(KEY, INITIAL);
-  intersectionObserver.observe($observe);
+  localStorage.setItem(KEY, '5');
+  loadData();
 };
 
 const getData = (api) => {
@@ -25,14 +29,13 @@ const getData = (api) => {
         destroyed();
         return;
       }
-      updateInitialValue(products.slice(-1)[0].id);
 
       let output = products.map((e) => {
         return `
         <article class='Card'>
           <img src='${e.images[0]}' />
           <h2>
-          ${e.title}
+          ${e.title} -  ${e.id}
           <small>
           ${e.price}
           </small>
@@ -44,23 +47,40 @@ const getData = (api) => {
       newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
+
+      offset = products.slice(-1)[0].id + 1;
     })
     .catch((error) => console.log(error));
 };
 
-function updateInitialValue(value) {
-  localStorage.setItem(KEY, value);
+function updateInitialValue() {
+  localStorage.setItem(KEY, offset + '');
 }
 
 async function loadData() {
-  let value = localStorage.getItem(INITIAL) ? parseInt(localStorage.getItem(INITIAL)) - 1 : parseInt(INITIAL) - 1;
-  getData(API + `?offset=${value}&limit=${PRODUCTS_PER_PAGE}`);
+  let value = localStorage.getItem('pagination');
+  getData(API + `?offset=${value - 1}&limit=${PRODUCTS_PER_PAGE}`);
 }
+
+let lastScrollTop = 0;
+
+window.addEventListener(
+  'scroll',
+  function () {
+    var st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > lastScrollTop) {
+      intersectionObserver.observe($observe);
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+  },
+  false
+);
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        updateInitialValue();
         loadData();
       }
     });
