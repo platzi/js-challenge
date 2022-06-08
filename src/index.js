@@ -31,7 +31,7 @@ const getData = async api => {
       </article>
     `);
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
+    newItem.classList.add('Items');
     output.forEach(product => {
       newItem.innerHTML += product;
     });
