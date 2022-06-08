@@ -1,4 +1,3 @@
-
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
@@ -9,12 +8,12 @@ const initialOffset = 5
 
 //Get the next offset on localStorage
 const generateOffset = () => {
-  let offset = localStorage.getItem('initialState');
+  let offset = localStorage.getItem('pagination');
   if (offset) {
-    localStorage.setItem('initialState', parseInt(offset) +  limit);
+    localStorage.setItem('pagination', parseInt(offset) +  limit);
     return parseInt(offset) + limit;
   } else {
-    localStorage.setItem('initialState', initialOffset);
+    localStorage.setItem('pagination', initialOffset);
     return initialOffset;
   }
 }
@@ -91,4 +90,10 @@ const intersectionObserver = new IntersectionObserver(entries => {
 intersectionObserver.observe($observe);
 
 // to delete the localStorage when the user reload the page or close the browser
-localStorage.removeItem('initialState')
+window.addEventListener("beforeunload", function (e) {
+  const confirmationMessage = "\o/";
+
+  (e || window.event).returnValue = confirmationMessage; 
+  localStorage.clear();
+  return confirmationMessage;                            
+});
