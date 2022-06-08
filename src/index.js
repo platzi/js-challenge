@@ -41,11 +41,11 @@ const getData = (api, limit, offset) => {
 
 
 
-const loadData = () => {
+const loadData = async () => {
   let offset = window.localStorage.getItem("pagination")
   ? parseInt(window.localStorage.getItem("pagination")) + $limit
   : $offset;
-  getData(API, $limit, offset);
+  await getData(API, $limit, offset);
   window.localStorage.setItem("pagination", offset);
 };
 
@@ -62,6 +62,3 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
-window.onbeforeunload = () => {
-  window.localStorage.removeItem("pagination");
-};
