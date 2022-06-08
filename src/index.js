@@ -1,7 +1,7 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
-const $limit = 10;
+const $limit = 5;
 const $offset = 4;
 
 const $notIMG = "https://dummyimage.com/400x200/000/fff";
@@ -51,7 +51,7 @@ const loadData = async () => {
   let offset = window.localStorage.getItem("pagination")
   ? parseInt(window.localStorage.getItem("pagination")) + $limit
   : $offset;
-  await getData(API, $limit, offset);
+  await getData(API, $limit, offset-1);
   window.localStorage.setItem("pagination", offset);
 };
 

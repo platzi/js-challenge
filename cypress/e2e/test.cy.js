@@ -1,6 +1,6 @@
 describe("PlatziStore Tests", () => {
   beforeEach(() => {
-    cy.visit('http://localhost:8080/public/');
+    cy.visit('https://dytrax.github.io/platziecommerce.github.io/public/');
     cy.wait(2000);
   })
 
