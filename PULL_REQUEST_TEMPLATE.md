@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Salvador Enrique German Becerra
+Usuario Platzi: Makhail
+Correo Electronico: salvadorenriquegb@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [Si] Primer problema
+- [Si] Segundo problema
+- [Si] Tercer problema
+- [Si] Cuarto Problema
+- [Si] Quinto Problema
