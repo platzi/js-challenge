@@ -3,7 +3,8 @@
 body {
   margin: 0;
   padding: 0;
-  color: #3c484e;
+  color: #e2e5e9;
+  background-color: #121f3d;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -14,14 +15,14 @@ body {
   justify-content: center;
 }
 
-.Items {
+.items {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1.5rem;
   grid-row-gap: 1.5em;
   display: grid;
 }
 
-.Card {
+.card {
   text-decoration: none;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
     1px 3px 8px rgba(39, 44, 49, 0.03);
@@ -32,18 +33,24 @@ body {
   animation-name: fade;
 }
 
-.Card img {
+.card img {
   width: 100%;
   height: auto;
   border-radius: 5px 5px 0 0;
 }
 
-.Card h2 {
-  font-size: 18px;
-  font-weight: 300;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
+.card h2 {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  font-size: 1rem;
+  color: #e2e5e9;
+  text-align: center;
+}
+
+.card p {
+  text-align: center;
+  color:#c5cbd3;
 }
 
 @keyframes fade {
