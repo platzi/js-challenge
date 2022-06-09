@@ -19,35 +19,37 @@ let template = (imgSrc, imgLabel, productName, productPrice) => {
     `;
 };
 
-const getData = (api) => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.length) {
-        let output = [];
-        for (const singleProduct of response) {
-          let htmlItem = template(
-            singleProduct.images[0],
-            singleProduct.description,
-            singleProduct.title,
-            singleProduct.price,
-          );
-          output.push(htmlItem);
-        }
+const getData = async (api) => {
+  try {
+    let response = await fetch(api);
+    let data = await response.json();
 
-        let newItem = document.createElement("section");
-        newItem.classList.add("Items");
-        newItem.innerHTML = output.join("");
-        $app.appendChild(newItem);
-      } else {
-        intersectionObserver.unobserve($observe);
-        let message = document.createElement("p");
-        message.setAttribute("lang", "es");
-        message.textContent = "Todos los productos Obtenidos";
-        $observe.appendChild(message);
+    if (data.length) {
+      let output = [];
+      for (const singleProduct of data) {
+        let htmlItem = template(
+          singleProduct.images[0],
+          singleProduct.description,
+          singleProduct.title,
+          singleProduct.price,
+        );
+        output.push(htmlItem);
       }
-    })
-    .catch((error) => console.log(error));
+
+      let newItem = document.createElement("section");
+      newItem.classList.add("Items");
+      newItem.innerHTML = output.join("");
+      $app.appendChild(newItem);
+    } else {
+      intersectionObserver.unobserve($observe);
+      let message = document.createElement("p");
+      message.setAttribute("lang", "es");
+      message.textContent = "Todos los productos Obtenidos";
+      $observe.appendChild(message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const loadData = async () => {
