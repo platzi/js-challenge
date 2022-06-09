@@ -17,8 +17,6 @@ const getData = (api, offset, limit) => {
         return;
       }
 
-      console.log(products.length);
-
       let output = products.map(product => {
         return `
           <div id = product-${product.id}>
@@ -36,12 +34,7 @@ const getData = (api, offset, limit) => {
       newItem.innerHTML = output;
       $app.appendChild(newItem);
 
-      const lastProductId = `product-${products[products.length - 1].id}`;
-      console.log(lastProductId);
-      console.log(products.length);
-
-      const lastProduct = document.getElementById(lastProductId);
-      intersectionObserver.observe(lastProduct);
+      intersectionObserver.observe(observe);
 
     })
     .catch(error => console.log(error));
@@ -77,4 +70,3 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
-loadData();
