@@ -3,7 +3,8 @@
 body {
   margin: 0;
   padding: 0;
-  color: #3c484e;
+  color: #e2e5e9;
+  background-color: #121f3d;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -39,11 +40,17 @@ body {
 }
 
 .Card h2 {
-  font-size: 18px;
-  font-weight: 300;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  font-size: 1rem;
+  color: #e2e5e9;
+  text-align: center;
+}
+
+.Card p {
+  text-align: center;
+  color:#c5cbd3;
 }
 
 @keyframes fade {
@@ -53,4 +60,8 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.limit-reached{
+  color: red;
 }
