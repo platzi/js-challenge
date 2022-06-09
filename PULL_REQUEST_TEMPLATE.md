@@ -2,14 +2,19 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Hernan Abeldaño
+Usuario Platzi: @hernansebastian
+Correo Electronico: hernansebastian@hotmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
+
+
+## VERCEL DEPLOY
+
+https://js-challenge-mariscal.vercel.app/
