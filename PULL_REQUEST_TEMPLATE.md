@@ -2,7 +2,7 @@
 
 Solución al reto: La pagina creada se encuentra en el siguiente [Link](https://sergiogval.github.io/js-challenge/)
 
-Nombre: Sergio Valadez
+Nombre: Sergio Valadez Rivera
 Usuario Platzi: sergioval
 Correo Electronico: sergioval@gmail.com
 
