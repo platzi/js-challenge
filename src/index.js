@@ -3,7 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 const FETCH_LIMIT = 10;
-const INITIAL_OFFET = 4;
+const INITIAL_OFFET = 5;
 const PAGINATION_VARIABLE = 'pagination';
 
 const getData = async api => {
@@ -28,14 +28,18 @@ const getData = async api => {
         article.appendChild(img);
         article.appendChild(title);
         
-        return article.outerHTML;
+        return article;
       });
       
       if(output.length !== 0) {
-        let newItem = document.createElement('section');
-        newItem.classList.add('Item');
-        newItem.innerHTML = output;
-        $app.appendChild(newItem);
+        /*let newItem = document.createElement('section');
+        newItem.classList.add('Items');*/
+        let item = $app.getElementsByClassName("Items")[0];
+        output.forEach(card => {
+          item.appendChild(card);
+        });
+        //newItem.innerHTML = output;
+        //$app.appendChild(newItem);
       } else {
         stopObserver();
       }
