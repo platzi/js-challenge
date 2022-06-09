@@ -26,10 +26,10 @@ const getData = async (api) => {
             </h2>
         </article>`;
       });
-      let newItem = document.getElementsByClassName('Item');
+      let newItem = document.getElementsByClassName('Items');
       if (newItem.length < 2) {
         newItem = document.createElement("section");
-        newItem.classList.add("Item");
+        newItem.classList.add("Items");
         output.forEach(element => {
           newItem.insertAdjacentHTML('beforeend', element);
         })
