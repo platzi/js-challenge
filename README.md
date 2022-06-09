@@ -1,7 +1,6 @@
 challenge deployed
 * [Netlify](https://js-challenge-road-to-devcon.netlify.app/public/)
 * [GitHub Pages](https://rdr-x.github.io/js-challenge/public/index.html)
-===
 
 # PlatziStore
 
