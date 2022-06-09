@@ -47,7 +47,7 @@ const getData = async (api) => {
 const createProduct = (productInfo) => {
     return `
     <article class="Card">
-      <img src='${productInfo.images[0]}' alt='${productInfo.title} img'/>
+      <img src='${productInfo.images[0]}' alt='${productInfo.title}: ${productInfo.description}'/>
       <h2>
         ${productInfo.title}
         <small>$${productInfo.price}</small>
