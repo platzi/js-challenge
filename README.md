@@ -1,3 +1,8 @@
+challenge deployed
+* [Netlify](https://js-challenge-road-to-devcon.netlify.app/public/)
+* [GitHub Pages](https://rdr-x.github.io/js-challenge/public/index.html)
+===
+
 # PlatziStore
 
 Somos comercio en línea con una gran cantidad de productos a comercializar. Estamos por lanzar nuestra implementación y necesitamos resolver los problemas que presenta nuestra aplicación.
