@@ -18,7 +18,7 @@ const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
-if(Data.loadData('products')) Data.removeData('products');
+if(Data.loadData('pagination')) Data.removeData('pagination');
 
 const addData = (output) => {
   let newItem = document.createElement("section");
@@ -33,16 +33,16 @@ const getInitProduct = () => {
     limit: 10,
     limit_query: -1,
   };
-  Data.saveData(products, "products");
+  Data.saveData(products, "pagination");
 };
 
 const getLimit = () => {
   fetch("https://api.escuelajs.co/api/v1/products")
     .then((response) => response.json())
     .then((response) => {
-      let products = Data.loadData("products");
+      let products = Data.loadData("pagination");
       products.limit_query = response.length;
-      Data.saveData(products, "products");
+      Data.saveData(products, "pagination");
     })
     .catch((error) => console.log(error));
 };
@@ -53,7 +53,7 @@ const getData = (api) => {
     .then((response) => {
       //console.log(response);
       let products = response;
-      let productsLocal = Data.loadData("products");
+      let productsLocal = Data.loadData("pagination");
       productsLocal.offset += 10;
       let output = products.map((product) => {
         return `<article class="Card" id="product-${product.id}">
@@ -69,7 +69,7 @@ const getData = (api) => {
               </div>
               </article>`;
       });
-      Data.saveData(productsLocal, "products");
+      Data.saveData(productsLocal, "pagination");
       addData(output);
       if (productsLocal.offset >= productsLocal.limit_query) {
 				$observe.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
@@ -81,7 +81,7 @@ const getData = (api) => {
 
 const loadData = async () => {
   try{
-    let products = Data.loadData("products");
+    let products = Data.loadData("pagination");
     if (!products) {
       getInitProduct();
       try{
@@ -89,7 +89,7 @@ const loadData = async () => {
       }catch(error){
         console.error(error);
       }
-      products = Data.loadData("products");
+      products = Data.loadData("pagination");
     }
      getData(API + "?offset=" + products.offset + "&limit=" + products.limit);
   }catch (error) {
