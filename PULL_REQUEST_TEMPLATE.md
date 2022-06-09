@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: [PlatziStore](https://timely-palmier-3161a4.netlify.app)
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Arturo
+Usuario Platzi: 4rturd13
+Correo Electronico: 4rturd13@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [ x ] Primer problema
+- [ x ] Segundo problema
+- [ x ] Tercer problema
+- [ x ] Cuarto Problema
+- [ x ] Quinto Problema
