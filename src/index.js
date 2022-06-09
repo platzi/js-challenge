@@ -51,7 +51,7 @@ const getData = (api) => {
   fetch(api)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      //console.log(response);
       let products = response;
       let productsLocal = Data.loadData("products");
       productsLocal.offset += 10;
