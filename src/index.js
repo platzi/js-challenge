@@ -76,6 +76,10 @@ const loadData = (page = 1, limit = 10) => {
   getData(page, limit, productsArray.length)
 }
 
+setTimeout(() => {
+  loadData()
+}, 2000)
+
 const beforeUnloadListener = () => {
   localStorage.removeItem('pagination')
 }
