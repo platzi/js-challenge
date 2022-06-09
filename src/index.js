@@ -2,6 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const PAGINATION_KEY = 'pagination'; 
+const LIMIT = 10;
 
 const getData = (api, offset, limit) => {
   const endpoint = `${api}?offset=${offset}&limit=${limit}`;
@@ -10,17 +11,38 @@ const getData = (api, offset, limit) => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      // By some reason, the products array starts at id 3
+
+      if(!products.length > 0) {
+        alert('There is no more data');
+        return;
+      }
+
+      console.log(products.length);
+
       let output = products.map(product => {
-        return product.title + '<br>' ;
+        return `
+          <div id = product-${product.id}>
+            <p>
+             ${product.id} - ${product.title}
+            </p>
+          </div>
+        `;
       });
 
-      localStorage.setItem(PAGINATION_KEY, offset + 10);
+      localStorage.setItem(PAGINATION_KEY, offset + limit);
 
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
+
+      const lastProductId = `product-${products[products.length - 1].id}`;
+      console.log(lastProductId);
+      console.log(products.length);
+
+      const lastProduct = document.getElementById(lastProductId);
+      intersectionObserver.observe(lastProduct);
+
     })
     .catch(error => console.log(error));
 }
@@ -39,12 +61,17 @@ const loadData = () => {
     nPagination = 5;
   }
 
-  const limit = 10;
-  getData(API, nPagination, limit);
+  getData(API, nPagination, LIMIT);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      console.log(entries);
+      loadData();
 
+    }
+  })
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
