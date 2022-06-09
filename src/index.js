@@ -41,7 +41,12 @@ const loadData = async (offset = 4, limit = dLimit) => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  
+  entries.forEach((entry)=>{
+    if(entry.isIntersecting){
+      let offset = parseInt(localStorage.getItem('offset'))||dOffset
+      loadData(offset);
+    }
+  })
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
