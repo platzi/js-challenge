@@ -21,6 +21,7 @@ body {
   display: grid;
 }
 
+
 .Card {
   text-decoration: none;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
@@ -44,6 +45,16 @@ body {
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.Footer {
+  display: flex;
+  place-content: center;
+  font-size: 1.2rem;
+  color: white;
+  background-color: orange;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 @keyframes fade {
