@@ -23,21 +23,29 @@ const getData = (api) => {
   fetch(api)
     .then((response) => response.json())
     .then((response) => {
-      let output = [];
-      for (const singleProduct of response) {
-        let htmlItem = template(
-          singleProduct.images[0],
-          singleProduct.description,
-          singleProduct.title,
-          singleProduct.price,
-        );
-        output.push(htmlItem);
-      }
+      if (response.length) {
+        let output = [];
+        for (const singleProduct of response) {
+          let htmlItem = template(
+            singleProduct.images[0],
+            singleProduct.description,
+            singleProduct.title,
+            singleProduct.price,
+          );
+          output.push(htmlItem);
+        }
 
-      let newItem = document.createElement("section");
-      newItem.classList.add("Items");
-      newItem.innerHTML = output.join("");
-      $app.appendChild(newItem);
+        let newItem = document.createElement("section");
+        newItem.classList.add("Items");
+        newItem.innerHTML = output.join("");
+        $app.appendChild(newItem);
+      } else {
+        intersectionObserver.unobserve($observe);
+        let message = document.createElement("p");
+        message.setAttribute("lang", "es");
+        message.textContent = "Todos los productos Obtenidos";
+        $observe.appendChild(message);
+      }
     })
     .catch((error) => console.log(error));
 };
