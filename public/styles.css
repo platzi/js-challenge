@@ -21,6 +21,12 @@ body {
   display: grid;
 }
 
+.NoMoreItems {
+  text-align: center;
+  animation-name: fade;
+  animation-duration: 2s;
+}
+
 .Card {
   text-decoration: none;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
