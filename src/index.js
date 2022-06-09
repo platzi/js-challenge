@@ -16,7 +16,7 @@ const getData = api => {
           <img src='${product.images[0]}' />
           <h2>              
           ${product.title}
-          <small>$${product.price}-${product.id}</small>
+          <small>$${product.price}</small>
           </h2>
           </article>`
       });
