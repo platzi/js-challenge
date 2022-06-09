@@ -11,7 +11,7 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map(product => {
+      let output = products.map(product => 
         `<article class='Card'>
           <img src='${product.images[0]}' />
           <h2>              
@@ -19,7 +19,7 @@ const getData = api => {
           <small>$${product.price}</small>
           </h2>
           </article>`
-      });
+      );
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = output;
