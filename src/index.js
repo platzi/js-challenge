@@ -32,14 +32,13 @@ const getData = api => {
       });
       
       if(output.length !== 0) {
-        /*let newItem = document.createElement('section');
-        newItem.classList.add('Items');*/
-        let item = $app.getElementsByClassName("Items")[0];
+        let newItem = document.createElement('section');
+        newItem.classList.add('Items');
         output.forEach(card => {
-          item.appendChild(card);
+          newItem.appendChild(card);
         });
         //newItem.innerHTML = output;
-        //$app.appendChild(newItem);
+        $app.appendChild(newItem);
       } else {
         stopObserver();
       }
@@ -51,7 +50,7 @@ const loadData = async (offset, limit) => {
   await getData(`${API}?offset=${offset}&limit=${limit}`);
 }
 
-const intersectionObserver = new IntersectionObserver(async entries => {
+const intersectionObserver = new IntersectionObserver(entries => {
   // logic...
   entries.forEach(entry => {
     if(entry.isIntersecting) {
@@ -62,7 +61,7 @@ const intersectionObserver = new IntersectionObserver(async entries => {
         offset = parseInt(offset) + FETCH_LIMIT;
       }
 
-      await loadData(offset, FETCH_LIMIT);
+      loadData(offset, FETCH_LIMIT);
 
       localStorage.setItem(PAGINATION_VARIABLE, offset);
       }
