@@ -15,14 +15,14 @@ body {
   justify-content: center;
 }
 
-.items {
+.Items {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1.5rem;
   grid-row-gap: 1.5em;
   display: grid;
 }
 
-.card {
+.Card {
   text-decoration: none;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
     1px 3px 8px rgba(39, 44, 49, 0.03);
@@ -33,13 +33,13 @@ body {
   animation-name: fade;
 }
 
-.card img {
+.Card img {
   width: 100%;
   height: auto;
   border-radius: 5px 5px 0 0;
 }
 
-.card h2 {
+.Card h2 {
   margin-bottom: 1rem;
   font-weight: 700;
   line-height: 1;
@@ -48,7 +48,7 @@ body {
   text-align: center;
 }
 
-.card p {
+.Card p {
   text-align: center;
   color:#c5cbd3;
 }
@@ -60,4 +60,8 @@ body {
   to {
     opacity: 1;
   }
+}
+
+.limit-reached{
+  color: red;
 }

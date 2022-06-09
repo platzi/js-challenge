@@ -1,75 +1,65 @@
-const $app = document.getElementById('app');
-const $observe = document.getElementById('observe');
-const API = 'https://api.escuelajs.co/api/v1/products';
+const $app = document.getElementById("app");
+const $observe = document.getElementById("observe");
+const API = "https://api.escuelajs.co/api/v1/products";
 
-//Iniciamos el producto 5 y obteniendo los siguientes 10 productos.
-localStorage.setItem('pagination', 5);
-const PRODUCTS_TO_FETCH = 10;
+const limit = 10;
+let intersect = 1;
+let offset = 5;
 
-const $itemsContainer = document.createElement('div');
-$itemsContainer.classList.add('items');
-$app.appendChild($itemsContainer);
+const addElement = (items) => {
+	return items.map((item) => {
+		return `
+		<article class="card">
+			<img src=${item.images[0]} />
+			<h2>${item.title}</h2>
+      <p>$${item.price}</p>
+		</article>`;
+	});
+};
 
-//Cuando la última petición sea ejecutada debes de mostrar un mensaje "Todos los productos Obtenidos", a su vez debes de destruir el intersection observer.
-const $completeMessage = document.createElement('div');
-$completeMessage.classList.add('completeMessage');
-$completeMessage.innerHTML = 'Todos los productos Obtenidos'
+const getData = async (api) => {
+	const response = await fetch(api);
+	const products = await response.json();
 
-const getData = (api, index, limit) => 
-  fetch(`${api}?offset=${index}&limit=${limit}`)
-  .then(response => response.json())
-  .then(response => response)
-  .catch(error => console.log(error));
+	localStorage.removeItem("pagination");
+
+	try {
+		let output = addElement(products);
+
+		let newItem = document.createElement("section");
+		newItem.classList.add("Items");
+		newItem.innerHTML = output.join("");
+		$app.append(newItem);
+
+		localStorage.setItem("pagination", parseInt(offset));
+		offset += 10;
+	} catch {
+		console.error(err);
+	}
+};
 
 const loadData = async () => {
-  const products = await getData(API, localStorage.getItem('pagination'), PRODUCTS_TO_FETCH);
-  console.log(products);
-  products.map(product => $itemsContainer.appendChild(getCardElement(product)));
-  localStorage.setItem('pagination', PRODUCTS_TO_FETCH + +localStorage.getItem('pagination'));
-  if (products.length < 10) {
-    handleObserveStatus(false);
-    $app.appendChild($completeMessage);
-  }
-}
+	let pagination = `?offset=${offset}&limit=10`;
+	getData(API + pagination);
+};
 
-const getCardElement = (product) => {
-  const $card = document.createElement('article');
-  $card.classList.add('card');
-  $card.innerHTML =`
-    <img src="${product.images[0]}" />
-    <h2>
-      ${product.title}
-    </h2>
-    <p>$ ${product.price}</p>
-    
-  `;
-  return $card;
-}
+const intersectionObserver = new IntersectionObserver(
+	(entries) => {
+		// logic...
+		if (entries[0].isIntersecting) {
+			loadData();
+		} else if (offset >= 200) {
+			const info = `<p class="limit-reached">Todos los productos Obtenidos</p>`;
+			$observe.innerHTML = info;
+			intersectionObserver.disconnect();
+		}
+	},
+	{
+		rootMargin: "0px 0px 100% 0px",
+	}
+);
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      loadData()
-    }
-  })
-}, {
-  root: null,
-  rootMargin: '0px',
-  threshold: 0.25
-});
-
-const handleObserveStatus = status => {
-  if (status) {
-    console.log('Observer started');
-    intersectionObserver.observe($observe);
-  }
-  else {
-    console.log('Observer stopped');
-    intersectionObserver.unobserve($observe);
-  }
-}
-
-handleObserveStatus(true);
+intersectionObserver.observe($observe);
 
 //Eliminamos el storage (Tercer Problema, item 2)
 window.onbeforeunload = () => {
