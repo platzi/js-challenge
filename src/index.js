@@ -3,6 +3,10 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 localStorage["pagination"] = 4;
 
+window.onbeforeunload = () => {
+  localStorage.removeItem("pagination");
+};
+
 let template = (imgSrc, imgLabel, productName, productPrice) => {
   return `
     <article class="Card">
@@ -38,8 +42,8 @@ const getData = (api) => {
     .catch((error) => console.log(error));
 };
 
-const loadData = (entries, observer) => {
-  getData(`${API}?offset=${localStorage.getItem("pagination")}&limit=10`);
+const loadData = async () => {
+  await getData(`${API}?offset=${localStorage.getItem("pagination")}&limit=10`);
   localStorage["pagination"] =
     parseInt(localStorage.getItem("pagination")) + 10;
 };
