@@ -2,14 +2,15 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Sergio Bryan Madrid Nuñez
+Usuario Platzi: Sergio Bryan Madrid Nuñez
+Correo Electronico: sbryanmadridn@gmail.com
+Web: serbrylex.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
