@@ -1,10 +1,10 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: js-challenge
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Juan Ignacio Rios
+Usuario Platzi: juanri
+Correo Electronico: juanrios0495@gmail.com
 
 ## Reto:
 
