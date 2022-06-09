@@ -1,5 +1,3 @@
-import "./styles.css";
-
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
