@@ -6,8 +6,8 @@ const FETCH_LIMIT = 10;
 const INITIAL_OFFET = 5;
 const PAGINATION_VARIABLE = 'pagination';
 
-const getData = async api => {
-  await fetch(api)
+const getData = api => {
+  return fetch(api)
     .then(response => response.json())
     .then(response => {
       let products = response;
@@ -51,7 +51,7 @@ const loadData = async (offset, limit) => {
   await getData(`${API}?offset=${offset}&limit=${limit}`);
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
+const intersectionObserver = new IntersectionObserver(async entries => {
   // logic...
   entries.forEach(entry => {
     if(entry.isIntersecting) {
@@ -62,13 +62,13 @@ const intersectionObserver = new IntersectionObserver(entries => {
         offset = parseInt(offset) + FETCH_LIMIT;
       }
 
-      loadData(offset, FETCH_LIMIT);
+      await loadData(offset, FETCH_LIMIT);
 
       localStorage.setItem(PAGINATION_VARIABLE, offset);
       }
   });
 }, {
-  rootMargin: '0px 0px 100% 0px', threshold: 1.0
+  rootMargin: '0px 0px 100% 0px',
 });
 
 window.onbeforeunload = () => {
