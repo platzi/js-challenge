@@ -4,7 +4,7 @@ Solución al reto:
 
 Nombre: Jimmy Joel Pecho Malqui
 Usuario Platzi: https://platzi.com/p/jimmyjoelpechomalqui/
-Correo Electronico: jpmjim@mail.com
+Correo Electronico: jpmjim@gmail.com
 
 ## Reto:
 
