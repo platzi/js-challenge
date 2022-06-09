@@ -3,35 +3,30 @@ const $observe = document.getElementById("observe");
 const initPage = 5;
 const offset = 10;
 const productsLimit = 200;
-let firstLoad = true;
-
 const API = `https://api.escuelajs.co/api/v1/products/`;
+
+let getFirstLoad = true;
 
 window.onbeforeunload = () => {
   localStorage.setItem("pagination", initPage);
 };
 
-let page = localStorage.getItem("pagination") || initPage;
 
-const apiPaginated = (api, apiPage) => api + "?offset=" + apiPage + "&limit=10";
+const paginationApi = (api, apiPage) => api + "?offset=" + apiPage + "&limit=10";
 
 const getData = async (api) => {
   try {
     const page = localStorage.getItem("pagination") || initPage;
     if (page >= productsLimit) {
+      alert('No more products')
       console.log("No more products");
       cleanObserver();
       return;
     }
 
-    const response = await fetch(apiPaginated(api, page));
+    const response = await fetch(paginationApi(api, page));
     const data = await response.json();
 
-    // fetch(api)
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     let products = response;
-    //     console.log(products);
 
     let output = data.map((product) => {
       const template = `
@@ -50,12 +45,11 @@ const getData = async (api) => {
     newItem.classList.add("Item");
     newItem.innerHTML = output;
     $app.appendChild(newItem);
-    console.log('firsLoad: ', firstLoad);
-    if (!firstLoad) {
-      
+    console.log('firsLoad: ', getFirstLoad);
+    if (!getFirstLoad) {
       localStorage.setItem("pagination", parseInt(page) + offset);
     }
-    firstLoad = false;
+    getFirstLoad = false;
   } catch (err) {
     console.log(error);
   }
@@ -75,10 +69,11 @@ const loadData = async () => {
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-   
-    if(entries[0].isIntersecting){
-      loadData();
-    }
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadData();
+      }
+    });
   },
   {
     rootMargin: "0px 0px 100% 0px",
