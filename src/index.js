@@ -17,8 +17,14 @@ const getData = (api, initial) => {
         initial = 4;
         localStorage.setItem('pagination', initial);
       }
-      let output = products.slice(initial, initial+10 ).map(product => {
-        return `<h1>${product.title}</h1> <br/> <p>${product.id}</p><br/> <p>${product.description} </p>`
+      let output = products.slice(initial, initial+10 ).map( product => {
+        return `<article class="Card">
+        <img src="${product.images[0]}" alt='${product.title}' />
+        <h2>
+          ${product.title} 
+          <small>$ ${product.price}</small>
+        </h2>
+      </article>`
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
