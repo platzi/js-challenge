@@ -51,6 +51,7 @@ const getData = async (api) => {
       msgEndOfStock.innerHTML = `<h3 class="text-center">Todos los productos Obtenidos</h3>`;
       document.getElementsByClassName('Main')[0].appendChild(msgEndOfStock);
       intersectionObserver.unobserve($observe);
+      intersectionObserver.disconnect();
     }
   } catch (error) {
     console.log(error);
