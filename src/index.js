@@ -1,7 +1,7 @@
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
-localStorage["pagination"] = 4;
+localStorage["pagination"] = 5;
 
 window.onbeforeunload = () => {
   localStorage.removeItem("pagination");
