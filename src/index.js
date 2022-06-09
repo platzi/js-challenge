@@ -29,7 +29,7 @@ const getData = (api, initialId, resolve) => {
       if(debug) console.log('getData itemsCounterForFilter = ' + itemsCounterForFilter + ', itemsInPage = ' + itemsInPage + ', endingId = ' + endingId + ', pagination = ' + localStorage.getItem('pagination'));
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
-      newItem.innerHTML = output;
+      newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
       resolve("All Set");
     })
