@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Eden Gomez
+Usuario Platzi: EdenGg
+Correo Electronico: gresseden@gmail.com
 
 ## Reto:
 
