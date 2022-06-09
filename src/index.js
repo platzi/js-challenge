@@ -3,14 +3,31 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 localStorage["pagination"] = 4;
 
+let template = (imgSrc, imgLabel, productName, productPrice) => {
+  return `
+    <article class="Card">
+      <img src="${imgSrc}" alt="${imgLabel}" />
+      <h2>
+        ${productName}
+        <small>$ ${productPrice}</small>
+      </h2>
+    </article>
+    `;
+};
+
 const getData = (api) => {
   fetch(api)
     .then((response) => response.json())
     .then((response) => {
       let output = [];
       for (const singleProduct of response) {
-        let template = `<div class="Card"><h2>${singleProduct.title}</h2><img alt="${singleProduct.description}" src="${singleProduct.images[0]}"/></div>`;
-        output.push(template);
+        let htmlItem = template(
+          singleProduct.images[0],
+          singleProduct.description,
+          singleProduct.title,
+          singleProduct.price,
+        );
+        output.push(htmlItem);
       }
 
       let newItem = document.createElement("section");
