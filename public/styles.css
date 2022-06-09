@@ -53,9 +53,9 @@ body {
 }
 */
 #observe{
-  height: 100PX;
+  height: 100px;
   width: 100%;
-  background-color: yellow;
+  text-align: center;
 }
 @keyframes fade {
   from {

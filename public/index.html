@@ -8,23 +8,14 @@
   <title>PlatziStore</title>
   <link type="text/css" href="styles.css" rel="stylesheet">
   <meta name="description" content="Platzi Store">
-  <SCRIPT>
-    function Cerrar() {
-       console.log("Se va a cerrar la ventana");
-       event.returnValue = "Te estás saliendo del sitio…";
-    } 
-</SCRIPT>
 </head>
-
-<body id="body" onbeforeunload="return Cerrar()">
+<body id="body" >
   <div class="Main">
     <h1>PlatziStore</h1>
-    <div id="app">
-    </div>
+    <div id="app"></div>
     <div id="observe"></div>
   </div>
 </body>
-
 <script type="module" src="../src/index.js"></script>
 
 </html>

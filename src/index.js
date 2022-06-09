@@ -2,21 +2,10 @@ import Data from "/src/Data.js";
 
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
-const $body = document.getElementById("body");
 const API = "https://api.escuelajs.co/api/v1/products";
-/*
-const APIinit = {
-  product: {
-    query: "https://api.escuelajs.co/api/v1/products?offset=" /0&limit=10/,
-    init: 5,
-    limit: 15,
-    type: "producto",
-  },
-};
-*/
-$body.addEventListener("beforeunload", () => {
-  alert("Se esta cerrando");
-});
+
+if(Data.loadData('products')) Data.removeData('products');
+
 const addData = (output) => {
   let newItem = document.createElement("section");
   newItem.classList.add("Item");
@@ -51,10 +40,6 @@ const getData = (api) => {
       console.log(response);
       let products = response;
       let productsLocal = Data.loadData("products");
-      if (!productsLocal) {
-        getInitProduct();
-        productsLocal = Data.loadData("products");
-      }
       productsLocal.offset += 10;
       let output = products.map((product) => {
         return `<article class="Card" id="product-${product.id}">
@@ -72,24 +57,37 @@ const getData = (api) => {
       });
       Data.saveData(productsLocal, "products");
       addData(output);
+      if (productsLocal.offset >= productsLocal.limit_query) {
+				$observe.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
+				intersectionObserver.disconnect($observe);
+			}
     })
     .catch((error) => console.log(error));
 };
 
-const loadData = () => {
-  let products = Data.loadData("products");
-  if (!products) {
-    getInitProduct();
-    getLimit();
-    products = Data.loadData("products");
-  }
-  if (products.offset > products.limit_query) return;
-  getData(API + "?offset=" + products.offset + "&limit=" + products.limit);
+const loadData = async () => {
+  try{
+    let products = Data.loadData("products");
+    if (!products) {
+      getInitProduct();
+      try{
+        await getLimit();
+      }catch(error){
+        console.error(error);
+      }
+      products = Data.loadData("products");
+    }
+     getData(API + "?offset=" + products.offset + "&limit=" + products.limit);
+  }catch (error) {
+		console.error(error);
+	}
 };
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    loadData();
+		if (entries[0].isIntersecting) {
+			loadData();
+		}
   },
   {
     rootMargin: "0px 0px 100% 0px",
