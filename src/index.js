@@ -1,4 +1,4 @@
-import Data from "/Data.js";
+import Data from "Data.js";
 
 const $app = document.getElementById("app");
 const $observe = document.getElementById("observe");
