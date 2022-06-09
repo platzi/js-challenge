@@ -4,7 +4,6 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 let done = false;
 const limit = 10;
 localStorage.removeItem('pagination');
-localStorage.setItem('pagination', 5);
 
 const getData = async (api) => {
   await fetch(api)
@@ -34,11 +33,16 @@ const getData = async (api) => {
 }
 
 const loadData = async () => {
-  const offset = localStorage.getItem('pagination');
+  let offset = localStorage.getItem('pagination');
+  if (offset) {
+    localStorage.setItem('pagination', parseInt(offset) + limit);
+  } else {
+    localStorage.setItem('pagination', 5);
+  }
+  offset = localStorage.getItem('pagination');
   const api = `${API}?offset=${offset}&limit=${limit}`;
+  console.log(api);
   await getData(api);
-  const next = parseInt(offset) + limit;
-  localStorage.setItem('pagination', next);
   if (done === true) {
     intersectionObserver.unobserve($observe);
     // show message when all products are loaded
@@ -57,7 +61,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   });
 }, {
   rootMargin: '0px 0px 100% 0px',
-  threshold: 0.2
+  threshold: 1
 });
 
 intersectionObserver.observe($observe);
