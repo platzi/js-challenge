@@ -4,7 +4,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const itemsPerPage = 10;
 const initialItem = 5;
 const debug = true;
-const productTemplateType='1'; // '0' = prod, '1' = test/debug
+const productTemplateType='0'; // '0' = prod, '1' = test/debug
 
 // Carga los datos de la API para la pagina corriente
 const getData = (api, initialId, resolve) => {
