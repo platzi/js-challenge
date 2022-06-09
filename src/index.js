@@ -5,29 +5,43 @@ const limit = 10
 let offset = 5 // posicion inicial segun el enunciado
 localStorage.setItem('pagination', offset)
 
+/** FETCH y CONSTRUCCION de los datos */
+
 const loadData = () => {
     getData(API)
 }
 
-const getData = (api) => {
-    const pag = localStorage.getItem('pagination')
-    fetch(`${api}?offset=${pag}&limit=${limit}`)
-        .then((response) => response.json())
-        .then((response) => {
-            let products = response
-            let output = products
-                .map((product) => {
-                    return createProduct(product)
-                })
-                .join('')
-            let newItem = document.createElement('section')
-            newItem.classList.add('Item')
-            newItem.innerHTML = output
-            $app.appendChild(newItem)
-        })
-        .catch((error) => console.log(error))
-    localStorage.setItem('pagination', offset + limit)
-    console.log('asd')
+const getData = async (api) => {
+    try {
+        // Fetch
+        let pag = parseInt(localStorage.getItem('pagination'))
+
+        const response = await fetch(`${api}?offset=${pag}&limit=${limit}`)
+        const products = await response.json()
+
+        // Si no hay mas, muestro el mensaje y elimino el observer
+        if (!products.length) {
+            alert('Todos los productos obtenidos')
+            intersectionObserver.unobserve($observe)
+        }
+
+        // Construccion de las cartas para mostrar los nuevos datos
+        let output = products
+            .map((product) => {
+                return createProduct(product)
+            })
+            .join('')
+        let newItem = document.createElement('section')
+        newItem.classList.add('Item')
+        newItem.innerHTML = output
+        $app.appendChild(newItem)
+
+        // Actualización del Local Storage
+        pag += limit
+        localStorage.setItem('pagination', pag)
+    } catch (error) {
+        console.log('Error fetching data', error)
+    }
 }
 
 const createProduct = (productInfo) => {
@@ -42,10 +56,9 @@ const createProduct = (productInfo) => {
     `
 }
 
+/** OBSERVER para el scrolling */
 const onIntersect = ([entry]) => {
     if (entry.isIntersecting) {
-        console.log('Loading data')
-        offset += limit
         loadData()
     }
 }
