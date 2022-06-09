@@ -3,8 +3,6 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
 const LIMIT = 10;
-const INITIAL_OFFSET = 4;
-const NUMBER_ITEMS = 10;
 
 window.addEventListener('beforeunload', function () {
   localStorage.clear();
@@ -12,8 +10,7 @@ window.addEventListener('beforeunload', function () {
 
 const getData = async (api) => {
   try {
-    const offset = JSON.parse(localStorage.getItem('pagination')) || INITIAL_OFFSET;
-
+    const offset = JSON.parse(localStorage.getItem('pagination')) || 5;
     const response = await fetch(`${api}?offset=${offset}&limit=${LIMIT}`);
     const data = await response.json();
     return data;
@@ -43,7 +40,7 @@ const createTemplate = (product) => {
 
 const createItem = (output) => {
   let newItem = document.createElement('section');
-  newItem.classList.add('Item');
+  newItem.classList.add('Items');
 
   for (const item of output) {
     newItem.appendChild(item);
@@ -56,10 +53,11 @@ const loadData = async () => {
   try {
     const data = await getData(API);
     const output = data.map((product) => createTemplate(product));
+
     createItem(output);
 
-    const offset = JSON.parse(localStorage.getItem('pagination')) || INITIAL_OFFSET;
-    localStorage.setItem('pagination', offset + NUMBER_ITEMS);
+    // const offset = JSON.parse(localStorage.getItem('pagination')) || 5;
+    // localStorage.setItem('pagination', offset + LIMIT);
   } catch (error) {
     console.error(error);
   }
@@ -82,8 +80,15 @@ const launchNotification = () => {
 
 const callback = async ([entrie]) => {
   if (entrie.isIntersecting) {
-    const offset = JSON.parse(localStorage.getItem('pagination'));
-    offset < 194 ? await loadData() : launchNotification();
+    let pagination = JSON.parse(localStorage.getItem('pagination'));
+    if (!pagination) {
+      pagination = 5;
+      localStorage.setItem('pagination', pagination);
+    } else {
+      localStorage.setItem('pagination', pagination + LIMIT);
+    }
+
+    pagination < 194 ? await loadData() : launchNotification();
   }
 };
 
