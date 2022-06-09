@@ -7,6 +7,14 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+h1 {
+  background-color: orange;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  place-content: center;
+}
+
 .Main {
   padding: 10px;
   grid-template-columns: minmax(auto, 768px);
