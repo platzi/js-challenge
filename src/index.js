@@ -13,7 +13,8 @@ const getData = (api, offset, limit) => {
       let products = response;
 
       if(!products.length > 0) {
-        alert('There is no more data');
+        alert('Todos los productos Obtenidos');
+        intersectionObserver.unobserve($observe);
         return;
       }
 
