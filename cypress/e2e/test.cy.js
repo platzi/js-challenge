@@ -1,6 +1,6 @@
 describe("PlatziStore Tests", () => {
   beforeEach(() => {
-    cy.visit('http://localhost:8080/public/');
+    cy.visit('http://localhost:5500/public/');
     cy.wait(2000);
   })
 

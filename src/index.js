@@ -5,12 +5,14 @@ const API = 'https://api.escuelajs.co/api/v1/products?offset=0&limit=10';
 const intersectionObserver = new IntersectionObserver(handleIntersect, {
   rootMargin: '0px 0px 100% 0px',
 });
-const MAX_DATA = 20
+const MAX_DATA = 200
 const INCREMENT = 10
+intersectionObserver.observe($observe);
+
 const getData = async (offset, limit) => {
   try {
     products = await fetch(`https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`)
-    products =  await products.json()
+    products = await products.json()
     renderElements(products)
   }
   catch (err) {
@@ -19,21 +21,35 @@ const getData = async (offset, limit) => {
 }
 
 const loadData = async () => {
-  let pagination = Number(localStorage.getItem('pagination')) || 0
-  let final = pagination + INCREMENT;
-  if (pagination + INCREMENT > MAX_DATA)
-    final = MAX_DATA
-  else
-    final = pagination + INCREMENT
 
-  if (final <= MAX_DATA && pagination <= MAX_DATA)
-    await getData(pagination
-      , final);
+  let offset = Number(localStorage.getItem('pagination'))
+  let limit = INCREMENT;
+
+  if (!offset) {
+    offset = 5;
+    localStorage.setItem('pagination', offset)
+  }
+  else {
+    if (offset + limit > MAX_DATA) {
+      limit = MAX_DATA - offset;
+      offset = MAX_DATA
+    }
+    else
+      offset = offset + limit + 1
+    localStorage.setItem('pagination', offset)
+  }
+
+
+
+
+  if (offset < MAX_DATA)
+    await getData(offset
+      , limit);
   else {
     alert('Todos los productos obtenidos');
 
   }
-  localStorage.setItem('pagination', final + 1)
+
 }
 
 function renderElements(products) {
@@ -49,7 +65,7 @@ function renderElements(products) {
   ));
 
   let newItem = document.createElement('section');
-  newItem.classList.add('Item');
+  newItem.classList.add('Items');
   newItem.innerHTML = output;
   $app.appendChild(newItem);
 
@@ -62,7 +78,6 @@ function handleIntersect(entries, intersectionObserver) {
     }
   })
 }
-intersectionObserver.observe($observe);
 
 window.onunload = () => {
   localStorage.removeItem('pagination')
