@@ -18,7 +18,7 @@ const getData = API => {
       newItem.classList.add('Item');
       newItem.innerHTML = `
       <article class="Card">
-      <img src="${product.images[0]}" />
+      <img src="${product.category.image}" />
       <h2>
       ${product.title}
       <small>${product.price}</small>
@@ -30,11 +30,10 @@ const getData = API => {
   })
   .catch(error => console.log(error));
 }
-console.log(offset)
-offset += 10;
-
 
 const loadData = async () => {
+  offset = offset + 10;
+  console.log(offset);
   getData(API);
 }
 
@@ -51,7 +50,6 @@ const Observer = new IntersectionObserver(entries => {
     console.log(entry.target);
     if (entry.isIntersecting) {
       console.log(typeof(entry.target));
-      getData(API);
       loadData();
     }
   });
