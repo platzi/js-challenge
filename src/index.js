@@ -9,8 +9,8 @@ window.addEventListener('beforeunload', () => {
 })
 /** FETCH y CONSTRUCCION de los datos */
 
-const loadData = () => {
-    getData(API)
+const loadData = async () => {
+    await getData(API)
 }
 
 const getData = async (api) => {
@@ -50,7 +50,7 @@ const getData = async (api) => {
 const createProduct = (productInfo) => {
     return `
     <article class="Card">
-      <img src='${productInfo.images[0]}' alt='${productInfo.title}: ${productInfo.description}'/>
+      <img src='${productInfo.images[0]}'/>
       <h2>
         ${productInfo.title}
         <small>$${productInfo.price}</small>
@@ -60,9 +60,9 @@ const createProduct = (productInfo) => {
 }
 
 /** OBSERVER para el scrolling */
-const onIntersect = ([entry]) => {
+const onIntersect = async ([entry]) => {
     if (entry.isIntersecting) {
-        loadData()
+        await loadData()
     }
 }
 
