@@ -43,7 +43,7 @@ const getData = (api, offset, limit) => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
+const loadData = async () => {
   let pagination = localStorage.getItem(PAGINATION_KEY);
 
   let nPagination;
@@ -65,10 +65,9 @@ const clearLocalStorage = () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+  entries.forEach( async (entry) => {
     if(entry.isIntersecting){
-      loadData();
-
+      await loadData();
     }
   })
 }, {
