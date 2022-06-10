@@ -4,6 +4,9 @@ const API = 'https://api.escuelajs.co/api/v1/products'
 const limit = 10
 let offset = 5 // posicion inicial segun el enunciado
 
+window.addEventListener('beforeunload', () => {
+    localStorage.clear()
+})
 /** FETCH y CONSTRUCCION de los datos */
 
 const loadData = () => {
@@ -68,9 +71,3 @@ const intersectionObserver = new IntersectionObserver(onIntersect, {
 })
 
 intersectionObserver.observe($observe)
-
-if (window.performance) {
-}
-if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-    localStorage.clear()
-}
