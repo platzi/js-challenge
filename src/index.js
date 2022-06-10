@@ -17,21 +17,24 @@ const getData = (api, offset, limit) => {
         return;
       }
 
-      let output = products.map(product => {
-        return `
-          <div id = product-${product.id}>
-            <p>
-             ${product.id} - ${product.title}
-            </p>
+      let output = products.reduce( (acc, product) => {
+        return acc + `
+          <article id=product-${product.id} class="Card">
+            <img src="${product.images[0]}" alt="${product.category.name}">
+            <h2>
+            ${product.title}
+             <small>$${product.price}</small>
+            </h2>
           </div>
         `;
-      });
+      }, '');
 
       localStorage.setItem(PAGINATION_KEY, offset + limit);
 
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
+
       $app.appendChild(newItem);
 
       intersectionObserver.observe(observe);
@@ -60,7 +63,6 @@ const loadData = () => {
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
-      console.log(entries);
       loadData();
 
     }
