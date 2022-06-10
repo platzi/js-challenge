@@ -3,6 +3,7 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 let pagination = 0;
 let limit = 0;
+localStorage.setItem('pagination', 5);
 
 const getData = async (api, initial) => {
   const paginationUrl = `${API}?offset=${initial}&limit=10` 
@@ -21,8 +22,9 @@ const getData = async (api, initial) => {
       </article>`
       }) : ` <h1>Todos los productos Obtenidos </h1>`
       !products.length && intersectionObserver.unobserve($observe);
+      !products.length && storage.removeItem(pagination);
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     }
@@ -32,8 +34,13 @@ const loadData = (initial) => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  loadData(parseInt(pagination));
-  pagination = pagination + 10
+  if(entries[0].isIntersecting)
+  {
+    loadData(parseInt(pagination));
+    pagination = pagination + 10
+
+  }
+  
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
