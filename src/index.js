@@ -1,6 +1,10 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const paginationlimit = 10;
+const itemTemplate = (product) => {
+    return ` ${product.id}. ${product.title} <br><br><br>`;
+}
 
 const getData = api => {
   fetch(api)
@@ -8,8 +12,9 @@ const getData = api => {
     .then(response => {
       let products = response;
       let output = products.map(product => {
-        // template
-      });
+            return itemTemplate(product);
+      }).join('');
+      console.log(response);
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = output;
@@ -22,8 +27,17 @@ const loadData = () => {
   getData(API);
 }
 
+
+const loadDataPagination = (offset=4, limit=paginationlimit) => {
+  localStorage.setItem('pagination', offset);
+  offset = `?offset=${offset}&limit=${limit}`
+  getData(API+offset);
+}
+
+loadDataPagination(offset=4);
+
 const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+  loadDataPagination(parseInt(localStorage.getItem('pagination'))+paginationlimit);
 }, {
   rootMargin: '0px 0px 100% 0px',
 });

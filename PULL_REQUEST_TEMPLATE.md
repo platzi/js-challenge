@@ -2,13 +2,13 @@
 
 Solución al reto:
 
-Nombre:
+Nombre: Jaime Enrique Jimenez Arbelaez
 Usuario Platzi:
-Correo Electronico:
+Correo Electronico: jimenez.ing.sis@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
+- [X] Primer problema
 - [ ] Segundo problema
 - [ ] Tercer problema
 - [ ] Cuarto Problema
