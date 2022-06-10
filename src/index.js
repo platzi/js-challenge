@@ -17,24 +17,22 @@ const TemplateProduct = (item) => {
 		`;
 };
 
-const getData = (offset, limit) => {
-	fetch(`${API}?offset=${offset}&limit=${limit}`)
-		.then((response) => response.json())
-		.then((response) => {
-			const products = response;
-			const output = products
-				.map((product) => TemplateProduct(product))
-				.join('');
-			const newItem = document.createElement('section');
-			newItem.classList.add('Item');
-			newItem.innerHTML = output;
-			$app.appendChild(newItem);
-			window.localStorage.setItem(
-				'productInitialPosition',
-				Number(offset) + LIMIT_PAGINATION
-			);
-		})
-		.catch((error) => console.log(error));
+const getData = async (offset, limit) => {
+	try {
+		const response = await fetch(`${API}?offset=${offset}&limit=${limit}`);
+		const products = await response.json();
+		const output = products.map((product) => TemplateProduct(product)).join('');
+		const newItem = document.createElement('section');
+		newItem.classList.add('Item');
+		newItem.innerHTML = output;
+		$app.appendChild(newItem);
+		window.localStorage.setItem(
+			'productInitialPosition',
+			Number(offset) + LIMIT_PAGINATION
+		);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const loadData = (offset, limit) => {
@@ -63,3 +61,9 @@ const intersectionObserver = new IntersectionObserver(
 );
 
 intersectionObserver.observe($observe);
+
+// function initial
+(() => {
+	if (window.localStorage.getItem('productInitialPosition'))
+		window.localStorage.removeItem('productInitialPosition');
+})();

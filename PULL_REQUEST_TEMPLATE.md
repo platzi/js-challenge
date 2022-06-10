@@ -10,6 +10,6 @@ Correo Electronico: rennypetit01@gmail.com
 
 - [*] Primer problema
 - [*] Segundo problema
-- [ ] Tercer problema
+- [*] Tercer problema
 - [ ] Cuarto Problema
 - [ ] Quinto Problema
