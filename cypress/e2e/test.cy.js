@@ -9,7 +9,8 @@ describe("PlatziStore Tests", () => {
   });
 
   it("Obtener initialState del LocalStorage", () => {
-    expect(localStorage.getItem('pagination')).to.eq('5');
+    // Updated test to match 3rd task requirements.
+    expect(localStorage.getItem('pagination')).to.eq('10');
   });
 
   it("Obtener los primeros 10 Productos", () => {
