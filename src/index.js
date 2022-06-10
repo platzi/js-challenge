@@ -18,7 +18,7 @@ const cleanPagination = () => {
 
 const printProductTemplate = (product) => {
   return `<article class="Card">
-            <img src="${product.images[0]} alt="${product.description}" />
+            <img src="${product.images[0]} alt="${product.description}" onerror="this.onerror=null; this.src='../public/assets/images/no-image.jpg'"/>
             <h2>
               ${product.title}
               <small>$ ${product.price}</small>
