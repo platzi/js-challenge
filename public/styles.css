@@ -3,7 +3,8 @@
 body {
   margin: 0;
   padding: 0;
-  color: #3c484e;
+  color: #ffffff;
+  background-color: #12203d;
   font-family: "Open Sans", sans-serif;
 }
 
@@ -12,6 +13,10 @@ body {
   grid-template-columns: minmax(auto, 768px);
   display: grid;
   justify-content: center;
+}
+
+.Main h1{
+  color: #98ca3b;
 }
 
 .Items {
@@ -23,9 +28,10 @@ body {
 
 .Card {
   text-decoration: none;
-  box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
-    1px 3px 8px rgba(39, 44, 49, 0.03);
+  box-shadow: 8px 14px 38px rgba(255, 255, 255, 0.06),
+    1px 3px 8px rgba(255, 255, 255, 0.03);
   border-radius: 5px;
+  background-color: #24385a;
   margin: 0 0 20px 0;
   display: block;
   animation-duration: 4s;
@@ -39,11 +45,26 @@ body {
 }
 
 .Card h2 {
+  color: #869ab8;
+  letter-spacing: 1px;
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 100;
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.Card h2 small{
+  color: #31b2fe;
+  font-weight: 500;
+}
+
+.end-pagination{
+  text-align: center;
+}
+
+.end-pagination h3{
+  letter-spacing: 2px;
 }
 
 @keyframes fade {
@@ -52,5 +73,16 @@ body {
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 500px){
+  .Card h2{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Card h2 small{
+    padding: 10px 0px 0px 0px;
   }
 }
