@@ -19,8 +19,8 @@ jobs:
           yarn test
         env:
           CI: true
-      - name: Deploy to production
-        uses: awb-pw/deploy-to-github-pages-action@1.1.1
+      - name: Deploy your app to GitHub Pages
+        uses: awibox/deploy-to-github-pages-action@1.1.1
         env:
           AUTHOR: bydabell
           BUILD_PATH: public
