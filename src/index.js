@@ -2,6 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const paginationlimit = 10;
+const maxProd = 200;
 let paginationOffset = 5;
 let isLeaving = false;
 const itemTemplate = (product) => {
@@ -39,10 +40,20 @@ const loadData = async () => {
 
 
 const loadDataPagination = async (offset=5, limit=paginationlimit) => {
-  page = `?offset=${offset}&limit=${limit}`
-  getData(API+page);
-  localStorage.setItem('pagination', paginationOffset);
-  paginationOffset = paginationOffset + paginationlimit;
+  if(offset > maxProd){
+      let newItem = document.createElement('section');
+      newItem.classList.add('message');
+      newItem.innerHTML = 'Todos Los Productos Obtenidos';
+      intersectionObserver.unobserve($observe);
+      $app.appendChild(newItem);
+  }
+  else{
+    if (offset+limit > maxProd) limit = maxProd-offset; 
+    page = `?offset=${offset}&limit=${limit}`
+    getData(API+page);
+    localStorage.setItem('pagination', paginationOffset);
+    paginationOffset = paginationOffset + paginationlimit;
+  }
 }
 
 
@@ -51,11 +62,9 @@ const intersectionObserver = new IntersectionObserver(entries => {
     if (entry.isIntersecting) {
       loadDataPagination(offset=paginationOffset);
       isLeaving = true;
-      console.log('Intersecting '+localStorage.getItem('pagination'));
     }
     else if (isLeaving){
       isLeaving = false;
-      console.log('Leaving '+localStorage.getItem('pagination'));
     }
    })
 }, {
