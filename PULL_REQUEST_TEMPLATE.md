@@ -3,7 +3,7 @@
 Solución al reto:
 
 Nombre: Jaime Enrique Jimenez Arbelaez
-Usuario Platzi:
+Usuario Platzi:jaenjiar
 Correo Electronico: jimenez.ing.sis@gmail.com
 
 ## Reto:
