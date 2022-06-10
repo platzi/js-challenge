@@ -51,13 +51,17 @@ const loadData = () => {
     try { 
       nPagination = Number(pagination);
     } catch {
-      nPagination = 5;
+      nPagination = 0;
     }
   } else {
-    nPagination = 5;
+    nPagination = 0;
   }
 
   getData(API, nPagination, LIMIT);
+}
+
+const clearLocalStorage = () => {
+  localStorage.removeItem(PAGINATION_KEY);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
@@ -72,3 +76,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 intersectionObserver.observe($observe);
+
+window.onbeforeunload = function() {
+  clearLocalStorage();
+};
