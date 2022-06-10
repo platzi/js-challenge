@@ -4,41 +4,40 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const PAGINATION_KEY = 'pagination'; 
 const LIMIT = 10;
 
-const getData = (api, offset, limit) => {
+const getData = async(api, offset, limit) => {
   const endpoint = `${api}?offset=${offset}&limit=${limit}`;
 
-  fetch(endpoint)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
+  try {
+    const response = await fetch(endpoint);
+    const products = await response.json();
 
-      if(!products.length > 0) {
-        alert('Todos los productos Obtenidos');
-        intersectionObserver.unobserve($observe);
-        return;
-      }
+    if(!products.length > 0) {
+      alert('Todos los productos Obtenidos');
+      intersectionObserver.unobserve($observe);
+      return;
+    }
 
-      let output = products.reduce( (acc, product) => {
-        return acc + `
-          <article id=product-${product.id} class="Card">
-            <img src="${product.images[0]}" alt="${product.category.name}">
-            <h2>
-            ${product.title}
-             <small>$${product.price}</small>
-            </h2>
-          </div>
-        `;
-      }, '');
+    let output = products.reduce( (acc, product) => {
+      return acc + `
+        <article id=product-${product.id} class="Card">
+          <img src="${product.images[0]}" alt="${product.category.name}">
+          <h2>
+          ${product.title}
+            <small>$${product.price}</small>
+          </h2>
+        </article>
+      `;
+    }, '');
 
-      localStorage.setItem(PAGINATION_KEY, offset + limit);
+    localStorage.setItem(PAGINATION_KEY, offset + limit);
 
-      let newItem = document.createElement('section');
-      newItem.classList.add('Items');
-      newItem.innerHTML = output;
-
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+    let newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = output;
+    $app.appendChild(newItem);
+  } catch(error) {
+    console.log(error);
+  }
 }
 
 const loadData = async () => {
