@@ -11,5 +11,5 @@ Correo Electronico: rennypetit01@gmail.com
 - [*] Primer problema
 - [*] Segundo problema
 - [*] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [*] Cuarto Problema
+- [*] Quinto Problema

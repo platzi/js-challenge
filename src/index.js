@@ -2,6 +2,7 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const INITIAL_OFFSET_PAGINATION = 5;
+const END_OFFSET_PAGINATION = 205; // 205 - 5 initialPosition = 200 products
 const LIMIT_PAGINATION = 10;
 
 const TemplateProduct = (item) => {
@@ -31,6 +32,7 @@ const getData = async (offset, limit) => {
 			Number(offset) + LIMIT_PAGINATION
 		);
 	} catch (error) {
+		$app.innerHTML = '500 - Internal server error';
 		console.log(error);
 	}
 };
@@ -48,7 +50,13 @@ const intersectionObserver = new IntersectionObserver(
 				const pagination = window.localStorage.getItem(
 					'productInitialPosition'
 				);
-				loadData(pagination, LIMIT_PAGINATION);
+				// se llega al offset 205 se debe desconectar el intersectionObserver ya que no debe observar más. se coloca ese número ya que comienza mostrando desde la posición 5
+				if (Number(pagination) === END_OFFSET_PAGINATION) {
+					const newItem = document.createElement('section');
+					newItem.innerHTML = `<h2>Todos los productos Obtenidos</h2>`;
+					$app.appendChild(newItem);
+					intersectionObserver.disconnect($observe);
+				} else loadData(pagination, LIMIT_PAGINATION);
 			} else {
 				// position initial
 				loadData(INITIAL_OFFSET_PAGINATION, LIMIT_PAGINATION);
