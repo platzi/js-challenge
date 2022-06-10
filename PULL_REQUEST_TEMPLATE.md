@@ -10,6 +10,6 @@ Correo Electronico: jimenez.ing.sis@gmail.com
 
 - [X] Primer problema
 - [X] Segundo problema
-- [ ] Tercer problema
+- [X] Tercer problema
 - [ ] Cuarto Problema
 - [ ] Quinto Problema
