@@ -1,5 +1,7 @@
 # PlatziStore
 
+Demo: https://hmorales94.github.io/js-challenge/public/
+
 Somos comercio en línea con una gran cantidad de productos a comercializar. Estamos por lanzar nuestra implementación y necesitamos resolver los problemas que presenta nuestra aplicación.
 
 PlatziStore tiene varios bugs, tareas sin completar y recursos a implementar para su lanzamiento oficial.
