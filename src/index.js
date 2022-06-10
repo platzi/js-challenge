@@ -9,8 +9,8 @@ const TemplateProduct = (item) => {
 	return `
 			<article class="Card">
   			<img src="${
-					item.images[0].trim().length > 0
-						? item.images
+					item?.images[0].includes('http')
+						? item?.images
 						: '/public/images/image-not-found.jpeg'
 				}" alt="product ${item?.title}" loading="lazy"/>
   			<h2>${item?.title}<small>$ ${item?.price}</small></h2>
