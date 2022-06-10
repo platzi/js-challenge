@@ -3,7 +3,15 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const paginationlimit = 10;
 const itemTemplate = (product) => {
-    return ` ${product.id}. ${product.title} <br><br><br>`;
+    return `
+<article class="Card">
+  <img src="${product.images[0]}" />
+  <h2>
+    ${product.title}
+    <small>${product.price}</small>
+  </h2>
+</article>
+`;
 }
 
 const getData = api => {
@@ -28,16 +36,19 @@ const loadData = () => {
 }
 
 
-const loadDataPagination = (offset=4, limit=paginationlimit) => {
+const loadDataPagination = (offset=5, limit=paginationlimit) => {
   localStorage.setItem('pagination', offset);
   offset = `?offset=${offset}&limit=${limit}`
   getData(API+offset);
 }
 
-loadDataPagination(offset=4);
 
 const intersectionObserver = new IntersectionObserver(entries => {
-  loadDataPagination(parseInt(localStorage.getItem('pagination'))+paginationlimit);
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      loadDataPagination(parseInt(localStorage.getItem('pagination'))+paginationlimit);
+    }
+   })
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
