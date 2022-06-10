@@ -1,0 +1,24 @@
+- Canonical: esta apuntando a http://localhost:3000/
+  Solución: apuntar a: https://fakeapi.platzi.com/
+
+- No posee etiqueta H1
+  Solución: colocar Platzi Fake Store API como H1
+
+- No posee robots.txt
+  Solución: Crear robots.txt para definir la ubicación del sitemap y las reglas para los diferentes motores de búsqueda
+
+- No posee sitemap.xml
+  Solución: Crear sitemap.xml de las páginas del sitio web
+
+- No posee datos estructurados
+  Solución crear datos estructurados como lo es: json-ld
+
+- No tiene página 404
+  Solución: Implementar página 404
+
+- meta etiquetas para og:image twitter:image Se recomienda rutas absolutas y definir el tamaño de la imagen.
+  Solución:
+    <meta property="og:image" content="https://fakeapi.platzi.com/cover.png">
+    <meta property="og:image:width" content="1928" />
+		<meta property="og:image:height" content="968" />
+    <meta name="twitter:image" content="https://fakeapi.platzi.com/cover.png">

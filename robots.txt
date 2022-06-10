@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap:https://rennypetit.github.io/js-challenge/sitemap.xml
