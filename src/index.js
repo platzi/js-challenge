@@ -9,37 +9,27 @@ const getData = (api) => {
       let products = response;
 
       let output = products.map((product) => {
-        // let li = document.createElement("li");
-        // let title = document.createElement("h3");
-        // let description = document.createElement("p");
-        
-        // title.innerText = product.title;
-        // description.innerText = product.description;
-        
-        // li.appendChild(title);
-        // li.appendChild(description);
-        console.log(product)
-        // return li.outerHTML;
         let price = document.createElement("small");
         let title = document.createElement("h2");
-        let img = document.createElement('img');
-        let article = document.createElement('article');
-        article.classList.add('Card');
+        let img = document.createElement("img");
+        let article = document.createElement("article");
+        article.classList.add("Card");
 
-        price.innerText = `$ ${product.price}`
-        title.innerText = product.title;
+        price.innerText = `$ ${product.price}`;
+        title.innerText = `${product.title} id: ${product.id} `;
         title.appendChild(price);
-        img.setAttribute('src', product.images[2]);
+        img.setAttribute("src", product.images[0]);
 
         article.appendChild(img);
         article.appendChild(title);
+
+        console.log(product)
         return article.outerHTML;
       });
 
-      let newItem = document.createElement('section');
-      newItem.classList.add('Items');
-      newItem.innerHTML = output.join();
-
+      let newItem = document.createElement("section");
+      newItem.classList.add("Items");
+      newItem.innerHTML = output.join("");
       $app.appendChild(newItem);
     })
     .catch((error) => console.log(error));
@@ -49,7 +39,7 @@ const loadData = async (offset, limit) => {
   const page = parseInt(localStorage.pagination);
   offset = offset * page;
   await getData(`${API}?offset=${offset}&limit=${limit}`);
-  localStorage.setItem("pagination", page + 1 );
+  localStorage.setItem("pagination", page + 1);
 };
 
 const options = {
@@ -58,8 +48,8 @@ const options = {
   threshold: 1.0,
 };
 
-const offset = 5;
-const limit = 5;
+const offset = 10;
+const limit = 10;
 localStorage.setItem("pagination", 0);
 const intersectionObserver = new IntersectionObserver((entries) => {
   // logic...
