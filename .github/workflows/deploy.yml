@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [13.2.0]
+    steps:
+      - uses: actions/checkout@master
+      - name: install, build, and test
+        run: |
+          yarn install
+          yarn lint
+          yarn build
+          yarn test
+        env:
+          CI: true
+      - name: Deploy your app to GitHub Pages
+        uses: awibox/deploy-to-github-pages-action@1.1.1
+        env:
+          AUTHOR: bydabell
+          BUILD_PATH: public
+          GITHUB_PAGE_NAME: bydabell.github.io
+          PA_TOKEN: ${{ secrets.PA_TOKEN }}
+          USERNAME: bydabell
+          EMAIL: bydabell@gmail.com
