@@ -2,8 +2,12 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products?offset={{offset}}&limit={{limit}}';
 
+window.addEventListener("beforeunload", () => {
+    resetPagination();
+});
+
 const getPagination = () => {
-    return parseInt(localStorage.getItem('pagination')) || 0;
+    return parseInt(localStorage.getItem('pagination'));
 }
 
 const resetPagination = () => {
@@ -11,15 +15,14 @@ const resetPagination = () => {
 }
 
 const nextPage = () => {
-    const pagination = getPagination() + 1;
-    localStorage.setItem('pagination', pagination);
+    const pagination = getPagination();
+    localStorage.setItem('pagination', !pagination ? 5 : pagination + 10);
 }
 
 const getApi = api => {
     const pagination = getPagination();
-    const offset = 5 + (pagination * 10);
-    const limit = 10 + (pagination * 10);
-    return api.replace('{{offset}}', offset).replace('{{limit}}', limit);
+    const offset = 5 + pagination;
+    return api.replace('{{offset}}', offset).replace('{{limit}}', 10);
 }
 
 const getData = async api => {
@@ -37,10 +40,8 @@ const getData = async api => {
             `).trim())
             .join('');
 
-        nextPage();
-
         const newItem = document.createElement('section');
-        newItem.classList.add('Item');
+        newItem.classList.add('Items');
         newItem.innerHTML = output;
         $app.appendChild(newItem);
 
@@ -57,19 +58,18 @@ const getData = async api => {
 }
 
 const loadData = async () => {
+    nextPage();
     await getData(getApi(API));
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
+const intersectionObserver = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
         loadData();
     }
 }, {
-    rootMargin: '0px 0px 100% 0px',
+    root: null,
+    rootMargin: "0px 0px 100% 0px",
+    threshold: 1
 });
 
 intersectionObserver.observe($observe);
-
-window.addEventListener("beforeunload", () => {
-    resetPagination();
-});
