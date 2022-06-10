@@ -3,14 +3,28 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 const INITIAL_OFFSET_PAGINATION = 5;
 const LIMIT_PAGINATION = 10;
+
+const TemplateProduct = (item) => {
+	return `
+			<article class="Card">
+  			<img src="${
+					item.images[0].trim().length > 0
+						? item.images
+						: '/public/images/image-not-found.jpeg'
+				}" alt="product ${item?.title}" loading="lazy"/>
+  			<h2>${item?.title}<small>$ ${item?.price}</small></h2>
+			</article>
+		`;
+};
+
 const getData = (offset, limit) => {
 	fetch(`${API}?offset=${offset}&limit=${limit}`)
 		.then((response) => response.json())
 		.then((response) => {
 			const products = response;
-			const output = products.map((product) => {
-				// template
-			});
+			const output = products
+				.map((product) => TemplateProduct(product))
+				.join('');
 			const newItem = document.createElement('section');
 			newItem.classList.add('Item');
 			newItem.innerHTML = output;

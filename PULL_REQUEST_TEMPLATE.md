@@ -9,7 +9,7 @@ Correo Electronico: rennypetit01@gmail.com
 ## Reto:
 
 - [*] Primer problema
-- [ ] Segundo problema
+- [*] Segundo problema
 - [ ] Tercer problema
 - [ ] Cuarto Problema
 - [ ] Quinto Problema
