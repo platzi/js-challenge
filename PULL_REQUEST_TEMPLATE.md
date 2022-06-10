@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: La pagina creada se encuentra en el siguiente [Link]()
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Sergio Valadez Rivera
+Usuario Platzi: sergioval
+Correo Electronico: sergioval@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema

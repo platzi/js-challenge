@@ -1,20 +1,29 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap");
+  @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap");
 
 body {
   margin: 0;
   padding: 0;
   color: #3c484e;
+  background-color: #f5f5f5;
   font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 1rem;
 }
 
 .Main {
   padding: 10px;
-  grid-template-columns: minmax(auto, 768px);
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  width: 100vh;
+  height: 100vh;
 }
 
-.Items {
+.Item {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1.5rem;
   grid-row-gap: 1.5em;
@@ -32,20 +41,6 @@ body {
   animation-name: fade;
 }
 
-.Card img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px 5px 0 0;
-}
-
-.Card h2 {
-  font-size: 18px;
-  font-weight: 300;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
 @keyframes fade {
   from {
     opacity: 0;
@@ -53,4 +48,22 @@ body {
   to {
     opacity: 1;
   }
+}
+.Card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0;
+}
+
+.Card h2 {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Card p {
+  font-size: 14px;
+  padding: 5px 10px;
 }
