@@ -3,15 +3,22 @@ const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 let pagination = 0;
 let limit = 0;
+let totalProducts = 1;
 localStorage.setItem('pagination', 5);
 
 const getData = async (api, initial) => {
+  if(initial === 0) {
+    const responseTotalItems = await fetch(api)
+    const responseTotalItemsJson = await responseTotalItems.json()
+    const AllProducts = await responseTotalItemsJson
+    totalProducts = AllProducts.length - 1
+  }
+
   const paginationUrl = `${API}?offset=${initial}&limit=10` 
-  // const paginationUrl = `${API}?offset='240'&limit=10` 
   const response = await fetch(paginationUrl)
   const responseJson = await response.json()
   const products = await responseJson
-    let output = await products.length ? products.map( product => {
+    let output = products.map( product => {
         return `<article class="Card">
         <img src="${product.images[0]}" alt='${product.title}' />
         <h2>
@@ -20,17 +27,22 @@ const getData = async (api, initial) => {
           <small>$ ${product.price}</small>
         </h2>
       </article>`
-      }) : ` <h1>Todos los productos Obtenidos </h1>`
-      !products.length && intersectionObserver.unobserve($observe);
-      !products.length && storage.removeItem(pagination);
+      })
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
     }
 
-const loadData = (initial) => {
-  getData(API, initial );
+const loadData = async(initial) => {
+  await getData(API, initial );
+  initial > 11 && localStorage.clear();
+  if(initial >= totalProducts) {
+    intersectionObserver.unobserve($observe);
+    let newItem2 = document.createElement('section');
+    newItem2.innerHTML = ` <h1>Todos los productos Obtenidos </h1>`;
+    $app.appendChild(newItem2);
+  }
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
@@ -42,7 +54,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   }
   
 }, {
-  rootMargin: '0px 0px 100% 0px',
+  rootMargin: '0px 0px 90% 0px',
 });
 
 intersectionObserver.observe($observe);
