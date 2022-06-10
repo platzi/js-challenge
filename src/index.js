@@ -3,7 +3,6 @@ const $observe = document.getElementById('observe')
 const API = 'https://api.escuelajs.co/api/v1/products'
 const limit = 10
 let offset = 5 // posicion inicial segun el enunciado
-localStorage.setItem('pagination', offset)
 
 /** FETCH y CONSTRUCCION de los datos */
 
@@ -14,7 +13,9 @@ const loadData = () => {
 const getData = async (api) => {
     try {
         // Fetch
-        let pag = parseInt(localStorage.getItem('pagination'))
+        let pag = localStorage.getItem('pagination')
+            ? parseInt(localStorage.getItem('pagination')) + limit
+            : offset
 
         const response = await fetch(`${api}?offset=${pag}&limit=${limit}`)
         const products = await response.json()
@@ -37,7 +38,6 @@ const getData = async (api) => {
         $app.appendChild(newItem)
 
         // Actualización del Local Storage
-        pag += limit
         localStorage.setItem('pagination', pag)
     } catch (error) {
         console.log('Error fetching data', error)
@@ -68,3 +68,9 @@ const intersectionObserver = new IntersectionObserver(onIntersect, {
 })
 
 intersectionObserver.observe($observe)
+
+if (window.performance) {
+}
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    localStorage.clear()
+}
