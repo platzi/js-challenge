@@ -33,9 +33,6 @@ const getData = (api, offset, limit) => {
       newItem.classList.add('Item');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
-
-      intersectionObserver.observe(observe);
-
     })
     .catch(error => console.log(error));
 }
