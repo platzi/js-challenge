@@ -29,6 +29,15 @@ const endOfQuantity = () => {
   return MAX_NUM_ITEMS * page + (START_ITEM - 1);
 }
 
+const itemCard = (item) => {
+  return '<article class="Card">' +
+  '<img src="' + item.images[0] + '"/>' +
+    '<h2>' + item.title +
+      '<small>$ ' + item.price + '</small>' +
+    '</h2>' + 
+  '</article>';
+}
+
 const getData = async api => {
   fetch(api)
     .then(response => response.json())
@@ -36,17 +45,19 @@ const getData = async api => {
       let products = response;
       let output = products.map((product, index) => {
         if (index >= startOfQuantity() && index < endOfQuantity()) {
-          return product.title;
+          return product;
         }
       })
       .filter( x => x !== undefined );
       console.log(Object.values(output));
-      let elements = Object.values(output).map((value) => {
-        let div = '<div>' + value + '</br></div>';
-        return div;
-      });
+      let elements = Object.values(output)
+      .map((value) => {
+        return itemCard(value);
+      })
+      .join('');
+      
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
+      newItem.classList.add('Items');
       newItem.innerHTML = elements;
       $app.appendChild(newItem);
     })
