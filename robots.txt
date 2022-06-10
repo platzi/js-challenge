@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap:https://platzistore.com/sitemap.xml
+Sitemap:https://rennypetit.github.io/js-challenge/sitemap.xml
