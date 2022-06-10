@@ -31,7 +31,7 @@ const endOfQuantity = () => {
 
 const itemCard = (item) => {
   return '<article class="Card">' +
-  '<img src="' + item.images[0] + '"/>' +
+  '<img src="' + item.images[0] + '" alt="' + item.description + '"/>' +
     '<h2>' + item.title +
       '<small>$ ' + item.price + '</small>' +
     '</h2>' + 
@@ -55,7 +55,7 @@ const getData = async api => {
         return itemCard(value);
       })
       .join('');
-      
+
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
       newItem.innerHTML = elements;
