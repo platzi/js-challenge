@@ -66,7 +66,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
     }
   })
 }, {
-  rootMargin: '0px 0px 100% 0px',
+  rootMargin: '0px 0px 0px 0px',
 });
 
 intersectionObserver.observe($observe);
