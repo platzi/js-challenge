@@ -19,8 +19,13 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100vh;
+  width: 100vw;
   height: 100vh;
+}
+
+.app {
+display: grid;
+grid-template-columns: auto auto auto;
 }
 
 .Item {
