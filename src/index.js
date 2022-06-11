@@ -2,30 +2,43 @@ const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
 
-const getData = api => {
-  fetch(api)
-    .then(response => response.json())
-    .then(response => {
-      let products = response;
-      let output = products.map(product => {
-        // template
-      });
-      let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
-      $app.appendChild(newItem);
-    })
-    .catch(error => console.log(error));
+const INIT_PAGE = 5;
+const MAX_PAGE_SIZE = 10;
+
+localStorage.setItem('pagination', INIT_PAGE);
+
+const getData = async (url_api) => {
+  try {
+    const response = await fetch(`${url_api}?offset=${localStorage.getItem('pagination')}&limit=${MAX_PAGE_SIZE}`);
+    const products = await response.json();
+    let productRender = products.map((product) => `
+      <div>
+        <h2>${product.title}</h2>
+        <small>${product.description}</small>
+      </div>
+    `);
+    let newItem = document.createElement('section');
+    newItem.classList.add('Items');
+    newItem.innerHTML = productRender.join('');
+    $app.appendChild(newItem);
+  } catch (err) { console.log(err); }
 }
 
-const loadData = () => {
-  getData(API);
+const loadData = async () => {
+  await getData(API);
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
+const intersectionObserver = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) { 
+    const currentPage = +localStorage.getItem('pagination');
+    const nextPage = currentPage + MAX_PAGE_SIZE;
+    localStorage.setItem('pagination', nextPage);
+    loadData();
+  }
 }, {
   rootMargin: '0px 0px 100% 0px',
 });
+
+loadData();
 
 intersectionObserver.observe($observe);
