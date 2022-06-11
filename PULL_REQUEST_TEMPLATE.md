@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre:Cristian Buenaventura
+Usuario Platzi:Cristian Buenaventura
+Correo Electronico:cristianbuenaventura15@gmail.com
 
 ## Reto:
 
