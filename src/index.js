@@ -41,7 +41,7 @@ const intersectionObserver = new IntersectionObserver(
    async entries =>
     // logic...
     entries.forEach(entry => {
-      if(getPagination()>=200) {
+      if(getPagination()>200) {
         alert("Todos los productos Obtenidos");
         intersectionObserver.unobserve($observe);
         $observe.innerHTML = "";
