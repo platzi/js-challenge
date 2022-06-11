@@ -29,7 +29,6 @@ const addContent = async () => {
     }
   })
   position.offset += parseInt(position.limit)
-  console.log(position)
   localStorage.setItem("pagination", JSON.stringify(position))
 }
 
