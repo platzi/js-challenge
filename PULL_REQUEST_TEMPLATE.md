@@ -1,10 +1,10 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: Ethereum developer program
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Mario Sanchez Jaramillo
+Usuario Platzi: @mszjar
+Correo Electronico: mario.sanchez.jar@gmail.com
 
 ## Reto:
 
@@ -12,4 +12,4 @@ Correo Electronico:
 - [ ] Segundo problema
 - [ ] Tercer problema
 - [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [ ] Quinto Problema --> 
