@@ -2,10 +2,13 @@
   "name": "js-challenge",
   "version": "1.0.0",
   "description": "PlatziStore Fix Bugs",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "build:prod": "webpack --mode=production",
+    "build": "webpack --mode=development"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
     "live-server": "1.2.2"
   },
   "dependencies": {
-    "cypress": "10.0.1"
+    "cypress": "10.0.1",
+    "lodash": "^4.17.21"
   }
 }
