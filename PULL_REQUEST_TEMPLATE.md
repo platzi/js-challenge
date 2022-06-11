@@ -4,7 +4,7 @@ Solución al reto:
 
 Nombre:
 Usuario Platzi:
-Correo:
+Correo :
 
 ## Reto:
 
