@@ -2,11 +2,9 @@
 
 Solución al reto:
 
-Nombre: Miguel Angel Osuna Forero
-
-Usuario Platzi: osuna9763
-
-Correo Electronico: osuna9763@gmail.com
+Nombre:
+Usuario Platzi:
+Correo:
 
 ## Reto:
 
