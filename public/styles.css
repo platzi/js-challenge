@@ -21,6 +21,13 @@ body {
   display: grid;
 }
 
+.Message{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 20px 0px;
+}
+
 .Card {
   text-decoration: none;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
