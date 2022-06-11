@@ -12,10 +12,13 @@ const getData = async (url_api) => {
     const response = await fetch(`${url_api}?offset=${localStorage.getItem('pagination')}&limit=${MAX_PAGE_SIZE}`);
     const products = await response.json();
     let productRender = products.map((product) => `
-      <div>
-        <h2>${product.title}</h2>
-        <small>${product.description}</small>
-      </div>
+      <article class="Card">
+        <img src="${product.images[0]}"/>
+        <h2>
+          ${product.title}
+          <small>$ ${product.price}</small>
+        </h2>
+      </article>
     `);
     let newItem = document.createElement('section');
     newItem.classList.add('Items');
