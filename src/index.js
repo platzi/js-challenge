@@ -5,6 +5,8 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const INIT_PAGE = 5;
 const MAX_PAGE_SIZE = 10;
 
+localStorage.clear();
+
 localStorage.setItem('pagination', INIT_PAGE);
 
 const getData = async (url_api) => {
