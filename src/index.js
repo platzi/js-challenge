@@ -29,7 +29,7 @@ const getData = async api => {
     } else {
       intersectionObserver.unobserve($observe);
       output = `
-        <h1>Todos los productos Obtenidos</h1>
+        <h2>Todos los productos Obtenidos</h2>
       `
     };
 
