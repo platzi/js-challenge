@@ -5,8 +5,10 @@ const initOffset = 0;
 const productLength = 10;
 localStorage.setItem("pagination", initOffset);
 
+const getPagination = () => parseInt(localStorage.getItem("pagination"));
+
 const getData = async api => {
-  const actualOffset = parseInt(localStorage.getItem("pagination"));
+  const actualOffset = getPagination();
   try {
     let response = await fetch(`${api}?offset=${actualOffset}&limit=${productLength}`);
     let products = await response.json();
@@ -39,6 +41,11 @@ const intersectionObserver = new IntersectionObserver(
    async entries =>
     // logic...
     entries.forEach(entry => {
+      if(getPagination()>=200) {
+        alert("Todos los productos Obtenidos");
+        intersectionObserver.unobserve($observe);
+        return;
+      };
       if (entry.isIntersecting) loadData();
     })
   , {
