@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://js-challenge-road-to-devcon.netlify.app/public/
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Rodrigo Ramos Xochiteotzin
+Usuario Platzi: rdrx
+Correo Electronico: rodrx20@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
