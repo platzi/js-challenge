@@ -33,12 +33,20 @@ const loadData = async () => {
   await getData(API);
 }
 
-const intersectionObserver = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) { 
-    const currentPage = +localStorage.getItem('pagination');
+const intersectionObserver = new IntersectionObserver((entries, self) => {
+  const currentPage = +localStorage.getItem('pagination');
+
+  if (entries[0].isIntersecting && window.scrollY!==0) {
     const nextPage = currentPage + MAX_PAGE_SIZE;
     localStorage.setItem('pagination', nextPage);
     loadData();
+  } 
+  if (currentPage>200) {
+    self.unobserve($observe);
+    let newItem = document.createElement('section');
+    newItem.classList.add('Empty');
+    newItem.innerHTML = `<h1>Todos los productos Obtenidos</h1>`;
+    $app.appendChild(newItem);
   }
 }, {
   rootMargin: '0px 0px 100% 0px',
