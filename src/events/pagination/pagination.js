@@ -16,22 +16,22 @@ const calculatePrevPageIndexes = (pageShown, resultsPerPage, initialOffset) => {
 };
 
 const forwardPages = (number) => {
-  const nextPage = Number.parseInt(localStorage.getItem("currentPage")) + number;
-  localStorage.setItem("currentPage", nextPage);
+  const nextPage = Number.parseInt(localStorage.getItem("pagination")) + number;
+  localStorage.setItem("pagination", nextPage);
 };
 
 const goBackPages = (number) => {
-  const nextPage = Number.parseInt(localStorage.getItem("currentPage")) - number;
-  localStorage.setItem("currentPage", nextPage);
+  const nextPage = Number.parseInt(localStorage.getItem("pagination")) - number;
+  localStorage.setItem("pagination", nextPage);
 };
 
 const resetPagination = () => {
   localStorage.clear();
-  localStorage.setItem("currentPage", 0);
+  localStorage.setItem("pagination", 0);
 };
 
 const getCurrentPage = () => {
-  return Number.parseInt(localStorage.getItem("currentPage"));
+  return Number.parseInt(localStorage.getItem("pagination"));
 };
 
 export default {

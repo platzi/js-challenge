@@ -7,7 +7,7 @@ const $app = document.getElementById("app");
 
 const loadData = async () => {
   CustomPaginator.resetPagination();
-  intersectionObserver.unobserve($observe);
+  $observe.className = "display:none";
 
   _buildView();
 };
@@ -47,4 +47,7 @@ const _isObjectIntersecting = (entryObject) => {
 };
 
 // RUN
-loadData().finally(() => intersectionObserver.observe($observe));
+loadData().finally(() => {
+  $observe.className = "display:block";
+  intersectionObserver.observe($observe)
+  });
