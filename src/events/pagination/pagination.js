@@ -26,6 +26,7 @@ const goBackPages = (number) => {
 };
 
 const resetPagination = () => {
+  localStorage.clear();
   localStorage.setItem("currentPage", 0);
 };
 

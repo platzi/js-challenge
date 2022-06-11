@@ -1,25 +1,24 @@
 import CustomPaginator from "../events/pagination/pagination.js";
 import AppConfig from "../config/app.config.js";
 
-const getData = (api) => new Promise((resolve, reject) => {
-    fetch(api)
+const getData = (api) =>
+  new Promise((resolve, reject) => {
+
+    const [initialIndx, _] = CustomPaginator.calculateNextPageIndexes(CustomPaginator.getCurrentPage(),AppConfig.resultsPerPage,AppConfig.initialProductIndex);
+    const url = api + `?offset=${initialIndx}&limit=${AppConfig.resultsPerPage}`;
+
+    fetch(url)
       .then((response) => response.json())
       .then((response) => {
-        const [initialIndx, finalIndx] =
-          CustomPaginator.calculateNextPageIndexes(
-            CustomPaginator.getCurrentPage(),
-            AppConfig.resultsPerPage,
-            AppConfig.initialProductIndex
-          );
-        let products = response.slice(initialIndx, finalIndx);
+        let products = response;
         let output = products.map((product) => _buildItemElement(product));
 
         const productsContainer = _buildItemsContainer();
         output.forEach((elem) => productsContainer.appendChild(elem));
 
         resolve(productsContainer);
-
-      }).catch((error) => reject(error));
+      })
+      .catch((error) => reject(error));
   });
 
 const _buildItemsContainer = () => {
