@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://js-challenge-road-to-devcon.netlify.app/public/
 
 Nombre: Rodrigo Ramos Xochiteotzin
 Usuario Platzi: rdrx

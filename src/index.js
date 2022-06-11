@@ -6,7 +6,6 @@ let products = [];
 
 const addContent = async () => {
   let position = JSON.parse(localStorage.getItem("pagination"))
-  position.offset += position.limit
   const res = await fetch(`${API}?offset=${position.offset}&limit=${position.limit}`)
   const data = await res.json()
   products?.push(...data)
@@ -29,6 +28,8 @@ const addContent = async () => {
       $app.appendChild(newItem);
     }
   })
+  position.offset += parseInt(position.limit)
+  console.log(position)
   localStorage.setItem("pagination", JSON.stringify(position))
 }
 
@@ -48,10 +49,10 @@ const loadData = async () => {
   await getData(API);
 }
 
-loadData()
+// loadData()
 //savePosition
 const position = {
-  offset: 0,
+  offset: 4,
   limit: 10
 }
 
@@ -60,7 +61,7 @@ localStorage.setItem("pagination", JSON.stringify(position))
 //observers
 const observer = new IntersectionObserver(entries => {
   if(entries[0].isIntersecting) {
-    if (products.length >= 190) {
+    if (products.length > 10) {
       $observe.innerHTML =`
         <article class="Card">
           <h2>
@@ -83,7 +84,6 @@ const toggleObserve = () => {
 }
 
 //remove localStorage on close tab
-window.addEventListener('beforeunload', (e) => {
-  e.preventDefault()
+window.addEventListener('beforeunload', () => {
   localStorage.removeItem("pagination")
 });
