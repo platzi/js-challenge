@@ -23,8 +23,8 @@ const getData = async api => {
       </article>`
     });
     let newItem = document.createElement('section');
-    newItem.classList.add('Item');
-    newItem.innerHTML = output;
+    newItem.classList.add('Items');
+    newItem.innerHTML = output.join('');
     $app.appendChild(newItem);
     localStorage.setItem("pagination", actualOffset + productLength);
   }
@@ -44,6 +44,7 @@ const intersectionObserver = new IntersectionObserver(
       if(getPagination()>=200) {
         alert("Todos los productos Obtenidos");
         intersectionObserver.unobserve($observe);
+        $observe.innerHTML = "";
         return;
       };
       if (entry.isIntersecting) loadData();

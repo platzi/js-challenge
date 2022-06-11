@@ -54,3 +54,21 @@ body {
     opacity: 1;
   }
 }
+
+@media (max-width: 680px){
+  .Card h2{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Card h2 small{
+    padding: 10px 0px 0px 0px;
+  }
+
+  .Items {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1.5rem;
+    grid-row-gap: 1.5em;
+    display: grid;
+  }
+}
