@@ -3,14 +3,14 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 
 const PRODUCT_ID_OFFSET = 1; // In which product id to start the fetching (offset)
-localStorage.setItem("pagination", 5); // set initial pagination to 5.
+localStorage.setItem("pagination", 4); // set initial pagination to 5 (4 + 1 at first load)
 
 // converted from then-catch to async-await
 const getData = async api => {
   try {
     const response = await fetch(api);
     const products = await response.json();
-    console.log(products)
+    console.log(products);
     if (products.length === 0) {
       $observe.innerText = "Todos los productos obtenidos";
       intersectionObserver.unobserve($observe); // stop observing
@@ -35,11 +35,12 @@ const getData = async api => {
 };
 
 const loadData = (offset = 0, limit = 10) => {
-  const pagination = +localStorage.getItem("pagination");
+  let pagination = +localStorage.getItem("pagination");
+  pagination = pagination + 1;
+  localStorage.setItem("pagination", pagination);
   const queryParameters = `?offset=${offset - 1 + pagination * 10}&limit=${limit}`;
   const fetchUrl = API.concat(queryParameters);
   getData(fetchUrl);
-  localStorage.setItem("pagination", pagination + 1);
 };
 
 const intersectionObserver = new IntersectionObserver(
