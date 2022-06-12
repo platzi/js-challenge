@@ -4,7 +4,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 const MAX_PRODUCTS_LIST = 200;
 const MAX_NUM_ITEMS = 10;
-const START_ITEM = 5;
+const START_ITEM = 1;
 let page = 1;
 let marginTop = 100;
 
@@ -79,22 +79,22 @@ const intersectionObserver = new IntersectionObserver(entries => {
 });
 
 
-const getStorage = () => {
-  let pagination = parseInt(localStorage.getItem('pagination'));
-  if (pagination === null) {
-    localStorage.setItem('pagination', 1);
-  } else {
-    if (MAX_PRODUCTS_LIST < MAX_NUM_ITEMS * pagination + (START_ITEM - 1)) {
-      pagination = 0;
-    }
-    let nextPage = ++pagination; 
-    localStorage.setItem('pagination', nextPage);
-    page = nextPage;
-  }
-}
+// const getStorage = () => {
+//   let pagination = parseInt(localStorage.getItem('pagination'));
+//   if (pagination === null) {
+//     localStorage.setItem('pagination', 1);
+//   } else {
+//     if (MAX_PRODUCTS_LIST < MAX_NUM_ITEMS * pagination + (START_ITEM - 1)) {
+//       pagination = 0;
+//     }
+//     let nextPage = ++pagination; 
+//     localStorage.setItem('pagination', nextPage);
+//     page = nextPage;
+//   }
+// }
 
 (async function() {
-  getStorage();
+  // getStorage();
   await loadData()
   .then(
     () => {
