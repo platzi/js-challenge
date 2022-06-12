@@ -9,7 +9,7 @@ let isFinished = false;
 localStorage.removeItem("pagination");
 
 const getPagination = () => {
-  return localStorage.getItem("pagination") || INITIAL_PAGINATION;
+  return localStorage.getItem(PAGINATION) || INITIAL_PAGINATION;
 }
 
 const getData = async (api, pagination) => {
@@ -35,7 +35,7 @@ const getData = async (api, pagination) => {
       newItem.classList.add('Item');
       newItem.innerHTML = output;
       $app.appendChild(newItem);
-      localStorage.setItem("pagination", parseInt(pagination) + LIMIT);
+      localStorage.setItem(PAGINATION, parseInt(pagination) + LIMIT);
     })
     .catch(error => console.log(error));
 }
