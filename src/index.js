@@ -4,6 +4,8 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const INITIAL = 5;
 const LIMIT = 10;
 
+localStorage.removeItem('pagination');
+
 const card = (p) => {
   return `<article class='Card' id='${p.id}' >
   <img src='${p.images[0]}' alt='${p.title}' />
@@ -15,6 +17,7 @@ const card = (p) => {
 }
 
 const getData = api => {
+  console.log(api)
   fetch(api)
     .then(response => response.json())
     .then(response => {
@@ -30,17 +33,17 @@ const getData = api => {
     .catch(error => console.log(error));
 }
 
-const loadData = () => {
+const loadData = async() => {
   const offset = parseInt(localStorage.getItem('pagination')) + LIMIT || INITIAL;
-  
+  console.log(offset);
   localStorage.setItem('pagination', offset);
 
   const queryParams = new URLSearchParams({
     offset,
-    LIMIT,
+    limit: LIMIT,
   });
 
-  getData(API + '?' + queryParams);
+  await getData(API + '?' + queryParams);
 }
 
 const intersectionObserver = new IntersectionObserver(
