@@ -1,6 +1,8 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const INITIAL = 5;
+const LIMIT = 10;
 
 const getData = api => {
   fetch(api)
@@ -19,13 +21,21 @@ const getData = api => {
 }
 
 const loadData = () => {
-  getData(API);
+  const offset = parseInt(localStorage.getItem('pagination')) + LIMIT || INITIAL;
+  
+  localStorage.setItem('pagination', offset);
+
+  const queryParams = new URLSearchParams({
+    offset,
+    LIMIT,
+  });
+
+  getData(API + '?' + queryParams);
 }
 
-const intersectionObserver = new IntersectionObserver(entries => {
-  // logic...
-}, {
-  rootMargin: '0px 0px 100% 0px',
-});
+const intersectionObserver = new IntersectionObserver(
+  (entries) => entries.forEach((entry) => entry.isIntersecting && loadData()),
+  { rootMargin: '0px 0px 100% 0px' }
+);
 
 intersectionObserver.observe($observe);
