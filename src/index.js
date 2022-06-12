@@ -9,9 +9,9 @@ const getData = async(api) => {
     const response = await fetch(API);
     if(response.status != 200){ 
       throw new error(response.message);
-      console.log("respouesta: " + response);
     }
-    const data= response.json();
+    const data = await response.json();
+    //console.log(data);
     return data;
   }catch (err)
   {
@@ -24,10 +24,29 @@ const loadData = async() => {
   // getData(API);
   try{
     let products = await getData(`${API}?offset=${PRODUCT_OFFSET}&limit=${PRODUCT_LIMIT}`)
-    console.table(products);
+    let structure = ``;
+
+    products.forEach(product => {
+      structure += `
+          <article id="product_${product.id}" class="Card">
+            <img src="${product.images[0]}" />
+            <h2>
+              ${product.title}
+              <small>$ ${product.price}</small>
+            </h2>
+          </article>
+      `;
+    });
+
+    let catalogue = document.createElement("section");
+    catalogue.classList.add("Items"); //
+    catalogue.innerHTML = structure;
+    $app.appendChild(catalogue);
+
   }
   catch(err){
-    throw new error(err);
+    // throw new error(err);
+    console.error(err);
   }
 }
 
