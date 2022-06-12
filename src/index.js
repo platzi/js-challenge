@@ -14,7 +14,6 @@ const getPagination = () => {
 
 const getData = async (api, pagination) => {
   const url = `${api}?offset=${pagination}&limit=${LIMIT}`;
-  console.log(url)
   fetch(url)
     .then(response => response.json())
     .then(response => {
