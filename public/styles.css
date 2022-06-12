@@ -42,7 +42,7 @@ body {
   font-size: 18px;
   font-weight: 300;
   padding: 5px 10px;
-  display: flex;
+  display: flex; 
   justify-content: space-between;
 }
 
