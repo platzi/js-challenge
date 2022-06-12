@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server --open=public --entry-file=index.html",    
-    "build": "node index.js",
+    "build": "node src/index.js",
     "e2e": "cypress open"
   },
   "repository": {
