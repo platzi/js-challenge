@@ -18,7 +18,6 @@ const card = (p) => {
 }
 
 const getData = api => {
-  console.log(api)
   fetch(api)
     .then(response => response.json())
     .then(response => {
@@ -37,7 +36,6 @@ const getData = api => {
 
 const loadData = async() => {
   const offset = parseInt(localStorage.getItem('pagination')) + ELEMENTS_PER_PAGE || INITIAL;
-  console.log(offset);
   localStorage.setItem('pagination', offset);
 
   const queryParams = new URLSearchParams({
