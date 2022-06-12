@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto: https://ivysaskia.github.io/
+Solución al reto: https://ivysaskia.github.io/public/index.html
 
 Nombre: Ivy Saskia Sejas Rocabado
 Usuario Platzi: IvySaskia
