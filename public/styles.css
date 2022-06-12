@@ -46,6 +46,18 @@ body {
   justify-content: space-between;
 }
 
+#lastMsg {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

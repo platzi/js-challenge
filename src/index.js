@@ -1,12 +1,14 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://api.escuelajs.co/api/v1/products';
+const $lastMsg = document.getElementById('lastMsg');
 
 const MAX_PRODUCTS_LIST = 200;
 const MAX_NUM_ITEMS = 10;
 const START_ITEM = 1;
 let page = 1;
 let marginTop = 100;
+let loadMoreProducts = false;
 
 /**
  * Returns the index of the first product according to the page number
@@ -39,17 +41,14 @@ const itemCard = (item) => {
 }
 
 const getData = async api => {
-  fetch(api)
+  fetch(api + `?offset=${startOfQuantity()}&limit=${MAX_NUM_ITEMS}`)
     .then(response => response.json())
     .then(response => {
       let products = response;
-      let output = products.map((product, index) => {
-        if (index >= startOfQuantity() && index < endOfQuantity()) {
-          return product;
-        }
+      let output = products.map(product => {
+        return product;
       })
       .filter( x => x !== undefined );
-      console.log(Object.values(output));
       let elements = Object.values(output)
       .map((value) => {
         return itemCard(value);
@@ -60,6 +59,9 @@ const getData = async api => {
       newItem.classList.add('Items');
       newItem.innerHTML = elements;
       $app.appendChild(newItem);
+
+      loadMoreProducts = true;
+      page++;
     })
     .catch(error => console.log(error));
 }
@@ -70,8 +72,16 @@ const loadData = async () => {
 
 const intersectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.intersectionRatio > 0) {
-      $observe.style.marginTop = (marginTop += 100) +"px"
+    if (entry.intersectionRatio > 0 && endOfQuantity() <= MAX_PRODUCTS_LIST) {
+      if (loadMoreProducts) {
+        loadMoreProducts = false;
+        loadData();
+      } 
+    } else {
+      if (endOfQuantity() > MAX_PRODUCTS_LIST) {
+        intersectionObserver.unobserve(entry.target);
+        finalMsg();
+      }
     }
   });
 }, {
@@ -92,6 +102,10 @@ const intersectionObserver = new IntersectionObserver(entries => {
 //     page = nextPage;
 //   }
 // }
+
+const finalMsg = () => {
+  $lastMsg.classList.add('show');
+}
 
 (async function() {
   // getStorage();
