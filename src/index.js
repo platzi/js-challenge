@@ -26,6 +26,7 @@ const getData = async api => {
   newItem.innerHTML = output;
   $app.appendChild(newItem);
   localStorage.setItem('pagination', current + 10);
+  console.log(localStorage.getItem('pagination')); 
 }
 
 const loadData = () => {
