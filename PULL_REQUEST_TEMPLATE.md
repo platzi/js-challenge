@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Eduardo 
+Usuario Platzi: masterarias
+Correo Electronico: e@masterarias.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [✅] Primer problema
+- [✅] Segundo problema
+- [✅] Tercer problema
+- [✅] Cuarto Problema
+- [✅] Quinto Problema -> https://masterarias.github.io/
