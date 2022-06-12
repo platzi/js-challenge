@@ -18,18 +18,34 @@ const card = (p) => {
 }
 
 const getData = api => {
+  let isLimitAlready = false;
   fetch(api)
     .then(response => response.json())
     .then(response => {
       let products = response;
+
       let output = products.map((p) => {
-        if (p.id > LIMIT) return;
+        if (p.id > LIMIT) 
+        {
+          isLimitAlready = true;
+          return;
+        }
         return card(p);
       });
+
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
       newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
+
+      if (isLimitAlready) {
+        let endedMessage = document.createElement('h3');
+        endedMessage.innerText = 'Todos los productos Obtenidos';
+        endedMessage.style.color = '#3c484e';
+        endedMessage.style.textAlign = "center";
+        $app.appendChild(endedMessage);
+        intersectionObserver.unobserve($observe);
+      }
     })
     .catch(error => console.log(error));
 }
