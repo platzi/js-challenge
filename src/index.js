@@ -6,7 +6,6 @@ const API = "https://api.escuelajs.co/api/v1/products";
 const OFFSET_START = 5;
 const LIMIT = 10;
 
-let intersectionCounter = 0; // Contador de paginador
 let isAllDisplayed = false;  // Bandera todos los productos mostrados
 
 const getOffset = () => {
@@ -59,7 +58,6 @@ const loadData = async () => {
 };
 
 setOffset(OFFSET_START);
-loadData();
 
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
@@ -70,10 +68,7 @@ const intersectionObserver = new IntersectionObserver(
             intersectionObserver.unobserve(entry.target);
             return;
           }
-          if (intersectionCounter != 0) {
             loadData();
-          }
-          intersectionCounter++;
         }
       }
     });
