@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Edwin Olaff Cuba Davila
+Usuario Platzi: edwinolaffcubadavila
+Correo Electronico: edwincubad@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [] Quinto Problema
