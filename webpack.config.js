@@ -1,4 +1,5 @@
 // webpack.config.js
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path');
 module.exports = {
     entry: './src/index.js',
@@ -7,6 +8,11 @@ module.exports = {
       filename: 'bundle.js',
     },
     devtool: 'eval-source-map',
+    plugins: [
+        new HtmlWebpackPlugin({
+          template: 'public/index.html'
+        })
+      ]
   };
   
   
