@@ -42,7 +42,7 @@ const getData = api => {
         endedMessage.style.textAlign = "center";
         $app.appendChild(endedMessage);
         let madeByMe = document.createElement('h4');
-        madeByMe.innerText = '<> Made by Ivy Saskia ♥';
+        madeByMe.innerText = '<> Hecho por Ivy Saskia ♥';
         madeByMe.style.textAlign = "right";
         $app.appendChild(madeByMe);
         intersectionObserver.unobserve($observe);
