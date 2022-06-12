@@ -10,12 +10,12 @@ let intersectionCounter = 0; // Contador de paginador
 let isAllDisplayed = false;  // Bandera todos los productos mostrados
 
 const getOffset = () => {
-  const offset = +localStorage.getItem("offset") || OFFSET_START;
+  const offset = +localStorage.getItem("pagination") || OFFSET_START;
   return offset;
 };
 
 const setOffset = (offset) => {
-  localStorage.setItem("offset", offset);
+  localStorage.setItem("pagination", offset);
 };
 
 const getPaginationParameters = () => {
