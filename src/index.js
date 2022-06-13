@@ -4,7 +4,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 const INITIAL = 5;
 const ELEMENTS_PER_PAGE = 10;
 const LIMIT = 200;
-const PAGINATION = "pagination"
+const PAGINATION = "pagination";
 
 localStorage.removeItem(PAGINATION);
 
