@@ -4,7 +4,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 // Definiciones generales
 localStorage.setItem("pagination",5);
-const limitePaginado = 20;
+const limitePaginado = 10;
 
 // Se despliega los datos obtenidos de la API al front-end
 const getData = async(api) => {  
