@@ -31,8 +31,8 @@ const getData = api => {
       });
 
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output
+      newItem.classList.add('Items');
+      newItem.innerHTML = output.join('');
       $app.appendChild(newItem);
 
       if (isLimitAlready) {
