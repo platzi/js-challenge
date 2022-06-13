@@ -1,15 +1,15 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: Ethereum Developer Program
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Rafael Ramirez
+Usuario Platzi: rafael116
+Correo Electronico: rafael@cryptostore.com.bo
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [ :heavy_check_mark: ] Primer problema
+- [ :heavy_check_mark: ] Segundo problema
+- [ :heavy_check_mark: ] Tercer problema
+- [ :heavy_check_mark: ] Cuarto Problema
+- [ :heavy_check_mark: ] Quinto Problema

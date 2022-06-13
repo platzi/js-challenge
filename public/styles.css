@@ -9,13 +9,13 @@ body {
 
 .Main {
   padding: 10px;
-  grid-template-columns: minmax(auto, 768px);
+  grid-template-columns: minmax(auto, 1068px);
   display: grid;
   justify-content: center;
 }
 
 .Items {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
   grid-row-gap: 1.5em;
   display: grid;
@@ -30,6 +30,10 @@ body {
   display: block;
   animation-duration: 4s;
   animation-name: fade;
+  width: auto;
+  height: auto;
+  max-width: 400px;
+  max-height: 500px;
 }
 
 .Card img {
@@ -40,10 +44,18 @@ body {
 
 .Card h2 {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: bold;
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.Card .product-category {
+  padding: 5px 10px;
+}
+
+.Card .product-description {
+  padding: 5px 10px;
 }
 
 @keyframes fade {
