@@ -17,10 +17,10 @@ const getData = async(api) => {
           (product) =>
               `<article class="Card">
           <img src=${product.images[0]}/>
-          <h1>
+          <h2>
             ${product.title}
             <small>$${product.price}</small>
-          </h1>
+          </h2>
         </article>`
       );
       let item = document.createElement("section");
