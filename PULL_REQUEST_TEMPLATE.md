@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre:Roger David Alba Ortega
+Usuario Platzi: Roger David Alba Ortega
+Correo Electronico: rogerdavidalbaortega@gmail.com
 
 ## Reto:
 
