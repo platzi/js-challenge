@@ -1,6 +1,6 @@
 [build]
  publish = "dist"
- command = "live-server --open=public --entry-file=index.html"
+ command = "npm install" && "live-server --open=public --entry-file=index.html"
  [[redirects]]
   from = "/*"
   to = "public/index.html"
