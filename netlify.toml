@@ -1,7 +1,3 @@
 [build]
  publish = "dist"
- command = "npm install" && "live-server --open=public --entry-file=index.html"
- [[redirects]]
-  from = "/*"
-  to = "public/index.html"
-  status = 200
+ command = "npm run bundle"
