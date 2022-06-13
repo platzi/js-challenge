@@ -55,13 +55,13 @@ const getDataInit5To10 = (api) => {
       let products = response;
       let output = products.map(product => {
         
-        return '<div style ="border:solid">'+ 
-        '<span>'+ product.id + '</span><br>'+
-        '<span>'+ product.title + '</span><br>'+
-        '<span>'+ product.price + '</span><br>'+
-        '<span>'+ product.description + '</span><br>'+
-        '<span>'+ product.category + '</span>'+
-        '</div>';
+        return  '<article class="Card">'+
+                '<img src="'+ product.images[0]+'"/>'+
+                '<h2>' +
+                product.title +
+                '<small>$ '+ product.price + '</small>'+
+                '</h2>'+
+                '</article>';
       });
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
@@ -73,7 +73,7 @@ const getDataInit5To10 = (api) => {
 
 const loadData = () => {
   //getData(API);
-  getDataInit5To10(API_5TO10(5,100));
+  getDataInit5To10(API_5TO10(5,10));
   localStorage.pagination = 5;
 }
 
