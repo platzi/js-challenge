@@ -1,15 +1,16 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: Ethereum Developer Program
 
-Nombre:
+Nombre: omar salas
 Usuario Platzi:
-Correo Electronico:
+Correo Electronico: oemsalas@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [x] Primer problema
+- [x] Segundo problema
+- [x] Tercer problema
+- [x] Cuarto Problema
+- [x] Quinto Problema
+- [x] bonus => https://oemsalas.github.io/js-challenge/public/index.html
