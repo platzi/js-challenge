@@ -1,7 +1,7 @@
 [build]
  publish = "dist"
- command = "npm run build"
+ command = "live-server --open=public --entry-file=index.html"
  [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "public/index.html"
   status = 200
