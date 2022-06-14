@@ -4,7 +4,7 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 const limit = 10;
 
-window.addEventListener("beforeunload", () => {
+window.addEventListener('beforeunload', () => {
   localStorage.removeItem('pagination');
 });
 
@@ -25,8 +25,8 @@ const getData = (api, offset, limit) => {
                   </article>`
         });
         let newItem = document.createElement('section');
-        newItem.classList.add('Item');
-        newItem.innerHTML = output;
+        newItem.classList.add('Items');
+        newItem.innerHTML = output.join('');
         $app.appendChild(newItem);
       } else {
         let message = document.createElement('p');
