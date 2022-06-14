@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre:Brayan Cardozo
+Usuario Platzi:brayan_CS
+Correo Electronico:brayanalexander95@hotmail.com
 
 ## Reto:
 
