@@ -23,7 +23,7 @@ const loadData = (papa) => {
 
   console.log(API+urlPaginate);
   getData(API+urlPaginate);
-  //console.log("hola", papa);
+  console.log("hola", papa);
 }
 
 window.onload = loadData;
@@ -32,15 +32,30 @@ const getData = api => {
   fetch(api)
     .then(response => response.json())
     .then(response => {
+      //aca igualo el array products con la respuesta del fetch
       let products = response;
       console.log("productod",products);
+      //aca ejecuto un map que permite hacer algo por cada item del arreglo
       let output = products.map(product => {
         // template
+        console.log("producto", product)
+        return `<article class="Card">
+                  <img src=${product.images} />
+                  <h2> ${product.title} <small>$${product.price}</small>
+                  </h2>
+              </article>`;
       });
+      console.log("output",output);
+      //aqui se supone que debo crear la nueva seccion de los nuevos elementos
       let newItem = document.createElement('section');
-      newItem.classList.add('Item');
-      newItem.innerHTML = output;
+      newItem.classList.add('Items');
+      //newItem.innerHTML = output;
+      //aqui escribo nuevos amigues por cada arreglo recibido
+      //newItem.innerHTML = '<p> Hola amigues</p>';
+      //aqui los anado 
       $app.appendChild(newItem);
+      output.map(product => document.querySelector('section').insertAdjacentHTML("beforeend", product))
+      //document.querySelector('section').insertAdjacentHTML("beforeend", output);
     })
     .catch(error => console.log(error));
 }
@@ -71,7 +86,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   console.log(observe, "te estoy mirando");
   // logic...
 }, {
-  rootMargin: '0px 0px 100% 0px',
+  rootMargin: '0px 0px 100% 0px'
 });
 
 intersectionObserver.observe($observe);
