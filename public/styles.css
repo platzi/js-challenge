@@ -32,13 +32,13 @@ body {
   animation-name: fade;
 }
 
-.Card img {
+.Card-img {
   width: 100%;
   height: auto;
   border-radius: 5px 5px 0 0;
 }
 
-.Card h2 {
+.Card-h2 {
   font-size: 18px;
   font-weight: 300;
   padding: 5px 10px;
