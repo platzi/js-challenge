@@ -4,7 +4,9 @@ const API = 'https://api.escuelajs.co/api/v1/products';
 
 const limitPaginate = 10;
 let offsetPaginate=5;
+localStorage.setItem("pagination", offsetPaginate);
 
+/* Mi precioso
 if (localStorage.getItem("pagination")) {
   //parseo el localStorage que es un string para sumar
   offsetPaginate = parseInt(localStorage.getItem("pagination")) + limitPaginate;
@@ -15,15 +17,16 @@ if (localStorage.getItem("pagination")) {
 } else {
   //si no existe, entonces se toma el valor definido en offsetPaginate
   localStorage.setItem("pagination", offsetPaginate);
-}
+  console.log("cuando no exite pagination");
+}*/
 
 let urlPaginate=`?offset=` + offsetPaginate + `&limit=` + limitPaginate;
 
-const loadData = (papa) => {
+const loadData = async() => {
 
   console.log(API+urlPaginate);
-  getData(API+urlPaginate);
-  console.log("hola", papa);
+  await getData(API+urlPaginate);
+  console.log("hola");
 }
 
 window.onload = loadData;
@@ -38,14 +41,14 @@ const getData = api => {
       //aca ejecuto un map que permite hacer algo por cada item del arreglo
       let output = products.map(product => {
         // template
-        console.log("producto", product)
+      //  console.log("producto", product)
         return `<article class="Card">
                   <img src=${product.images} />
                   <h2> ${product.title} <small>$${product.price}</small>
                   </h2>
               </article>`;
       });
-      console.log("output",output);
+      //console.log("output",output);
       //aqui se supone que debo crear la nueva seccion de los nuevos elementos
       let newItem = document.createElement('section');
       newItem.classList.add('Items');
@@ -91,3 +94,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
 
 intersectionObserver.observe($observe);
 
+window.onbeforeunload = function() {
+  localStorage.removeItem("pagination");
+  return '';
+};
