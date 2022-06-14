@@ -37,6 +37,10 @@ const getData = api => {
     .then(response => {
       //aca igualo el array products con la respuesta del fetch
       let products = response;
+      if (products.length === 0) {
+        console.log(alert("Todos los productos Obtenidos"));
+        intersectionObserver.disconnect($observe);
+      }
       console.log("productod",products);
       //aca ejecuto un map que permite hacer algo por cada item del arreglo
       let output = products.map(product => {
