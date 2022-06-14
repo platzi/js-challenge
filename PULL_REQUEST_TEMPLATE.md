@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-Solución al reto:
+Solución al reto: https://cynthiamv.github.io/js-challenge/public/
 
 Nombre: Cynthia Vico Vacca
 Usuario Platzi: cynthiamvico
