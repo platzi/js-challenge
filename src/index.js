@@ -23,7 +23,7 @@ const loadData = (papa) => {
 
   console.log(API+urlPaginate);
   getData(API+urlPaginate);
-  console.log("hola", papa);
+  //console.log("hola", papa);
 }
 
 window.onload = loadData;
@@ -33,6 +33,7 @@ const getData = api => {
     .then(response => response.json())
     .then(response => {
       let products = response;
+      console.log("productod",products);
       let output = products.map(product => {
         // template
       });
@@ -60,9 +61,14 @@ const traerMas = () => {
   //nuevamente se construye la url para que vaya incrementado
   urlPaginate =`?offset=` + localStorage.getItem("pagination") + `&limit=` + limitPaginate;
   console.log(urlPaginate); 
+  getData(API+urlPaginate);
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) traerMas();
+  })
+  console.log(observe, "te estoy mirando");
   // logic...
 }, {
   rootMargin: '0px 0px 100% 0px',
