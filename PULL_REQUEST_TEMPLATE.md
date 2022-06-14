@@ -2,14 +2,14 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Luis Ramos
+Usuario Platzi:luisramosg
+Correo Electronico:lxr6226@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
+- [✅] Primer problema
+- [✅] Segundo problema
+- [✅] Tercer problema
+- [✅] Cuarto Problema
 - [ ] Quinto Problema
