@@ -124,4 +124,3 @@ Si alguien quiere agregar o mejorar algo, lo invito a colaborar directamente en 
 ### Licencia
 
 js-challenge se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT).
-
