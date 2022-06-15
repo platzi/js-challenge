@@ -46,6 +46,7 @@ const  loadData = async () => {
 }
 
 const intersectionObserver = new IntersectionObserver(entries => {
+
   if(entries[0].isIntersecting) {
       if(isFinished) {
       let newItem = document.createElement('section');
@@ -60,6 +61,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
     } 
 }, {
   rootMargin: '0px 0px 100% 0px',
+  threshold: 1,
 });
 
 intersectionObserver.observe($observe);
