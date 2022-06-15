@@ -6,7 +6,8 @@ const PAGINATION = "pagination";
 const INITIAL_PAGINATION = 5;
 const LAST_ID = 200;
 let isFinished = false;
-localStorage.removeItem("pagination");
+
+localStorage.clear();
 
 const getPagination = () => {
   return localStorage.getItem(PAGINATION) || INITIAL_PAGINATION;
