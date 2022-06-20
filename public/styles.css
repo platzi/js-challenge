@@ -46,6 +46,11 @@ body {
   justify-content: space-between;
 }
 
+.Info{
+  text-align: center;
+  font-size: 18px;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

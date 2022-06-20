@@ -2,14 +2,16 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Juan Sebastian Rios Valencia
+Usuario Platzi: Juansecode
+Correo Electronico: juan.sebastianri28@gmail.com
 
 ## Reto:
 
-- [ ] Primer problema
-- [ ] Segundo problema
-- [ ] Tercer problema
-- [ ] Cuarto Problema
-- [ ] Quinto Problema
+- [X] Primer problema
+- [X] Segundo problema
+- [X] Tercer problema
+- [X] Cuarto Problema
+- [X] Quinto Problema
+
+Link Github Pages: https://juansecod.github.io/js-challenge/public/
