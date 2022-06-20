@@ -48,7 +48,7 @@ const intersectionObserver = new IntersectionObserver(entries => {
   if(entries[0].isIntersecting){
     loadData();
   }else{
-    if(last>=200){
+    if(last>=195){
       const info = `<p class="Info">Todos los productos Obtenidos</p>`;
       $observe.innerHTML = info;
       intersectionObserver.disconnect();
