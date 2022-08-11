@@ -2,9 +2,9 @@
 
 Solución al reto:
 
-Nombre:
-Usuario Platzi:
-Correo Electronico:
+Nombre: Carlos J. Ramirez
+Usuario Platzi: carlosrd@gmail.com
+Correo Electronico: carlosrd@gmail.com
 
 ## Reto:
 
