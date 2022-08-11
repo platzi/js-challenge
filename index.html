@@ -6,16 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="PlatziStore for JS-Challenge, by Carlos J. Ramirez | http://carlosjramirez.com/ " />
     <title>PlatziStore</title>
-    <link type="text/css" href="/assets/css/styles.css" rel="stylesheet" />
+    <link type="text/css" href="public/styles.css" rel="stylesheet">
   </head>
-
+  
   <body>
     <div class="Main">
       <h1>PlatziStore</h1>
+      <div id="eofAlert" class="alert">
+        <script type="text/javascript">document.getElementById('eofAlert').style.display='none';</script>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+        <div id="eofAlertMessage" class="alertMessage"></div>
+      </div>
       <div id="app"></div>
       <div id="observe"></div>
     </div>
   </body>
-
+  
   <script type="text/javascript" src="/src/index.js"></script>
 </html>
