@@ -1,10 +1,14 @@
-# PlatziStore
+# PlatziStore: Tu Comercio en Línea 
 
-Somos comercio en línea con una gran cantidad de productos a comercializar. Estamos por lanzar nuestra implementación y necesitamos resolver los problemas que presenta nuestra aplicación.
+¡Bienvenido a PlatziStore! Somos una plataforma de comercio en línea con una amplia variedad de productos esperando ser explorados. A medida que nos preparamos para nuestro lanzamiento oficial, hemos identificado varios desafíos en nuestra aplicación que necesitan ser abordados.
 
-PlatziStore tiene varios bugs, tareas sin completar y recursos a implementar para su lanzamiento oficial.
+Desde pequeños bugs hasta tareas incompletas y nuevos recursos por implementar, estamos en busca de soluciones que garanticen una experiencia fluida para nuestros usuarios.
+
+## Configuración Inicial
 
 ### Instalación
+
+Para comenzar, necesitas instalar las dependencias del proyecto con el siguiente comando:
 
 ```
 npm install
@@ -12,19 +16,27 @@ npm install
 
 ### Ejecución
 
+Una vez que hayas instalado todo, puedes ejecutar la aplicación con:
+
 ```
 npm run start
 ```
 
-### Debug
+### Depuración
+
+Para acceder a la interfaz de depuración, visita:
 
 http://localhost:8080/public/
 
-### Documentación
+## Entendiendo la Estructura
 
-- Variable llamada $app donde haremos render de nuestra app.
-- Elemento del DOM que será Observado.
-- Constante 'API': Utilizamos la FakeAPI de Platzi.
+### Documentación Básica
+
+Aquí hay una breve descripción de algunos de los elementos clave:
+
+- `$app`: Es la variable donde renderizaremos nuestra aplicación.
+- `$observe`: Representa un elemento del DOM que será observado.
+- `API`: Es una constante que utiliza la FakeAPI de Platzi para obtener datos.
 
 ```javascript
 const $app = document.getElementById("app");
@@ -32,33 +44,28 @@ const $observe = document.getElementById("observe");
 const API = "https://api.escuelajs.co/api/v1/products";
 ```
 
-Función llamada 'getData' que se encarga de hacer Fetch a una API y debe de construir un elemento nuevo en el DOM.
+Tenemos una función llamada `getData` encargada de hacer solicitudes Fetch a una API y de construir un nuevo elemento en el DOM:
 
 ```javascript
 const getData = (api) => {
-  fetch(api)
-    .then((response) => response.json())
-    .then((response) => {
-      const products = response;
-    })
-    .catch((error) => console.log(error));
+  // ... 
 };
 ```
 
-Función encargada de obtener de los Productos.
+Además, contamos con una función `loadData` que obtiene información de los productos:
 
 ```javascript
 const loadData = () => {
-  getData(API);
+  // ...
 };
 ```
 
-Intersection Observer
+Y, por último, se encuentra la lógica para el Intersection Observer:
 
 ```javascript
 const intersectionObserver = new IntersectionObserver(
   (entries) => {
-    // logic...
+    // ...
   },
   {
     rootMargin: "0px 0px 100% 0px",
@@ -68,19 +75,19 @@ const intersectionObserver = new IntersectionObserver(
 intersectionObserver.observe($observe);
 ```
 
-## RETO
+## Desafíos Técnicos
 
-### Primer problema
+### Desafío 1: Integración con la API
 
-1. Analiza la API: fakeapi.platzi.com
-2. Implementa la API de productos iniciando en el producto 5 y obteniendo los siguientes 10 productos.
-3. Guarda en localStorage la posición inicial ("pagination") y actualízala en cada petición nueva para traer los siguientes productos.
-4. Crear la lógica para implementar un scroll infinito con Intersection Observer.
+- Estudia y analiza la estructura de la API: fakeapi.platzi.com.
+- Implementa la API de productos, iniciando desde el producto 5 y obteniendo los siguientes 10 productos.
+- Usa el `localStorage` para guardar la posición inicial ("pagination"). Asegúrate de actualizar esta posición con cada nueva petición para traer los siguientes productos.
+- Diseña la lógica para implementar un scroll infinito utilizando el Intersection Observer.
 
-### Segundo Problema
+### Desafío 2: Presentación de Productos
 
-1. Crear la estructura de HTML para mostrar cada producto dentro de Items
-2. Crear un article con la clase "Card" para contener la imagen, título y precio de un producto:
+- Diseña una estructura HTML adecuada para mostrar cada producto.
+- Crea un artículo con la clase "Card" que muestre la imagen, título y precio de un producto:
 
 ```html
 <article class="Card">
@@ -92,35 +99,31 @@ intersectionObserver.observe($observe);
 </article>
 ```
 
-3. Index.html debe de cumplir con los elementos mínimos de SEO (title = "PlatziStore", descripcion = "...")
+- Asegúrate de que el archivo `index.html` tenga los elementos mínimos de SEO (por ejemplo, `title = "PlatziStore"` y una descripción adecuada).
 
-### Tercer Problema
+### Desafío 3: Experiencia al Recargar
 
-Cuando cerramos la pestaña o recargamos la pagina se debe de volver a mostrar los primeros 10 Productos.
+Al cerrar o recargar la pestaña, es esencial que los usuarios vean los primeros 10 productos:
 
-1. Mostrar los primeros 10 productos.
-2. Eliminar el localStorage.
-3. Actualiza la función loadData() a Async/Await.
+- Muestra los primeros 10 productos.
+- Limpia el `localStorage`.
+- Refactoriza la función `loadData()` para usar Async/Await.
 
-### Cuarto Problema
+### Desafío 4: Finalización de la Paginación
 
-La API utilizada "fakeAPI" retorna 200 productos, utilizaremos la paginación propuesta en su documentación para obtener los productos en bloques de 10, cuando la última petición sea ejecutada debes de mostrar un mensaje "Todos los productos Obtenidos", a su vez debes de destruir el intersection observer.
+Dado que la API "fakeAPI" proporciona 200 productos, utilizaremos la paginación tal como se describe en su documentación. Al llegar al final de la lista de productos:
 
-1. Implementar mensaje: "Todos los productos Obtenidos".
-2. Deja de observar el elemento "observe".
+- Muestra el mensaje: "Todos los productos han sido obtenidos".
+- Termina la observación del elemento "observe" con el Intersection Observer.
 
-### Quinto Problema (Bonus)
+### Desafío Bono: Despliegue
 
-Desplegar la aplicación en alguno de los siguientes servicios: GitHub Pages, Netlify, Vercel.
+¡Pon tu solución en vivo! Despliega la aplicación en uno de los siguientes servicios: GitHub Pages, Netlify o Vercel.
 
-### Enviar solución de reto
+## Colabora con Nosotros
 
-Debes de hacer un "Fork" de este proyecto, revolver los problemas y crear un Pull Request hacia este repositorio.
+Si sientes que puedes aportar o mejorar algún aspecto del proyecto, ¡te animamos a hacerlo! Haz un "Fork" de este proyecto, resuelve los desafíos y envía un "Pull Request" a [js-challenge](https://github.com/platzi/js-challenge/).
 
-### Contribuir
+## Licencia
 
-Si alguien quiere agregar o mejorar algo, lo invito a colaborar directamente en este repositorio: [js-challenge](https://github.com/platzi/js-challenge/)
-
-### Licencia
-
-js-challenge se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT).
+El proyecto `js-challenge` está bajo la licencia [MIT](https://opensource.org/licenses/MIT). ¡Úsalo con confianza!
